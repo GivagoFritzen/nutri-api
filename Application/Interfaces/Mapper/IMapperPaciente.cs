@@ -1,4 +1,4 @@
-﻿using Application.DTO;
+﻿using Application.ViewModel;
 using Domain.Entity;
 using System.Collections.Generic;
 
@@ -6,10 +6,10 @@ namespace Application.Interfaces.Mapper
 {
     public interface IMapperPaciente
     {
-        Paciente MapperDTOToEntity(PacienteDTO pacienteDTO);
+        Paciente MapperViewModelToEntity(PacienteViewModel pacienteViewModel);
 
-        PacienteDTO MapperEntityToDto(Paciente paciente);
+        PacienteViewModel MapperEntityToViewModel(Paciente paciente);
 
-        IEnumerable<PacienteDTO> MapperListPacientesDTO(IEnumerable<Paciente> pacientes);
+        IEnumerable<PacienteViewModel> MapperListPacientesViewModel(IEnumerable<Paciente> pacientes);
     }
 }

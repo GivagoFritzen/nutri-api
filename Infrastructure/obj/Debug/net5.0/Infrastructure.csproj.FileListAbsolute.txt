@@ -20,3 +20,5 @@ D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastruct
 D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\bin\Debug\net5.0\Infrastructure.runtimeconfig.json
 D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\bin\Debug\net5.0\Infrastructure.runtimeconfig.dev.json
 D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastructure.genruntimeconfig.cache
+D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastructure.Migrations.FirstMigration.resources
+D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastructure.csproj.GenerateResource.cache

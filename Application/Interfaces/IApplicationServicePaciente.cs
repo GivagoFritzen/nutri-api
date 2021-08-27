@@ -1,18 +1,18 @@
-﻿using Application.DTO;
+﻿using Application.ViewModel;
 using System.Collections.Generic;
 
 namespace Application.Interfaces
 {
     public interface IApplicationServicePaciente
     {
-        public void Add(PacienteDTO pacienteDTO);
+        public void Add(PacienteViewModel pacienteViewModel);
 
-        public void Update(PacienteDTO pacienteDTO);
+        public void Update(PacienteViewModel pacienteViewModel);
 
-        public void Remove(PacienteDTO pacienteDTO);
+        public void Remove(PacienteViewModel pacienteViewModel);
 
-        IEnumerable<PacienteDTO> GetAll();
+        IEnumerable<PacienteViewModel> GetAll();
 
-        PacienteDTO GetById(int id);
+        PacienteViewModel GetById(int id);
     }
 }

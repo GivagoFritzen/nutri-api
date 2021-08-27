@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "61o9XbeDzoDdApbvT2f0q+i0zRfysTep603pHk7MPuCs9S7OlrMjmF8O27cQeguf5dr5Ty8/H8Df3V6EXUaiiA==",
+  "dgSpecHash": "md7wkFlhtd8A3IcNU6Q03gdPWw8QRSGfymQ2c6mp8zgi75cZiPtcc2cNYaoMhnGQXR8AGEGJswiTUQLcyRKuzw==",
   "success": true,
   "projectFilePath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\givag\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\givag\\.nuget\\packages\\fluentvalidation\\10.3.3\\fluentvalidation.10.3.3.nupkg.sha512",
     "C:\\Users\\givag\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\givag\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\givag\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

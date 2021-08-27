@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "QHMAgTlRaS9kvmwNCR6md8Bkqq1Qn2z0O6LyRZsRBPB2KB53lt4Y18aQKbHeTh5ituMvq5KrGc4TEMYnX9Dmjw==",
+  "dgSpecHash": "9FCCziRYDFgD6fQzgg1+45EX37cfv9D5BWj2Ll5zelX7Fk3YH0dfiVM14BvpKB0Yd0PQ27Te5qgwXHAvt6j8Gw==",
   "success": true,
   "projectFilePath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\givag\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\givag\\.nuget\\packages\\fluentvalidation\\10.3.3\\fluentvalidation.10.3.3.nupkg.sha512",
     "C:\\Users\\givag\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\givag\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.8\\microsoft.entityframeworkcore.5.0.8.nupkg.sha512",
     "C:\\Users\\givag\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.8\\microsoft.entityframeworkcore.abstractions.5.0.8.nupkg.sha512",

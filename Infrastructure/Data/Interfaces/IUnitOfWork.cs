@@ -7,6 +7,7 @@ namespace Infrastructure.Data.Interfaces
         IRepositoryBase<Paciente> Pacientes { get; }
 
         public void Commit();
+
         public void RollBack();
     }
 }

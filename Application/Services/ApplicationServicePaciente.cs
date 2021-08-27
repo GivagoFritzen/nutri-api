@@ -1,4 +1,4 @@
-﻿using Application.DTO;
+﻿using Application.ViewModel;
 using Application.Interfaces;
 using Application.Interfaces.Mapper;
 using Core.Interfaces.Services;
@@ -17,33 +17,33 @@ namespace Application.Services
             this.mapperPaciente = mapperPaciente;
         }
 
-        public void Add(PacienteDTO pacienteDTO)
+        public void Add(PacienteViewModel pacienteViewModel)
         {
-            var paciente = mapperPaciente.MapperDTOToEntity(pacienteDTO);
+            var paciente = mapperPaciente.MapperViewModelToEntity(pacienteViewModel);
             servicePaciente.Add(paciente);
         }
 
-        public IEnumerable<PacienteDTO> GetAll()
+        public IEnumerable<PacienteViewModel> GetAll()
         {
             var pacientes = servicePaciente.GetAll();
-            return mapperPaciente.MapperListPacientesDTO(pacientes);
+            return mapperPaciente.MapperListPacientesViewModel(pacientes);
         }
 
-        public PacienteDTO GetById(int id)
+        public PacienteViewModel GetById(int id)
         {
             var paciente = servicePaciente.GetById(id);
-            return mapperPaciente.MapperEntityToDto(paciente);
+            return mapperPaciente.MapperEntityToViewModel(paciente);
         }
 
-        public void Remove(PacienteDTO pacienteDTO)
+        public void Remove(PacienteViewModel pacienteViewModel)
         {
-            var paciente = mapperPaciente.MapperDTOToEntity(pacienteDTO);
+            var paciente = mapperPaciente.MapperViewModelToEntity(pacienteViewModel);
             servicePaciente.Remove(paciente);
         }
 
-        public void Update(PacienteDTO pacienteDTO)
+        public void Update(PacienteViewModel pacienteViewModel)
         {
-            var paciente = mapperPaciente.MapperDTOToEntity(pacienteDTO);
+            var paciente = mapperPaciente.MapperViewModelToEntity(pacienteViewModel);
             servicePaciente.Update(paciente);
         }
     }

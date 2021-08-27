@@ -1,4 +1,4 @@
-﻿using Application.DTO;
+﻿using Application.ViewModel;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -30,14 +30,14 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add([FromBody] PacienteDTO pacienteDTO)
+        public ActionResult Add([FromBody] PacienteViewModel pacienteViewModel)
         {
             try
             {
-                if (pacienteDTO == null)
+                if (pacienteViewModel == null)
                     return NotFound();
 
-                applicationServicePaciente.Add(pacienteDTO);
+                applicationServicePaciente.Add(pacienteViewModel);
                 return Ok("Cliente Cadastrado com Sucesso");
             }
             catch (Exception)
@@ -47,14 +47,14 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public ActionResult Remove([FromBody] PacienteDTO pacienteDTO)
+        public ActionResult Remove([FromBody] PacienteViewModel pacienteViewModel)
         {
             try
             {
-                if (pacienteDTO == null)
+                if (pacienteViewModel == null)
                     return NotFound();
 
-                applicationServicePaciente.Add(pacienteDTO);
+                applicationServicePaciente.Remove(pacienteViewModel);
                 return Ok("Cliente Cadastrado com Sucesso");
             }
             catch (Exception)
@@ -64,14 +64,14 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public ActionResult Update(PacienteDTO pacienteDTO)
+        public ActionResult Update(PacienteViewModel pacienteViewModel)
         {
             try
             {
-                if (pacienteDTO == null)
+                if (pacienteViewModel == null)
                     return NotFound();
 
-                applicationServicePaciente.Update(pacienteDTO);
+                applicationServicePaciente.Update(pacienteViewModel);
                 return Ok("Cliente Cadastrado com Sucesso");
             }
             catch (Exception)

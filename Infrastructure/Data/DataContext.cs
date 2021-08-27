@@ -1,6 +1,6 @@
 ﻿using Domain.Entity;
-using Microsoft.EntityFrameworkCore;
 using System;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Infrastructure.Data
@@ -8,11 +8,6 @@ namespace Infrastructure.Data
     public class DataContext : DbContext
     {
         public DbSet<Paciente> Pacientes { get; set; }
-
-        public DataContext(DbContextOptions<DataContext> options)
-            : base(options)
-        {
-        }
 
         public override int SaveChanges()
         {

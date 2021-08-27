@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "rd89W3Ldy8AbHtV67RAg4wuh6Z+ANgZ3vHfHB7H1WaMVLu4l/4owS48pdzADZsMuFwUhn4x/aGkcnSoyN/t8+g==",
+  "dgSpecHash": "S4jTjh353CFV37ERrAd6g94yk4gRKh7j5fqh14/AEVGLrWBoGTXeW5PwdGdivZxHTlucY8uQwvgycNkF2IzfcA==",
   "success": true,
   "projectFilePath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\givag\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\givag\\.nuget\\packages\\fluentvalidation\\10.3.3\\fluentvalidation.10.3.3.nupkg.sha512",
     "C:\\Users\\givag\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\givag\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\givag\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

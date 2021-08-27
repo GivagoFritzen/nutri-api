@@ -16,13 +16,8 @@ namespace API.Setup
     public static class DependencyInjection
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
-        {/*
-            services.AddDbContext<DataContext>(options =>
-                options.UseSql(
-                    configuration.GetConnectionString("DefaultConnection")
-                )
-            );
-            */
+        {
+            services.AddScoped(provider => new DataContext());
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Paciente

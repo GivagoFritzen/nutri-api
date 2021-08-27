@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Infrastructure.Data.Repositories
@@ -54,8 +55,8 @@ namespace Infrastructure.Data.Repositories
         {
             try
             {
-                context.Entry(obj).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                context.Set<TEntity>().Update(obj);
+                context.Entry(obj).State = EntityState.Modified;
+                //context.Set<TEntity>().Update(obj);
                 context.SaveChanges();
             }
             catch (Exception)
