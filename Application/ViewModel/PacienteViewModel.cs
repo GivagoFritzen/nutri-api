@@ -1,11 +1,12 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Application.ViewModel
 {
     public class PacienteViewModel
     {
-        public Guid Id { get; set; }
+        [Required]
         public string Nome { get; set; }
+        [Required]
         public string Sobrenome { get; set; }
         public string Email { get; set; }
         public string Cidade { get; set; }

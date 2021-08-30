@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Core.Interfaces.Services
 {
@@ -10,8 +12,8 @@ namespace Core.Interfaces.Services
 
         void Remove(TEntity obj);
 
-        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAll();
 
-        TEntity GetById(int id);
+        Task<TEntity> GetById(Guid id);
     }
 }

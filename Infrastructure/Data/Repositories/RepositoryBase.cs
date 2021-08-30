@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
@@ -28,14 +28,14 @@ namespace Infrastructure.Data.Repositories
             }
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return context.Set<TEntity>().ToList();
+            return await context.Set<TEntity>().ToListAsync();
         }
 
-        public TEntity GetById(int id)
+        public async Task<TEntity> GetById(Guid id)
         {
-            return context.Set<TEntity>().Find(id);
+            return await context.Set<TEntity>().FindAsync(id);
         }
 
         public void Remove(TEntity obj)

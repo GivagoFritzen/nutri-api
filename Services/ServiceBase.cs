@@ -1,6 +1,8 @@
 ﻿using Core.Interfaces.Services;
 using Infrastructure.Data.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Services
 {
@@ -18,14 +20,14 @@ namespace Services
             repository.Add(obj);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return repository.GetAll();
+            return await repository.GetAll();
         }
 
-        public TEntity GetById(int id)
+        public async Task<TEntity> GetById(Guid id)
         {
-            return repository.GetById(id);
+            return await repository.GetById(id);
         }
 
         public void Remove(TEntity obj)

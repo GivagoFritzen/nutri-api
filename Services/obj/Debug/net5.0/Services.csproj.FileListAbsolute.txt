@@ -1,4 +1,6 @@
 D:\Projetos\Git\nutrição\Nutri-Api\Services\bin\Debug\net5.0\Services.deps.json
+D:\Projetos\Git\nutrição\Nutri-Api\Services\bin\Debug\net5.0\Services.runtimeconfig.json
+D:\Projetos\Git\nutrição\Nutri-Api\Services\bin\Debug\net5.0\Services.runtimeconfig.dev.json
 D:\Projetos\Git\nutrição\Nutri-Api\Services\bin\Debug\net5.0\Services.dll
 D:\Projetos\Git\nutrição\Nutri-Api\Services\bin\Debug\net5.0\ref\Services.dll
 D:\Projetos\Git\nutrição\Nutri-Api\Services\bin\Debug\net5.0\Services.pdb
@@ -19,6 +21,4 @@ D:\Projetos\Git\nutrição\Nutri-Api\Services\obj\Debug\net5.0\Services.csproj.C
 D:\Projetos\Git\nutrição\Nutri-Api\Services\obj\Debug\net5.0\Services.dll
 D:\Projetos\Git\nutrição\Nutri-Api\Services\obj\Debug\net5.0\ref\Services.dll
 D:\Projetos\Git\nutrição\Nutri-Api\Services\obj\Debug\net5.0\Services.pdb
-D:\Projetos\Git\nutrição\Nutri-Api\Services\bin\Debug\net5.0\Services.runtimeconfig.json
-D:\Projetos\Git\nutrição\Nutri-Api\Services\bin\Debug\net5.0\Services.runtimeconfig.dev.json
 D:\Projetos\Git\nutrição\Nutri-Api\Services\obj\Debug\net5.0\Services.genruntimeconfig.cache

@@ -3,6 +3,7 @@ using Application.Interfaces.Mapper;
 using Domain.Entity;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Application.Mapper
 {
@@ -10,9 +11,9 @@ namespace Application.Mapper
     {
         public Paciente MapperViewModelToEntity(PacienteViewModel pacienteViewModel)
         {
-            return new Paciente()
+            return pacienteViewModel == null ? null : new Paciente()
             {
-                Id = pacienteViewModel.Id,
+                Id = Guid.NewGuid(),
                 Nome = pacienteViewModel.Nome,
                 Sobrenome = pacienteViewModel.Sobrenome,
                 Email = pacienteViewModel.Email,
@@ -26,9 +27,8 @@ namespace Application.Mapper
 
         public PacienteViewModel MapperEntityToViewModel(Paciente paciente)
         {
-            return new PacienteViewModel()
+            return paciente == null ? null : new PacienteViewModel()
             {
-                Id = paciente.Id,
                 Nome = paciente.Nome,
                 Sobrenome = paciente.Sobrenome,
                 Email = paciente.Email,
@@ -44,7 +44,6 @@ namespace Application.Mapper
         {
             return pacientes.Select(paciente => new PacienteViewModel
             {
-                Id = paciente.Id,
                 Nome = paciente.Nome,
                 Sobrenome = paciente.Sobrenome,
                 Email = paciente.Email,

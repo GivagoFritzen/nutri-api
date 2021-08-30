@@ -1,8 +1,11 @@
-﻿using Application.ViewModel;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Application.Interfaces.Mapper;
+using Application.Pacientes.Commands;
+using Application.ViewModel;
 using Core.Interfaces.Services;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -17,21 +20,34 @@ namespace Application.Services
             this.mapperPaciente = mapperPaciente;
         }
 
-        public void Add(PacienteViewModel pacienteViewModel)
+        public ResponseView Add(PacienteViewModel pacienteViewModel)
         {
-            var paciente = mapperPaciente.MapperViewModelToEntity(pacienteViewModel);
-            servicePaciente.Add(paciente);
+            var response = new ResponseView();
+            var command = new AdicionarPacienteCommand(pacienteViewModel);
+
+            if (command.EhValido())
+            {
+                var paciente = mapperPaciente.MapperViewModelToEntity(pacienteViewModel);
+                servicePaciente.Add(paciente);
+                response.body = paciente;
+            }
+            else
+            {
+                response.AddMessageError(command.ValidationResult);
+            }
+
+            return response;
         }
 
-        public IEnumerable<PacienteViewModel> GetAll()
+        public async Task<IEnumerable<PacienteViewModel>> GetAll()
         {
-            var pacientes = servicePaciente.GetAll();
+            var pacientes = await servicePaciente.GetAll();
             return mapperPaciente.MapperListPacientesViewModel(pacientes);
         }
 
-        public PacienteViewModel GetById(int id)
+        public async Task<PacienteViewModel> GetById(Guid id)
         {
-            var paciente = servicePaciente.GetById(id);
+            var paciente = await servicePaciente.GetById(id);
             return mapperPaciente.MapperEntityToViewModel(paciente);
         }
 

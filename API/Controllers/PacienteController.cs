@@ -1,8 +1,8 @@
-﻿using Application.ViewModel;
-using Application.Interfaces;
+﻿using Application.Interfaces;
+using Application.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -18,32 +18,21 @@ namespace API.Controllers
         }
 
         [HttpGet("GetAll")]
-        public ActionResult<IEnumerable<string>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(applicationServicePaciente.GetAll());
+            return Ok(await applicationServicePaciente.GetAll());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<IActionResult> Get(Guid id)
         {
-            return Ok(applicationServicePaciente.GetById(id));
+            return Ok(await applicationServicePaciente.GetById(id));
         }
 
         [HttpPost]
-        public ActionResult Add([FromBody] PacienteViewModel pacienteViewModel)
+        public ActionResult<ResponseView> Add([FromBody] PacienteViewModel pacienteViewModel)
         {
-            try
-            {
-                if (pacienteViewModel == null)
-                    return NotFound();
-
-                applicationServicePaciente.Add(pacienteViewModel);
-                return Ok("Cliente Cadastrado com Sucesso");
-            }
-            catch (Exception)
-            {
-                throw;
-            };
+            return applicationServicePaciente.Add(pacienteViewModel);
         }
 
         [HttpDelete]
@@ -64,7 +53,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public ActionResult Update(PacienteViewModel pacienteViewModel)
+        public ActionResult Update([FromBody] PacienteViewModel pacienteViewModel)
         {
             try
             {

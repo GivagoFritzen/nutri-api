@@ -1,9 +1,11 @@
+using API.Middleware;
 using API.Setup;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 
 namespace API
 {
@@ -30,6 +32,8 @@ namespace API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware(typeof(CustomMiddleware));
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
