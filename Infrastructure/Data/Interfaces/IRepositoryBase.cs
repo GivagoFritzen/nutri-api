@@ -10,7 +10,7 @@ namespace Infrastructure.Data.Interfaces
 
         void Update(TEntity obj);
 
-        void Remove(TEntity obj);
+        Task RemoveById(Guid id);
 
         Task<IEnumerable<TEntity>> GetAll();
 

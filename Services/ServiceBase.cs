@@ -8,7 +8,7 @@ namespace Services
 {
     public class ServiceBase<TEntity> : IServiceBase<TEntity> where TEntity : class
     {
-        private readonly IRepositoryBase<TEntity> repository;
+        protected IRepositoryBase<TEntity> repository;
 
         public ServiceBase(IRepositoryBase<TEntity> repository)
         {
@@ -30,9 +30,9 @@ namespace Services
             return await repository.GetById(id);
         }
 
-        public void Remove(TEntity obj)
+        public async Task RemoveById(Guid id)
         {
-            repository.Remove(obj);
+            await repository.RemoveById(id);
         }
 
         public void Update(TEntity obj)

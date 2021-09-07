@@ -10,9 +10,11 @@ D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\API.pdb
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\EntityFramework.SqlServer.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\EntityFramework.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\FluentValidation.dll
+D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Humanizer.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
@@ -77,3 +79,6 @@ D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\ref\API.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.pdb
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

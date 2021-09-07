@@ -1,7 +1,6 @@
 ﻿using Domain.Entity;
-using System;
-using System.Data.Entity;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
@@ -9,8 +8,12 @@ namespace Infrastructure.Data
     {
         public DbSet<Paciente> Pacientes { get; set; }
 
+        public DataContext(DbContextOptions<DataContext> options)
+        : base(options) { }
+
         public override int SaveChanges()
         {
+            /*
             foreach (var entry in ChangeTracker.Entries().Where(entry => entry.Entity.GetType().GetProperty("DataCadastro") != null))
             {
                 if (entry.State == EntityState.Added)
@@ -22,8 +25,14 @@ namespace Infrastructure.Data
                     entry.Property("DataCadastro").IsModified = false;
                 }
             }
+            */
 
             return base.SaveChanges();
+        }
+
+        public async Task<bool> Commit()
+        {
+            return await base.SaveChangesAsync() > 0;
         }
     }
 }

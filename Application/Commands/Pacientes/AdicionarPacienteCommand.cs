@@ -1,14 +1,14 @@
 ﻿using Application.Commands;
 using Application.Validation;
-using Application.ViewModel;
+using Application.ViewModel.Pacientes;
 
 namespace Application.Pacientes.Commands
 {
     public class AdicionarPacienteCommand : Command
     {
-        public PacienteViewModel pacienteViewModel { get; private set; }
+        public PacienteAdicionarViewModel pacienteViewModel { get; private set; }
 
-        public AdicionarPacienteCommand(PacienteViewModel pacienteViewModel)
+        public AdicionarPacienteCommand(PacienteAdicionarViewModel pacienteViewModel)
         {
             this.pacienteViewModel = pacienteViewModel;
         }

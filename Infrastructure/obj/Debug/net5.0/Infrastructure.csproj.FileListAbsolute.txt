@@ -11,9 +11,6 @@ D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\bin\Debug\net5.0\Application
 D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\bin\Debug\net5.0\Core.pdb
 D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\bin\Debug\net5.0\Domain.pdb
 D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastructure.csprojAssemblyReference.cache
-D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastructure.Migrations.FirstMigration.resources
-D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastructure.Migrations.Pacienteversao2.resources
-D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastructure.csproj.GenerateResource.cache
 D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
 D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastructure.AssemblyInfoInputs.cache
 D:\Projetos\Git\nutrição\Nutri-Api\Infrastructure\obj\Debug\net5.0\Infrastructure.AssemblyInfo.cs

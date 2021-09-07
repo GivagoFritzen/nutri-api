@@ -1,4 +1,5 @@
 ﻿using Application.ViewModel;
+using Application.ViewModel.Pacientes;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,11 +8,11 @@ namespace Application.Interfaces
 {
     public interface IApplicationServicePaciente
     {
-        public ResponseView Add(PacienteViewModel pacienteViewModel);
+        ResponseView Add(PacienteAdicionarViewModel pacienteViewModel);
 
-        public void Update(PacienteViewModel pacienteViewModel);
+        void Update(PacienteViewModel pacienteViewModel);
 
-        public void Remove(PacienteViewModel pacienteViewModel);
+        Task RemoveById(Guid id);
 
         Task<IEnumerable<PacienteViewModel>> GetAll();
 

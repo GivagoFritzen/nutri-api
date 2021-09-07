@@ -7,6 +7,7 @@ using Domain.Entity;
 using Infrastructure.Data;
 using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services;
@@ -17,8 +18,8 @@ namespace API.Setup
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped(provider => new DataContext());
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             // Paciente
             services.AddScoped<IApplicationServicePaciente, ApplicationServicePaciente>();

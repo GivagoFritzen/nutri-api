@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Application.ViewModel
+namespace Application.ViewModel.Pacientes
 {
-    public class PacienteViewModel
+    public class PacienteAdicionarViewModel
     {
         [Required]
         public string Nome { get; set; }

@@ -1,5 +1,7 @@
-﻿using Application.Interfaces;
+﻿using API.Controllers.Base;
+using Application.Interfaces;
 using Application.ViewModel;
+using Application.ViewModel.Pacientes;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -8,7 +10,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PacienteController : ControllerBase
+    public class PacienteController : MainController
     {
         private readonly IApplicationServicePaciente applicationServicePaciente;
 
@@ -20,53 +22,33 @@ namespace API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await applicationServicePaciente.GetAll());
+            return CustomResponse(await applicationServicePaciente.GetAll());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            return Ok(await applicationServicePaciente.GetById(id));
+            return CustomResponse(await applicationServicePaciente.GetById(id));
         }
 
         [HttpPost]
-        public ActionResult<ResponseView> Add([FromBody] PacienteViewModel pacienteViewModel)
+        public ActionResult<ResponseView> Add([FromBody] PacienteAdicionarViewModel pacienteViewModel)
         {
             return applicationServicePaciente.Add(pacienteViewModel);
         }
 
-        [HttpDelete]
-        public ActionResult Remove([FromBody] PacienteViewModel pacienteViewModel)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Remove(Guid id)
         {
-            try
-            {
-                if (pacienteViewModel == null)
-                    return NotFound();
-
-                applicationServicePaciente.Remove(pacienteViewModel);
-                return Ok("Cliente Cadastrado com Sucesso");
-            }
-            catch (Exception)
-            {
-                throw;
-            };
+            await applicationServicePaciente.RemoveById(id);
+            return Ok();
         }
 
         [HttpPut]
         public ActionResult Update([FromBody] PacienteViewModel pacienteViewModel)
         {
-            try
-            {
-                if (pacienteViewModel == null)
-                    return NotFound();
-
-                applicationServicePaciente.Update(pacienteViewModel);
-                return Ok("Cliente Cadastrado com Sucesso");
-            }
-            catch (Exception)
-            {
-                throw;
-            };
+            applicationServicePaciente.Update(pacienteViewModel);
+            return Ok();
         }
     }
 }

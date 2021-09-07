@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
@@ -38,14 +38,16 @@ namespace Infrastructure.Data.Repositories
             return await context.Set<TEntity>().FindAsync(id);
         }
 
-        public void Remove(TEntity obj)
+        public async Task RemoveById(Guid id)
         {
             try
             {
+                var obj = await context.Set<TEntity>().FindAsync(id);
+                context.Set<TEntity>().Attach(obj);
                 context.Set<TEntity>().Remove(obj);
                 context.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -56,13 +58,18 @@ namespace Infrastructure.Data.Repositories
             try
             {
                 context.Entry(obj).State = EntityState.Modified;
-                //context.Set<TEntity>().Update(obj);
+                context.Set<TEntity>().Update(obj);
                 context.SaveChanges();
             }
             catch (Exception)
             {
                 throw;
             }
+        }
+
+        public void Dispose()
+        {
+            context?.Dispose();
         }
     }
 }

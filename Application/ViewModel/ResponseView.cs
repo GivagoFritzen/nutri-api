@@ -1,20 +1,26 @@
 ﻿using FluentValidation.Results;
 using System.Linq;
-using System.Net;
 
 namespace Application.ViewModel
 {
     public class ResponseView
     {
-        private HttpStatusCode statusCode { get; set; }
-        public string[] messages { get; set; }
-        public object body { get; set; }
+        public string[] Errors { get; set; }
+        public object Body { get; set; }
 
-        public ResponseView() { }
-
-        public void AddMessageError(ValidationResult validationResult)
+        public ResponseView(object body)
         {
-            messages = validationResult.Errors.Select(e => e.ErrorMessage).ToArray();
+            Body = body;
+        }
+
+        public ResponseView(string[] errors)
+        {
+            Errors = errors;
+        }
+
+        public ResponseView(ValidationResult validationResult)
+        {
+            Errors = validationResult.Errors.Select(e => e.ErrorMessage).ToArray();
         }
     }
 }

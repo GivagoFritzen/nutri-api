@@ -2,7 +2,9 @@
 using Application.Interfaces.Mapper;
 using Application.Pacientes.Commands;
 using Application.ViewModel;
+using Application.ViewModel.Pacientes;
 using Core.Interfaces.Services;
+using Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,23 +22,16 @@ namespace Application.Services
             this.mapperPaciente = mapperPaciente;
         }
 
-        public ResponseView Add(PacienteViewModel pacienteViewModel)
+        public ResponseView Add(PacienteAdicionarViewModel pacienteViewModel)
         {
-            var response = new ResponseView();
             var command = new AdicionarPacienteCommand(pacienteViewModel);
+            if (!command.EhValido())
+                return new ResponseView(command.ValidationResult);
 
-            if (command.EhValido())
-            {
-                var paciente = mapperPaciente.MapperViewModelToEntity(pacienteViewModel);
-                servicePaciente.Add(paciente);
-                response.body = paciente;
-            }
-            else
-            {
-                response.AddMessageError(command.ValidationResult);
-            }
+            var paciente = mapperPaciente.MapperViewModelToEntity(pacienteViewModel);
+            servicePaciente.Add(paciente);
 
-            return response;
+            return new ResponseView(paciente);
         }
 
         public async Task<IEnumerable<PacienteViewModel>> GetAll()
@@ -47,20 +42,24 @@ namespace Application.Services
 
         public async Task<PacienteViewModel> GetById(Guid id)
         {
-            var paciente = await servicePaciente.GetById(id);
+            var paciente = await GetPacienteById(id);
             return mapperPaciente.MapperEntityToViewModel(paciente);
         }
 
-        public void Remove(PacienteViewModel pacienteViewModel)
+        public async Task RemoveById(Guid id)
         {
-            var paciente = mapperPaciente.MapperViewModelToEntity(pacienteViewModel);
-            servicePaciente.Remove(paciente);
+            await servicePaciente.RemoveById(id);
         }
 
         public void Update(PacienteViewModel pacienteViewModel)
         {
             var paciente = mapperPaciente.MapperViewModelToEntity(pacienteViewModel);
             servicePaciente.Update(paciente);
+        }
+
+        private async Task<Paciente> GetPacienteById(Guid id)
+        {
+            return await servicePaciente.GetById(id);
         }
     }
 }
