@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FluentValidation" Version="10.3.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CrossCuttings\CrossCutting.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 

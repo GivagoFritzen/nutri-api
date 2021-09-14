@@ -1,5 +1,5 @@
 ﻿using Application.Commands;
-using Application.Validation;
+using Application.Validation.Pacientes;
 using Application.ViewModel.Pacientes;
 
 namespace Application.Pacientes.Commands

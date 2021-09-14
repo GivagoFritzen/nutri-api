@@ -1,5 +1,4 @@
-﻿using Application.Interfaces.Mapper;
-using Application.ViewModel.Pacientes;
+﻿using Application.ViewModel.Pacientes;
 using Domain.Entity;
 using System;
 using System.Collections.Generic;
@@ -7,11 +6,11 @@ using System.Linq;
 
 namespace Application.Mapper
 {
-    public class MapperPaciente : IMapperPaciente
+    public static class MapperPaciente
     {
-        public Paciente MapperViewModelToEntity(PacienteAdicionarViewModel pacienteViewModel)
+        public static PacienteEntity ToEntity(this PacienteAdicionarViewModel pacienteViewModel)
         {
-            return pacienteViewModel == null ? null : new Paciente()
+            return pacienteViewModel == null ? null : new PacienteEntity()
             {
                 Id = Guid.NewGuid(),
                 Nome = pacienteViewModel.Nome,
@@ -20,14 +19,13 @@ namespace Application.Mapper
                 Cidade = pacienteViewModel.Cidade,
                 Telefone = pacienteViewModel.Telefone,
                 Sexo = pacienteViewModel.Sexo,
-                Peso = pacienteViewModel.Peso,
-                Altura = pacienteViewModel.Altura
+                Medidas = pacienteViewModel.Medida.ToEntity()
             };
         }
 
-        public Paciente MapperViewModelToEntity(PacienteViewModel pacienteViewModel)
+        public static PacienteEntity ToEntity(this PacienteViewModel pacienteViewModel)
         {
-            return pacienteViewModel == null ? null : new Paciente()
+            return pacienteViewModel == null ? null : new PacienteEntity()
             {
                 Id = pacienteViewModel.Id,
                 Nome = pacienteViewModel.Nome,
@@ -36,12 +34,11 @@ namespace Application.Mapper
                 Cidade = pacienteViewModel.Cidade,
                 Telefone = pacienteViewModel.Telefone,
                 Sexo = pacienteViewModel.Sexo,
-                Peso = pacienteViewModel.Peso,
-                Altura = pacienteViewModel.Altura
+                Medidas = pacienteViewModel.Medidas.ToEntity()
             };
         }
 
-        public PacienteViewModel MapperEntityToViewModel(Paciente paciente)
+        public static PacienteViewModel ToViewModel(this PacienteEntity paciente)
         {
             return paciente == null ? null : new PacienteViewModel()
             {
@@ -52,12 +49,11 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Peso = paciente.Peso,
-                Altura = paciente.Altura,
+                Medidas = paciente.Medidas.ToViewModel()
             };
         }
 
-        public IEnumerable<PacienteViewModel> MapperListPacientesViewModel(IEnumerable<Paciente> pacientes)
+        public static IEnumerable<PacienteViewModel> ToListPacientesViewModel(this IEnumerable<PacienteEntity> pacientes)
         {
             return pacientes.Select(paciente => new PacienteViewModel
             {
@@ -68,8 +64,7 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Peso = paciente.Peso,
-                Altura = paciente.Altura
+                Medidas = paciente.Medidas.ToViewModel()
             });
         }
     }

@@ -26,7 +26,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             return CustomResponse(await applicationServicePaciente.GetById(id));
         }

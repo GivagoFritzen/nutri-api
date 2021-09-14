@@ -47,7 +47,7 @@ namespace Infrastructure.Data.Repositories
                 context.Set<TEntity>().Remove(obj);
                 context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

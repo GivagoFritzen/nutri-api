@@ -4,6 +4,60 @@
     "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj": {}
   },
   "projects": {
+    "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\CrossCutting.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\CrossCutting.csproj",
+        "projectName": "CrossCutting",
+        "projectPath": "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\CrossCutting.csproj",
+        "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
+        "outputPath": "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -28,6 +82,9 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
+              "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\CrossCutting.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\CrossCutting.csproj"
+              },
               "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj": {
                 "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj"
               }
@@ -44,10 +101,6 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "EntityFramework": {
-              "target": "Package",
-              "version": "[6.4.4, )"
-            },
             "FluentValidation": {
               "target": "Package",
               "version": "[10.3.3, )"
@@ -111,12 +164,6 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "dependencies": {
-            "EntityFramework": {
-              "target": "Package",
-              "version": "[6.4.4, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -171,12 +218,6 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "dependencies": {
-            "EntityFramework": {
-              "target": "Package",
-              "version": "[6.4.4, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",

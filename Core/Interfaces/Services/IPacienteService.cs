@@ -2,7 +2,7 @@
 
 namespace Core.Interfaces.Services
 {
-    public interface IPacienteService : IServiceBase<Paciente>
+    public interface IPacienteService : IServiceBase<PacienteEntity>
     {
     }
 }

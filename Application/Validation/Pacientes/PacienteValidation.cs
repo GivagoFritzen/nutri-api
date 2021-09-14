@@ -1,7 +1,8 @@
 ﻿using Application.Pacientes.Commands;
+using CrossCutting.Message.Validation;
 using FluentValidation;
 
-namespace Application.Validation
+namespace Application.Validation.Pacientes
 {
     public class PacienteValidation : AbstractValidator<AdicionarPacienteCommand>
     {
@@ -9,7 +10,7 @@ namespace Application.Validation
         {
             RuleFor(c => c.pacienteViewModel.Nome)
                 .NotEmpty()
-                .WithMessage("O nome do paciente não foi informado");
+                .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Nome"));
         }
     }
 }

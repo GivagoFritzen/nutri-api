@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
-using Application.Interfaces.Mapper;
-using Application.Mapper;
 using Application.Services;
+using Application.Validation.Nutricionistas;
 using Core.Interfaces.Services;
 using Domain.Entity;
 using Infrastructure.Data;
@@ -21,12 +20,17 @@ namespace API.Setup
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            // Paciente
+            services.AddScoped<ISecurityService, SecurityService>();
+
+            //  Nutricionista
+            services.AddScoped<IApplicationServiceNutricionista, ApplicationServiceNutricionista>();
+            services.AddScoped<INutricionistaService, NutricionistaService>();
+            services.AddTransient<IRepositoryBase<NutricionistaEntity>, RepositoryBase<NutricionistaEntity>>();
+
+            //  Paciente
             services.AddScoped<IApplicationServicePaciente, ApplicationServicePaciente>();
             services.AddScoped<IPacienteService, PacienteService>();
-            services.AddScoped<IMapperPaciente, MapperPaciente>();
-
-            services.AddTransient<IRepositoryBase<Paciente>, RepositoryBase<Paciente>>();
+            services.AddTransient<IRepositoryBase<PacienteEntity>, RepositoryBase<PacienteEntity>>();
         }
     }
 }

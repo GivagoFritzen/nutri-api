@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Application.ViewModel.Medidas;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Application.ViewModel.Pacientes
@@ -14,7 +16,6 @@ namespace Application.ViewModel.Pacientes
         public string Cidade { get; set; }
         public string Telefone { get; set; }
         public bool Sexo { get; set; }
-        public float Peso { get; set; }
-        public float Altura { get; set; }
+        public MedidaViewModel Medidas { get; set; }
     }
 }

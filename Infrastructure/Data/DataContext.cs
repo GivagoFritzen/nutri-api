@@ -6,7 +6,8 @@ namespace Infrastructure.Data
 {
     public class DataContext : DbContext
     {
-        public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<PacienteEntity> Pacientes { get; set; }
+        public DbSet<NutricionistaEntity> Nutricionistas { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options)
         : base(options) { }
