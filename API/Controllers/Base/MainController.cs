@@ -16,7 +16,7 @@ namespace API.Controllers.Base
 
         protected ActionResult CustomResponse(ResponseView result = null)
         {
-            if (!result.Errors.Any())
+            if (result.Errors == null || !result.Errors.Any())
                 return Ok(result);
 
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>

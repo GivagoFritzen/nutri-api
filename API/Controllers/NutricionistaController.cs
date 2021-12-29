@@ -25,10 +25,23 @@ namespace API.Controllers
             return CustomResponse(await applicationServiceNutricionista.GetById(id));
         }
 
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            return CustomResponse(await applicationServiceNutricionista.GetAll());
+        }
+
         [HttpPost]
         public ActionResult<ResponseView> Add([FromBody] NutricionistaAdicionarViewModel nutricionistaViewModel)
         {
             return applicationServiceNutricionista.Add(nutricionistaViewModel);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Remove(Guid id)
+        {
+            await applicationServiceNutricionista.RemoveById(id);
+            return Ok();
         }
 
         [HttpPut]

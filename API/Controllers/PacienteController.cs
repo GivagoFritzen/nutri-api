@@ -34,7 +34,7 @@ namespace API.Controllers
         [HttpPost]
         public ActionResult<ResponseView> Add([FromBody] PacienteAdicionarViewModel pacienteViewModel)
         {
-            return applicationServicePaciente.Add(pacienteViewModel);
+            return CustomResponse(applicationServicePaciente.Add(pacienteViewModel));
         }
 
         [HttpDelete("{id}")]

@@ -11,6 +11,8 @@ namespace Application.Validation.Nutricionistas
             RuleFor(c => c.nutricionistaViewModel.Nome)
                 .NotEmpty()
                 .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Nome"));
+
+            RuleFor(c => c.nutricionistaViewModel.Email).ValidarEmail();
         }
     }
 }

@@ -1,5 +1,25 @@
 services:
-  db:
+  mongodb:
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: Teste@123
+      MONGO_INITDB_ROOT_USERNAME: root
+    image: mongo
+    ports:
+    - published: 27017
+      target: 27017
+    restart: always
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+    - published: 5672
+      target: 5672
+    - published: 15672
+      target: 15672
+    restart: always
+  sqldb:
+    container_name: sql
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: Teste@123

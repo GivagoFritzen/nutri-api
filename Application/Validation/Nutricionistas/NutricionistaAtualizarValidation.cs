@@ -17,6 +17,8 @@ namespace Application.Validation.Nutricionistas
                 .NotEmpty()
                 .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Senha"));
 
+            RuleFor(c => c.nutricionistaViewModel.Email).ValidarEmail();
+
             RuleFor(c => c)
                 .ValidarNovaSenha(securityService);
         }

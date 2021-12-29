@@ -1,20 +1,27 @@
 version: '3.4'
 
 services:
-  #api:
-  #  image: ${DOCKER_REGISTRY-}api
-  #  ports:  
-  #    - "5001:80"
-  #  build:
-  #    context: .
-  #    dockerfile: API/Dockerfile
-  #    target: final
-  #  depends_on:
-  #    - db
-  db:
+  mongodb:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: Teste@123
+    ports:
+      - 27017:27017
+  sqldb:
+    container_name: sql
     image: "mcr.microsoft.com/mssql/server:2017-latest"
     ports:
       - "1433:1433"
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Teste@123
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"

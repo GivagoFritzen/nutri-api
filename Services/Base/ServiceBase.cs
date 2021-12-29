@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Services
+namespace Services.Base
 {
     public class ServiceBase<TEntity> : IServiceBase<TEntity> where TEntity : class
     {

@@ -11,6 +11,8 @@ namespace Application.Validation.Pacientes
             RuleFor(c => c.pacienteViewModel.Nome)
                 .NotEmpty()
                 .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Nome"));
+
+            RuleFor(c => c.pacienteViewModel.Email).ValidarEmail();
         }
     }
 }

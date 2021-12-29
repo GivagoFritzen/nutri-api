@@ -1,6 +1,7 @@
 ﻿using Core.Interfaces.Services;
 using Domain.Entity;
 using Infrastructure.Data.Interfaces;
+using Services.Base;
 
 namespace Services
 {

@@ -13,10 +13,15 @@ namespace Application.Services
     public class ApplicationServicePaciente : IApplicationServicePaciente
     {
         private readonly IPacienteService pacienteService;
+        private readonly IMessagingService messagingService;
 
-        public ApplicationServicePaciente(IPacienteService pacienteService)
+        public ApplicationServicePaciente(
+            IPacienteService pacienteService,
+            IMessagingService messagingService
+            )
         {
             this.pacienteService = pacienteService;
+            this.messagingService = messagingService;
         }
 
         public ResponseView Add(PacienteAdicionarViewModel pacienteViewModel)
@@ -27,6 +32,7 @@ namespace Application.Services
 
             var paciente = pacienteViewModel.ToEntity();
             pacienteService.Add(paciente);
+            messagingService.Publish(paciente);
 
             return new ResponseView(paciente.ToViewModel());
         }

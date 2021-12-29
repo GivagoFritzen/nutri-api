@@ -1,6 +1,8 @@
-﻿namespace Domain.Entity
+﻿using Domain.Interface;
+
+namespace Domain.Entity
 {
-    public class PacienteEntity : BaseEntity
+    public class PacienteEntity : BaseEntity, IEvent
     {
         public string Nome { get; set; }
         public string Sobrenome { get; set; }

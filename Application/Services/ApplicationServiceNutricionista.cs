@@ -5,6 +5,7 @@ using Application.ViewModel;
 using Application.ViewModel.Nutricionistas;
 using Core.Interfaces.Services;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -34,10 +35,21 @@ namespace Application.Services
             return new ResponseView(nutricionista.ToViewModel());
         }
 
+        public async Task RemoveById(Guid id)
+        {
+            await nutricionistaService.RemoveById(id);
+        }
+
         public async Task<NutricionistaViewModel> GetById(Guid id)
         {
             var nutricionista = await nutricionistaService.GetById(id);
             return nutricionista.ToViewModel();
+        }
+
+        public async Task<IEnumerable<NutricionistaViewModel>> GetAll()
+        {
+            var nutricionistas = await nutricionistaService.GetAll();
+            return nutricionistas.ToViewModel();
         }
 
         public ResponseView Update(NutricionistaAtualizarViewModel nutricionistaViewModel)
