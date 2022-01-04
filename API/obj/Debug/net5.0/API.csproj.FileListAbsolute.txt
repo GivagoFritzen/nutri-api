@@ -65,7 +65,6 @@ D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.GeneratedMSBuildEd
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.AssemblyInfoInputs.cache
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.AssemblyInfo.cs
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.csproj.CoreCompileInputs.cache
-D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cs
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cache
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.Manifest.cache
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\staticwebassets\API.StaticWebAssets.xml
@@ -95,3 +94,4 @@ D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.Extensions.F
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.Extensions.Hosting.Abstractions.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cs

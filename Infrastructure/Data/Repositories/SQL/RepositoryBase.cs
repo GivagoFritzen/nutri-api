@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.SQL;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace Infrastructure.Data.Repositories.SQL
 {
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
-        private readonly DataContext context;
+        private readonly SQLDataContext context;
 
-        public RepositoryBase(DataContext context)
+        public RepositoryBase(SQLDataContext context)
         {
             this.context = context;
         }

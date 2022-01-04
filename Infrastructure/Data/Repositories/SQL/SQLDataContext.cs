@@ -2,15 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Data
+namespace Infrastructure.Data.SQL
 {
-    public class DataContext : DbContext
+    public class SQLDataContext : DbContext
     {
         public DbSet<AdminEntity> Admins { get; set; }
         public DbSet<PacienteEntity> Pacientes { get; set; }
         public DbSet<NutricionistaEntity> Nutricionistas { get; set; }
 
-        public DataContext(DbContextOptions<DataContext> options)
+        public SQLDataContext(DbContextOptions<SQLDataContext> options)
         : base(options) { }
 
         public override int SaveChanges()

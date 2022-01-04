@@ -1,5 +1,10 @@
-﻿using Infrastructure.Data.Interfaces.RabbitMQ;
+﻿using Domain.Event;
+using Domain.Interface;
+using Infrastructure.Data.Interfaces.Mongo;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -11,11 +16,21 @@ namespace Infrastructure.Data.Messaging
 {
     public class RabbitMQSubscriber : BackgroundService
     {
+        private readonly ILogger<RabbitMQSubscriber> _logger;
+        private readonly IMongoDbContext mongoDbContext;
+
         private readonly IConnection connection;
         private readonly IModel channel;
 
-        public RabbitMQSubscriber(IRabbitMQUrlProvider provider)
+        public RabbitMQSubscriber(
+            ILogger<RabbitMQSubscriber> logger,
+            IConfiguration configuration,
+            IMongoDbContext mongoDbContext)
         {
+            _logger = logger;
+            this.mongoDbContext = mongoDbContext;
+
+            var provider = new AppsettingRabbitMQUrlProvider(configuration);
             var factory = new ConnectionFactory()
             {
                 Uri = new Uri(provider.Url),
@@ -27,8 +42,10 @@ namespace Infrastructure.Data.Messaging
             channel = connection.CreateModel();
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            _logger.LogInformation("Aguardando mensagens...");
+
             stoppingToken.ThrowIfCancellationRequested();
 
             var queName = "teste";
@@ -45,6 +62,9 @@ namespace Infrastructure.Data.Messaging
             {
                 var body = ea.Body.ToArray(); ;
                 var message = Encoding.UTF8.GetString(body);
+
+                var evento = JsonConvert.DeserializeObject(message);
+                mongoDbContext.GetCollection<IEvent>(nameof(evento)).InsertOne(evento as IEvent);
             };
 
             channel.BasicConsume(
@@ -53,7 +73,10 @@ namespace Infrastructure.Data.Messaging
                 consumer: consumer
             );
 
-            return Task.CompletedTask;
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(5));
+            }
         }
 
         public override void Dispose()
