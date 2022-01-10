@@ -6,6 +6,7 @@ using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Interfaces.Mongo;
 using Infrastructure.Data.Interfaces.RabbitMQ;
 using Infrastructure.Data.Messaging;
+using Infrastructure.Data.Messaging.BackgroundsQueue;
 using Infrastructure.Data.Repositories.Mongo;
 using Infrastructure.Data.Repositories.SQL;
 using Infrastructure.Data.SQL;
@@ -21,14 +22,19 @@ namespace API.Setup
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<ISecurityService, SecurityService>();
+
             services.AddDbContext<SQLDataContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-            services.AddSingleton<IMongoDbContext, MongoDbContext>();
 
-            services.AddScoped<ISecurityService, SecurityService>();
+            // Mongo
+            services.AddSingleton<IMongoDbContext, MongoDbContext>();
 
             // Event Sourcing
             services.AddScoped<IRabbitMQUrlProvider>(x => new AppsettingRabbitMQUrlProvider(configuration));
+
+            services.AddSingleton<IBackgroundQueue, UserEventQueue>();
+
             services.AddHostedService<RabbitMQSubscriber>();
             services.AddScoped<IMessagingService, MessagingService>();
             services.AddScoped<IEventPublisher, RabbitMQPublisher>();
@@ -45,7 +51,6 @@ namespace API.Setup
 
             // User 
             services.AddSingleton<IMongoClient, MongoClient>(_ => new MongoClient(configuration.GetConnectionString("MongoConnection")));
-            services.AddSingleton<IUsersMongoRepository, UsersMongoRepository>();
         }
     }
 }

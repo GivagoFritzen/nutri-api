@@ -4,6 +4,7 @@ using Application.Pacientes.Commands;
 using Application.ViewModel;
 using Application.ViewModel.Pacientes;
 using Core.Interfaces.Services;
+using Domain.Event;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -33,6 +34,7 @@ namespace Application.Services
             var paciente = pacienteViewModel.ToEntity();
             pacienteService.Add(paciente);
             messagingService.Publish(paciente);
+            messagingService.Publish(new UserEvent() { Email = paciente.Email });
 
             return new ResponseView(paciente.ToViewModel());
         }

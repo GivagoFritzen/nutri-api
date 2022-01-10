@@ -6,11 +6,11 @@ namespace Infrastructure.Data.Interfaces.Mongo
 {
     public interface IMongoDbContext
     {
-        MongoClient MongoClient { get; set; }
         IClientSessionHandle Session { get; set; }
 
         void AddCommand(Func<Task> func);
         void Dispose();
+        IMongoDatabase GetDatabase(string name);
         IMongoCollection<T> GetCollection<T>(string name);
         Task<int> SaveChanges();
     }

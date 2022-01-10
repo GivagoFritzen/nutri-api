@@ -27,7 +27,10 @@ namespace Infrastructure.Data.Messaging
 
         public void Publish(IEvent @event)
         {
-            var queName = "teste";
+            var queName = @event.GetType().Name
+                .Replace("Entity", "")
+                .Replace("Event", "");
+
             channel.QueueDeclare(
                 queue: queName,
                 durable: true,

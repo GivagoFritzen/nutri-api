@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Data.Interfaces.Mongo;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
@@ -14,13 +15,13 @@ namespace Infrastructure.Data.Repositories.Mongo
 {
     public class MongoDbContext : IMongoDbContext
     {
-        public MongoClient MongoClient { get; set; }
         public IClientSessionHandle Session { get; set; }
 
+        private MongoClient mongoClient { get; set; }
         private IMongoDatabase database { get; set; }
         private readonly List<Func<Task>> _commands;
 
-        public MongoDbContext(IMongoClient client)
+        public MongoDbContext(IMongoClient client, IConfiguration configuration)
         {
             // Set Guid to CSharp style (with dash -)
             BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
@@ -30,12 +31,12 @@ namespace Infrastructure.Data.Repositories.Mongo
 
             RegisterConventions();
 
-            database = client.GetDatabase("MongoConnectionString");
+            mongoClient = new MongoClient(configuration["ConnectionStrings:MongoConnection"]);
         }
 
         public async Task<int> SaveChanges()
         {
-            using (Session = await MongoClient.StartSessionAsync())
+            using (Session = await mongoClient.StartSessionAsync())
             {
                 Session.StartTransaction();
 
@@ -47,6 +48,11 @@ namespace Infrastructure.Data.Repositories.Mongo
             }
 
             return _commands.Count;
+        }
+
+        public IMongoDatabase GetDatabase(string name)
+        {
+            return mongoClient.GetDatabase(name);
         }
 
         public IMongoCollection<T> GetCollection<T>(string name)
