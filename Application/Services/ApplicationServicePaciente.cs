@@ -25,16 +25,16 @@ namespace Application.Services
             this.messagingService = messagingService;
         }
 
-        public ResponseView Add(PacienteAdicionarViewModel pacienteViewModel)
+        public async Task<ResponseView> Add(PacienteAdicionarViewModel pacienteViewModel)
         {
-            var command = new AdicionarPacienteCommand(pacienteViewModel);
+            var command = new AdicionarPacienteCommand(pacienteViewModel, pacienteService);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
             var paciente = pacienteViewModel.ToEntity();
-            pacienteService.Add(paciente);
-            messagingService.Publish(paciente);
-            messagingService.Publish(new UserEvent() { Email = paciente.Email });
+            await pacienteService.AddAsync(paciente);
+            messagingService.Publish(paciente.ToPacienteEvent());
+            messagingService.Publish(new UserEvent(paciente.Id, paciente.Email));
 
             return new ResponseView(paciente.ToViewModel());
         }
@@ -54,10 +54,15 @@ namespace Application.Services
         public async Task RemoveById(Guid id)
         {
             await pacienteService.RemoveById(id);
+            messagingService.Publish(new UserEvent(id, true));
+            messagingService.Publish(new PacienteEvent(id, true));
         }
 
         public void Update(PacienteViewModel pacienteViewModel)
         {
+            //Validate
+            messagingService.Publish(pacienteViewModel.ToPacienteEventUpdate());
+            messagingService.Publish(new UserEvent(pacienteViewModel.Id, pacienteViewModel.Email, true));
             pacienteService.Update(pacienteViewModel.ToEntity());
         }
     }

@@ -8,7 +8,7 @@ namespace Application.Interfaces
 {
     public interface IApplicationServicePaciente
     {
-        ResponseView Add(PacienteAdicionarViewModel pacienteViewModel);
+        Task<ResponseView> Add(PacienteAdicionarViewModel pacienteViewModel);
 
         void Update(PacienteViewModel pacienteViewModel);
 

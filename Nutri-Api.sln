@@ -22,10 +22,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{DFAC06F9-D712-4F47-B110-888C3B06BB9E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{2AC0E9A6-6B7B-4DBB-A926-9B4AE699F03E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3A102EFA-9D99-46A5-94C2-88C186A8EA40} = {3A102EFA-9D99-46A5-94C2-88C186A8EA40}
+	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CF9857CB-868E-4F92-82C9-D2F6607FB876}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting", "..\CrossCuttings\CrossCutting.csproj", "{3A102EFA-9D99-46A5-94C2-88C186A8EA40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCutting", "..\CrossCuttings\CrossCutting.csproj", "{3A102EFA-9D99-46A5-94C2-88C186A8EA40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

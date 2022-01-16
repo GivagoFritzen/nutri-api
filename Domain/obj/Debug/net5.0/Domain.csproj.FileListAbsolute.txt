@@ -9,4 +9,3 @@ D:\Projetos\Git\nutrição\Nutri-Api\Domain\obj\Debug\net5.0\Domain.csproj.CoreC
 D:\Projetos\Git\nutrição\Nutri-Api\Domain\obj\Debug\net5.0\Domain.dll
 D:\Projetos\Git\nutrição\Nutri-Api\Domain\obj\Debug\net5.0\ref\Domain.dll
 D:\Projetos\Git\nutrição\Nutri-Api\Domain\obj\Debug\net5.0\Domain.pdb
-D:\Projetos\Git\nutrição\Nutri-Api\Domain\obj\Debug\net5.0\Domain.csprojAssemblyReference.cache

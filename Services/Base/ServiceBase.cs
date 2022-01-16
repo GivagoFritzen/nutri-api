@@ -15,9 +15,9 @@ namespace Services.Base
             this.repository = repository;
         }
 
-        public void Add(TEntity obj)
+        public async Task AddAsync(TEntity obj)
         {
-            repository.Add(obj);
+            await repository.AddAsync(obj);
         }
 
         public async Task<IEnumerable<TEntity>> GetAll()

@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data.Interfaces;
+﻿using CrossCutting.Message.Exceptions;
+using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.SQL;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,16 +17,16 @@ namespace Infrastructure.Data.Repositories.SQL
             this.context = context;
         }
 
-        public void Add(TEntity obj)
+        public async Task AddAsync(TEntity obj)
         {
             try
             {
-                context.Set<TEntity>().Add(obj);
+                await context.Set<TEntity>().AddAsync(obj);
                 context.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new InvalidOperationException($"{ExceptionsMessages.NaoFoiPossivelCadastrar} - {e.InnerException.Message}");
             }
         }
 
@@ -48,9 +49,9 @@ namespace Infrastructure.Data.Repositories.SQL
                 context.Set<TEntity>().Remove(obj);
                 context.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new InvalidOperationException($"{ExceptionsMessages.NaoFoiPossivelDeletar} - {e.InnerException.Message}");
             }
         }
 
@@ -62,9 +63,9 @@ namespace Infrastructure.Data.Repositories.SQL
                 context.Set<TEntity>().Update(obj);
                 context.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new InvalidOperationException($"{ExceptionsMessages.NaoFoiPossivelAtualizar} - {e.InnerException.Message}");
             }
         }
 

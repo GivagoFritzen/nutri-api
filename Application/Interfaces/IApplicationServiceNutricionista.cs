@@ -8,7 +8,7 @@ namespace Application.Interfaces
 {
     public interface IApplicationServiceNutricionista
     {
-        ResponseView Add(NutricionistaAdicionarViewModel nutricionistaViewModel);
+        Task<ResponseView> Add(NutricionistaAdicionarViewModel nutricionistaViewModel);
 
         Task RemoveById(Guid id);
 

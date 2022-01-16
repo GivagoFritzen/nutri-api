@@ -4,6 +4,7 @@ using Application.Mapper;
 using Application.ViewModel;
 using Application.ViewModel.Admin;
 using Core.Interfaces.Services;
+using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -18,7 +19,7 @@ namespace Application.Services
             this.securityService = securityService;
         }
 
-        public ResponseView Add(AdminAdicionarViewModel adminAdicionarViewModel)
+        public async Task<ResponseView> Add(AdminAdicionarViewModel adminAdicionarViewModel)
         {
             var command = new AdminAdicionarCommand(adminAdicionarViewModel);
             if (!command.EhValido())
@@ -27,7 +28,7 @@ namespace Application.Services
             var admin = adminAdicionarViewModel.ToEntity();
             var passwordEncripted = securityService.EncryptPassword(admin.Senha);
             admin.Senha = passwordEncripted;
-            adminService.Add(admin);
+            await adminService.AddAsync(admin);
 
             return new ResponseView(admin.ToViewModel());
         }

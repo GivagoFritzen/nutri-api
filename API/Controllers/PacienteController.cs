@@ -32,9 +32,9 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ResponseView> Add([FromBody] PacienteAdicionarViewModel pacienteViewModel)
+        public async Task<ActionResult<ResponseView>> Add([FromBody] PacienteAdicionarViewModel pacienteViewModel)
         {
-            return CustomResponse(applicationServicePaciente.Add(pacienteViewModel));
+            return CustomResponse(await applicationServicePaciente.Add(pacienteViewModel));
         }
 
         [HttpDelete("{id}")]

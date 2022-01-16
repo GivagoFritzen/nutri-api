@@ -1,4 +1,5 @@
 ﻿using Application.Pacientes.Commands;
+using Core.Interfaces.Services;
 using CrossCutting.Message.Validation;
 using FluentValidation;
 
@@ -6,13 +7,18 @@ namespace Application.Validation.Pacientes
 {
     public class PacienteValidation : AbstractValidator<AdicionarPacienteCommand>
     {
-        public PacienteValidation()
+        public PacienteValidation(IPacienteService pacienteService)
         {
             RuleFor(c => c.pacienteViewModel.Nome)
                 .NotEmpty()
                 .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Nome"));
 
-            RuleFor(c => c.pacienteViewModel.Email).ValidarEmail();
+            RuleFor(c => c.pacienteViewModel.Email)
+                .ValidarEmail();
+
+            RuleFor(c => c)
+                .MustAsync(async (x, cancellation) => await pacienteService.VerificarEmailExiste(x.pacienteViewModel.Email) == false)
+                .WithMessage(GenericValidationMessages.EmailCadastrado);
         }
     }
 }

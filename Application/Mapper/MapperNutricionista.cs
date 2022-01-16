@@ -1,5 +1,6 @@
 ﻿using Application.ViewModel.Nutricionistas;
 using Domain.Entity;
+using Domain.Event;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,34 @@ namespace Application.Mapper
                 Sexo = nutricionista.Sexo,
                 PacientesIds = nutricionista.PacientesIds
             });
+        }
+
+        public static NutricionistaEvent ToNutricionistaEvent(this NutricionistaEntity paciente)
+        {
+            return new NutricionistaEvent()
+            {
+                Id = paciente.Id,
+                Senha = paciente.Senha,
+                Nome = paciente.Nome,
+                Sobrenome = paciente.Sobrenome,
+                Email = paciente.Email,
+                Cidade = paciente.Cidade,
+                Telefone = paciente.Telefone,
+                Sexo = paciente.Sexo,
+                PacientesIds = paciente.PacientesIds
+            };
+        }
+
+        public static NutricionistaEvent ToNutricionistaEventUpdate(this NutricionistaAtualizarViewModel nutricionista)
+        {
+            var nutricionistaEvent = nutricionista
+                                .ToEntity()
+                                .ToNutricionistaEvent();
+
+            nutricionistaEvent.Update = true;
+            nutricionistaEvent.Senha = nutricionista.NovaSenha;
+
+            return nutricionistaEvent;
         }
     }
 }

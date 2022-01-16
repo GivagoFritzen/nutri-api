@@ -1,10 +1,11 @@
 ﻿using Application.ViewModel;
 using Application.ViewModel.Admin;
+using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
     public interface IApplicationServiceAdmin
     {
-        ResponseView Add(AdminAdicionarViewModel adminAdicionarViewModel);
+        Task<ResponseView> Add(AdminAdicionarViewModel adminAdicionarViewModel);
     }
 }

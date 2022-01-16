@@ -3,6 +3,7 @@ using Application.Interfaces;
 using Application.ViewModel;
 using Application.ViewModel.Admin;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -10,7 +11,7 @@ namespace API.Controllers
     [ApiController]
     public class AdminController : MainController
     {
-        private readonly IApplicationServiceAdmin applicationServiceAdmin;  
+        private readonly IApplicationServiceAdmin applicationServiceAdmin;
 
         public AdminController(IApplicationServiceAdmin applicationServiceAdmin)
         {
@@ -18,9 +19,9 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ResponseView> Add([FromBody] AdminAdicionarViewModel adminAdicionarViewModel)
+        public async Task<ActionResult<ResponseView>> Add([FromBody] AdminAdicionarViewModel adminAdicionarViewModel)
         {
-            return applicationServiceAdmin.Add(adminAdicionarViewModel);
+            return await applicationServiceAdmin.Add(adminAdicionarViewModel);
         }
     }
 }

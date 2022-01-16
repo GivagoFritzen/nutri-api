@@ -6,7 +6,7 @@ namespace Core.Interfaces.Services
 {
     public interface IServiceBase<TEntity> where TEntity : class
     {
-        void Add(TEntity obj);
+        Task AddAsync(TEntity obj);
 
         void Update(TEntity obj);
 

@@ -6,17 +6,17 @@ using MongoDB.Driver;
 
 namespace Infrastructure.Data.Messaging.BackgroundsQueue
 {
-    public sealed class UserEventQueue : BaseQueue<UserEvent>
+    public class PacienteEventQueue : BaseQueue<PacienteEvent>
     {
-        public UserEventQueue(
+        public PacienteEventQueue(
             IConfiguration configuration,
             IMongoDbContext mongoDbContext) : base(configuration, mongoDbContext) { }
 
-        public override void QueueController(UserEvent evento)
+        public override void QueueController(PacienteEvent evento)
         {
             if (evento.Delete)
                 mongoCollection.DeleteOne(ev => ev.Id == evento.Id);
-            if (evento.Update)
+            else if (evento.Update)
                 mongoCollection.ReplaceOne(ev => ev.Id == evento.Id, evento);
             else
                 mongoCollection.InsertOne(evento);

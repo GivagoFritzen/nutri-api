@@ -1,5 +1,6 @@
 ﻿using Application.ViewModel.Pacientes;
 using Domain.Entity;
+using Domain.Event;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,30 @@ namespace Application.Mapper
                 Sexo = paciente.Sexo,
                 Medidas = paciente.Medidas.ToViewModel()
             });
+        }
+
+        public static PacienteEvent ToPacienteEvent(this PacienteEntity paciente)
+        {
+            return new PacienteEvent()
+            {
+                Id = paciente.Id,
+                Nome = paciente.Nome,
+                Sobrenome = paciente.Sobrenome,
+                Email = paciente.Email,
+                Cidade = paciente.Cidade,
+                Telefone = paciente.Telefone,
+                Sexo = paciente.Sexo,
+                Medidas = paciente.Medidas
+            };
+        }
+
+        public static PacienteEvent ToPacienteEventUpdate(this PacienteViewModel paciente)
+        {
+            var pacienteEvent = paciente
+                                .ToEntity()
+                                .ToPacienteEvent();
+            pacienteEvent.Update = true;
+            return pacienteEvent;
         }
     }
 }
