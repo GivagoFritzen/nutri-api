@@ -1,29 +1,23 @@
-﻿using Core.Interfaces.Services;
-using Domain.Entity;
-using Domain.Event;
-using Infrastructure.Data.Interfaces;
+﻿using Domain.Event;
 using Infrastructure.Data.Interfaces.Mongo;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Services.Base;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Services
 {
-    public class PacienteService : ServiceBase<PacienteEntity>, IPacienteService
+    public class UserService : IUserService
     {
         private readonly IMongoCollection<UserEvent> mongoCollection;
 
-        public PacienteService(IRepositoryBase<PacienteEntity> repositoryPaciente, IMongoDbContext mongoDbContext)
-            : base(repositoryPaciente)
+        public UserService(IMongoDbContext mongoDbContext)
         {
             var queName = nameof(UserEvent).Replace("Event", "");
             mongoCollection = mongoDbContext
                 .GetDatabase(queName)
                 .GetCollection<UserEvent>(queName);
-
-            repository = repositoryPaciente;
         }
 
         public async Task<bool> VerificarEmailExiste(string email)

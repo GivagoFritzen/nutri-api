@@ -7,8 +7,6 @@ namespace Application.ViewModel.Nutricionistas
     public class NutricionistaViewModel
     {
         [Required]
-        public Guid Id { get; set; }
-        [Required]
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         [Required]

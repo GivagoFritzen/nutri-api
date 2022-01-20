@@ -5,6 +5,7 @@ using Application.ViewModel;
 using Application.ViewModel.Pacientes;
 using Core.Interfaces.Services;
 using Domain.Event;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,19 +16,21 @@ namespace Application.Services
     {
         private readonly IPacienteService pacienteService;
         private readonly IMessagingService messagingService;
+        private readonly IUserService userService;
 
         public ApplicationServicePaciente(
             IPacienteService pacienteService,
-            IMessagingService messagingService
-            )
+            IMessagingService messagingService,
+            IUserService userService)
         {
             this.pacienteService = pacienteService;
             this.messagingService = messagingService;
+            this.userService = userService;
         }
 
         public async Task<ResponseView> Add(PacienteAdicionarViewModel pacienteViewModel)
         {
-            var command = new AdicionarPacienteCommand(pacienteViewModel, pacienteService);
+            var command = new AdicionarPacienteCommand(pacienteViewModel, userService);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
@@ -58,12 +61,16 @@ namespace Application.Services
             messagingService.Publish(new PacienteEvent(id, true));
         }
 
-        public void Update(PacienteViewModel pacienteViewModel)
+        public ResponseView Update(PacienteViewModel pacienteViewModel)
         {
-            //Validate
+            var command = new AtualizarPacienteCommand(pacienteViewModel, userService);
+            if (!command.EhValido())
+                return new ResponseView(command.ValidationResult);
+
             messagingService.Publish(pacienteViewModel.ToPacienteEventUpdate());
             messagingService.Publish(new UserEvent(pacienteViewModel.Id, pacienteViewModel.Email, true));
             pacienteService.Update(pacienteViewModel.ToEntity());
+            return new ResponseView(pacienteViewModel);
         }
     }
 }

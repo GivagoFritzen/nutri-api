@@ -52,6 +52,7 @@ namespace API.Setup
             services.AddTransient<IRepositoryBase<PacienteEntity>, RepositoryBase<PacienteEntity>>();
 
             // User 
+            services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IMongoClient, MongoClient>(_ => new MongoClient(configuration.GetConnectionString("MongoConnection")));
         }
     }

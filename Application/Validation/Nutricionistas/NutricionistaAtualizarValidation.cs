@@ -2,12 +2,13 @@
 using Core.Interfaces.Services;
 using CrossCutting.Message.Validation;
 using FluentValidation;
+using Services;
 
 namespace Application.Validation.Nutricionistas
 {
     public class NutricionistaAtualizarValidation : AbstractValidator<NutricionistaAtualizarCommand>
     {
-        public NutricionistaAtualizarValidation(ISecurityService securityService)
+        public NutricionistaAtualizarValidation(ISecurityService securityService, IUserService userService)
         {
             RuleFor(c => c.nutricionistaViewModel.Nome)
                 .NotEmpty()
@@ -18,6 +19,13 @@ namespace Application.Validation.Nutricionistas
                 .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Senha"));
 
             RuleFor(c => c.nutricionistaViewModel.Email).ValidarEmail();
+
+            RuleFor(c => c)
+                .MustAsync(async (x, cancellation) => await userService.VerificarEmailExiste(
+                    x.nutricionistaViewModel.Email,
+                    x.nutricionistaViewModel.Id
+                ) == false)
+                .WithMessage(GenericValidationMessages.EmailCadastrado);
 
             RuleFor(c => c)
                 .ValidarNovaSenha(securityService);

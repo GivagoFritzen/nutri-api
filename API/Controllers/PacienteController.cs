@@ -47,8 +47,7 @@ namespace API.Controllers
         [HttpPut]
         public ActionResult Update([FromBody] PacienteViewModel pacienteViewModel)
         {
-            applicationServicePaciente.Update(pacienteViewModel);
-            return Ok();
+            return CustomResponse(applicationServicePaciente.Update(pacienteViewModel));
         }
     }
 }

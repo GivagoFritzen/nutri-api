@@ -34,7 +34,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<ResponseView>> Add([FromBody] NutricionistaAdicionarViewModel nutricionistaViewModel)
         {
-            return await applicationServiceNutricionista.Add(nutricionistaViewModel);
+            return CustomResponse(await applicationServiceNutricionista.Add(nutricionistaViewModel));
         }
 
         [HttpDelete("{id}")]

@@ -5,13 +5,13 @@ using Services;
 
 namespace Application.Pacientes.Commands
 {
-    public class AdicionarPacienteCommand : Command
+    public class AtualizarPacienteCommand : Command
     {
-        public PacienteAdicionarViewModel pacienteViewModel { get; private set; }
+        public PacienteViewModel pacienteViewModel { get; private set; }
         private readonly IUserService userService;
 
-        public AdicionarPacienteCommand(
-            PacienteAdicionarViewModel pacienteViewModel,
+        public AtualizarPacienteCommand(
+            PacienteViewModel pacienteViewModel,
             IUserService userService)
         {
             this.pacienteViewModel = pacienteViewModel;
@@ -20,7 +20,7 @@ namespace Application.Pacientes.Commands
 
         public override bool EhValido()
         {
-            ValidationResult = new PacienteAdicionarValidation(userService).Validate(this);
+            ValidationResult = new PacienteAtualizarValidation(userService).Validate(this);
             return ValidationResult.IsValid;
         }
     }
