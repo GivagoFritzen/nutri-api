@@ -3,23 +3,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class Medidas : Migration
+    public partial class NewMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Altura",
-                table: "Pacientes");
-
-            migrationBuilder.DropColumn(
-                name: "Peso",
-                table: "Pacientes");
-
-            migrationBuilder.AddColumn<Guid>(
-                name: "MedidasId",
-                table: "Pacientes",
-                type: "uniqueidentifier",
-                nullable: true);
+            migrationBuilder.CreateTable(
+                name: "Admins",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Admins", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "MedidaEntity",
@@ -35,6 +34,24 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MedidaEntity", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Nutricionistas",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sobrenome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sexo = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Nutricionistas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -75,58 +92,57 @@ namespace Infrastructure.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Pacientes_MedidasId",
-                table: "Pacientes",
-                column: "MedidasId");
+            migrationBuilder.CreateTable(
+                name: "Pacientes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sobrenome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sexo = table.Column<bool>(type: "bit", nullable: false),
+                    MedidasId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pacientes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pacientes_MedidaEntity_MedidasId",
+                        column: x => x.MedidasId,
+                        principalTable: "MedidaEntity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CircunferenciasEntity_MedidaEntityId",
                 table: "CircunferenciasEntity",
                 column: "MedidaEntityId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Pacientes_MedidaEntity_MedidasId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Pacientes_MedidasId",
                 table: "Pacientes",
-                column: "MedidasId",
-                principalTable: "MedidaEntity",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                column: "MedidasId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Pacientes_MedidaEntity_MedidasId",
-                table: "Pacientes");
+            migrationBuilder.DropTable(
+                name: "Admins");
 
             migrationBuilder.DropTable(
                 name: "CircunferenciasEntity");
 
             migrationBuilder.DropTable(
+                name: "Nutricionistas");
+
+            migrationBuilder.DropTable(
+                name: "Pacientes");
+
+            migrationBuilder.DropTable(
                 name: "MedidaEntity");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Pacientes_MedidasId",
-                table: "Pacientes");
-
-            migrationBuilder.DropColumn(
-                name: "MedidasId",
-                table: "Pacientes");
-
-            migrationBuilder.AddColumn<float>(
-                name: "Altura",
-                table: "Pacientes",
-                type: "real",
-                nullable: false,
-                defaultValue: 0f);
-
-            migrationBuilder.AddColumn<float>(
-                name: "Peso",
-                table: "Pacientes",
-                type: "real",
-                nullable: false,
-                defaultValue: 0f);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<ResponseView>> Add([FromBody] AdminAdicionarViewModel adminAdicionarViewModel)
         {
-            return await applicationServiceAdmin.Add(adminAdicionarViewModel);
+            return CustomResponse(await applicationServiceAdmin.Add(adminAdicionarViewModel));
         }
     }
 }

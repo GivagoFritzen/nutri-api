@@ -94,3 +94,4 @@ D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\ref\API.dll
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.pdb
 D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+D:\Projetos\Git\nutrição\Nutri-Api\API\obj\Debug\net5.0\API.MvcApplicationPartsAssemblyInfo.cs

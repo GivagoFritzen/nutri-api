@@ -54,7 +54,22 @@ namespace Application.Mapper
             };
         }
 
-        public static IEnumerable<PacienteViewModel> ToListPacientesViewModel(this IEnumerable<PacienteEntity> pacientes)
+        public static PacienteViewModel ToViewModel(this PacienteEvent paciente)
+        {
+            return paciente == null ? null : new PacienteViewModel()
+            {
+                Id = paciente.Id,
+                Nome = paciente.Nome,
+                Sobrenome = paciente.Sobrenome,
+                Email = paciente.Email,
+                Cidade = paciente.Cidade,
+                Telefone = paciente.Telefone,
+                Sexo = paciente.Sexo,
+                Medidas = paciente.Medidas.ToViewModel()
+            };
+        }
+
+        public static IEnumerable<PacienteViewModel> ToListPacientesViewModel(this IEnumerable<PacienteEvent> pacientes)
         {
             return pacientes.Select(paciente => new PacienteViewModel
             {

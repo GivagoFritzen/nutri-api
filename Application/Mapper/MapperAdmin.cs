@@ -1,5 +1,6 @@
 ﻿using Application.ViewModel.Admin;
 using Domain.Entity;
+using Domain.Event;
 using System;
 
 namespace Application.Mapper
@@ -22,6 +23,15 @@ namespace Application.Mapper
             {
                 Id = adminViewModel.Id,
                 Email = adminViewModel.Email
+            };
+        }
+
+        public static AdminsEvent ToAdminEvent(this AdminEntity paciente)
+        {
+            return new AdminsEvent()
+            {
+                Id = paciente.Id,
+                Email = paciente.Email
             };
         }
     }

@@ -1,18 +1,35 @@
 ﻿using Core.Interfaces.Services;
+using Domain.Entity;
+using Domain.Event;
 using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.Interfaces.Mongo;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Services.Base
 {
-    public class ServiceBase<TEntity> : IServiceBase<TEntity> where TEntity : class
+    public class ServiceBase<TEntity, TEvent> : IServiceBase<TEntity, TEvent>
+        where TEntity : BaseEntity
+        where TEvent : UserEvent
     {
         protected IRepositoryBase<TEntity> repository;
+        protected readonly IMongoCollection<TEvent> mongoCollection;
 
-        public ServiceBase(IRepositoryBase<TEntity> repository)
+        public ServiceBase(
+            IRepositoryBase<TEntity> repository,
+            IMongoDbContext mongoDbContext)
         {
             this.repository = repository;
+
+            var queName = typeof(TEvent).Name
+                .Replace("Event", "")
+                .Replace("Entity", "");
+
+            mongoCollection = mongoDbContext
+                .GetDatabase(queName)
+                .GetCollection<TEvent>(queName);
         }
 
         public async Task AddAsync(TEntity obj)
@@ -20,14 +37,15 @@ namespace Services.Base
             await repository.AddAsync(obj);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public async Task<IEnumerable<TEvent>> GetAll()
         {
-            return await repository.GetAll();
+            return await mongoCollection.Aggregate().ToListAsync();
         }
 
-        public async Task<TEntity> GetById(Guid id)
+        public async Task<TEvent> GetById(Guid id)
         {
-            return await repository.GetById(id);
+            var filter = Builders<TEvent>.Filter.Eq(x => x.Id, id);
+            return await mongoCollection.Find(filter).SingleAsync();
         }
 
         public async Task RemoveById(Guid id)

@@ -2,6 +2,7 @@
 using Domain.Entity;
 using Domain.Event;
 using Infrastructure.Data.Interfaces;
+using Infrastructure.Data.Interfaces.Mongo;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Services.Base;
@@ -10,12 +11,10 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class NutricionistaService : ServiceBase<NutricionistaEntity>, INutricionistaService
+    public class NutricionistaService : ServiceBase<NutricionistaEntity, NutricionistaEvent>, INutricionistaService
     {
-        private readonly IMongoCollection<UserEvent> mongoCollection;
-
-        public NutricionistaService(IRepositoryBase<NutricionistaEntity> repositoryNutricionista)
-            : base(repositoryNutricionista)
+        public NutricionistaService(IRepositoryBase<NutricionistaEntity> repositoryNutricionista, IMongoDbContext mongoDbContext)
+            : base(repositoryNutricionista, mongoDbContext)
         {
             repository = repositoryNutricionista;
         }

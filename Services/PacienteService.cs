@@ -11,18 +11,11 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class PacienteService : ServiceBase<PacienteEntity>, IPacienteService
+    public class PacienteService : ServiceBase<PacienteEntity, PacienteEvent>, IPacienteService
     {
-        private readonly IMongoCollection<UserEvent> mongoCollection;
-
         public PacienteService(IRepositoryBase<PacienteEntity> repositoryPaciente, IMongoDbContext mongoDbContext)
-            : base(repositoryPaciente)
+            : base(repositoryPaciente, mongoDbContext)
         {
-            var queName = nameof(UserEvent).Replace("Event", "");
-            mongoCollection = mongoDbContext
-                .GetDatabase(queName)
-                .GetCollection<UserEvent>(queName);
-
             repository = repositoryPaciente;
         }
 
