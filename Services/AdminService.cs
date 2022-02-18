@@ -7,7 +7,7 @@ using Services.Base;
 
 namespace Services
 {
-    public class AdminService : ServiceBase<AdminEntity, AdminsEvent>, IAdminService
+    public class AdminService : ServiceBase<AdminEntity, AdminEvent>, IAdminService
     {
         public AdminService(IRepositoryBase<AdminEntity> repositoryAdmin, IMongoDbContext mongoDbContext)
             : base(repositoryAdmin, mongoDbContext)

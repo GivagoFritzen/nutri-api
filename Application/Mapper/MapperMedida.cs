@@ -14,7 +14,7 @@ namespace Application.Mapper
                 PesoAtual = medidaViewModel.PesoAtual,
                 PesoIdeal = medidaViewModel.PesoIdeal,
                 Altura = medidaViewModel.Altura,
-                Circunferencias = medidaViewModel.Circunferencias.ToEntity()
+                Circunferencia = medidaViewModel.Circunferencia.ToEntity()
             };
         }
 
@@ -27,7 +27,7 @@ namespace Application.Mapper
                 PesoAtual = medidaViewModel.PesoAtual,
                 PesoIdeal = medidaViewModel.PesoIdeal,
                 Altura = medidaViewModel.Altura,
-                Circunferencias = medidaViewModel.Circunferencias.ToEntity()
+                Circunferencia = medidaViewModel.Circunferencia.ToEntity()
             };
         }
 
@@ -40,7 +40,7 @@ namespace Application.Mapper
                 PesoAtual = medida.PesoAtual,
                 PesoIdeal = medida.PesoIdeal,
                 Altura = medida.Altura,
-                Circunferencias = medida.Circunferencias.ToViewModel()
+                Circunferencia = medida.Circunferencia.ToViewModel()
             };
         }
     }

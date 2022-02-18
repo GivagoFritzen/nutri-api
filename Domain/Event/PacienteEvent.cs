@@ -10,7 +10,7 @@ namespace Domain.Event
         public string Cidade { get; set; }
         public string Telefone { get; set; }
         public bool Sexo { get; set; }
-        public MedidaEntity Medidas { get; set; }
+        public MedidaEntity Medida { get; set; }
 
         public PacienteEvent() { }
 

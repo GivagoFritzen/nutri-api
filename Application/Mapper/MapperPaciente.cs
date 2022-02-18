@@ -20,7 +20,7 @@ namespace Application.Mapper
                 Cidade = pacienteViewModel.Cidade,
                 Telefone = pacienteViewModel.Telefone,
                 Sexo = pacienteViewModel.Sexo,
-                Medidas = pacienteViewModel.Medida.ToEntity()
+                Medida = pacienteViewModel.Medida.ToEntity()
             };
         }
 
@@ -35,7 +35,7 @@ namespace Application.Mapper
                 Cidade = pacienteViewModel.Cidade,
                 Telefone = pacienteViewModel.Telefone,
                 Sexo = pacienteViewModel.Sexo,
-                Medidas = pacienteViewModel.Medidas.ToEntity()
+                Medida = pacienteViewModel.Medida.ToEntity()
             };
         }
 
@@ -50,7 +50,7 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medidas = paciente.Medidas.ToViewModel()
+                Medida = paciente.Medida.ToViewModel()
             };
         }
 
@@ -65,13 +65,13 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medidas = paciente.Medidas.ToViewModel()
+                Medida = paciente.Medida.ToViewModel()
             };
         }
 
         public static IEnumerable<PacienteViewModel> ToListPacientesViewModel(this IEnumerable<PacienteEvent> pacientes)
         {
-            return pacientes.Select(paciente => new PacienteViewModel
+            return pacientes == null ? null : pacientes.Select(paciente => new PacienteViewModel
             {
                 Id = paciente.Id,
                 Nome = paciente.Nome,
@@ -80,13 +80,13 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medidas = paciente.Medidas.ToViewModel()
+                Medida = paciente.Medida.ToViewModel()
             });
         }
 
-        public static PacienteEvent ToPacienteEvent(this PacienteEntity paciente)
+        public static PacienteEvent ToEvent(this PacienteEntity paciente)
         {
-            return new PacienteEvent()
+            return paciente == null ? null : new PacienteEvent()
             {
                 Id = paciente.Id,
                 Nome = paciente.Nome,
@@ -95,7 +95,7 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medidas = paciente.Medidas
+                Medida = paciente.Medida
             };
         }
 
@@ -103,7 +103,7 @@ namespace Application.Mapper
         {
             var pacienteEvent = paciente
                                 .ToEntity()
-                                .ToPacienteEvent();
+                                .ToEvent();
             pacienteEvent.Update = true;
             return pacienteEvent;
         }

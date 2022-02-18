@@ -71,7 +71,7 @@ namespace Application.Mapper
 
         public static IEnumerable<NutricionistaViewModel> ToViewModel(this IEnumerable<NutricionistaEvent> nutricionistas)
         {
-            return nutricionistas.Select(nutricionista => new NutricionistaViewModel
+            return nutricionistas == null ? null : nutricionistas.Select(nutricionista => new NutricionistaViewModel
             {
                 Nome = nutricionista.Nome,
                 Sobrenome = nutricionista.Sobrenome,
@@ -83,19 +83,19 @@ namespace Application.Mapper
             });
         }
 
-        public static NutricionistaEvent ToNutricionistaEvent(this NutricionistaEntity paciente)
+        public static NutricionistaEvent ToNutricionistaEvent(this NutricionistaEntity nutricionista)
         {
-            return new NutricionistaEvent()
+            return nutricionista == null ? null : new NutricionistaEvent()
             {
-                Id = paciente.Id,
-                Senha = paciente.Senha,
-                Nome = paciente.Nome,
-                Sobrenome = paciente.Sobrenome,
-                Email = paciente.Email,
-                Cidade = paciente.Cidade,
-                Telefone = paciente.Telefone,
-                Sexo = paciente.Sexo,
-                PacientesIds = paciente.PacientesIds
+                Id = nutricionista.Id,
+                Senha = nutricionista.Senha,
+                Nome = nutricionista.Nome,
+                Sobrenome = nutricionista.Sobrenome,
+                Email = nutricionista.Email,
+                Cidade = nutricionista.Cidade,
+                Telefone = nutricionista.Telefone,
+                Sexo = nutricionista.Sexo,
+                PacientesIds = nutricionista.PacientesIds
             };
         }
 

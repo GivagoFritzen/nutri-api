@@ -1,6 +1,5 @@
 ﻿using Domain.Entity.Medidas;
 using System;
-using System.Collections.Generic;
 
 namespace Domain.Entity
 {
@@ -11,6 +10,6 @@ namespace Domain.Entity
         public float PesoAtual { get; set; }
         public float PesoIdeal { get; set; }
         public float Altura { get; set; }
-        public List<CircunferenciasEntity> Circunferencias { get; set; }
+        public CircunferenciaEntity Circunferencia { get; set; }
     }
 }

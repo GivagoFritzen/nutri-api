@@ -9,7 +9,7 @@ namespace Application.Mapper
     {
         public static AdminEntity ToEntity(this AdminAdicionarViewModel adminViewModel)
         {
-            return new AdminEntity()
+            return adminViewModel == null ? null : new AdminEntity()
             {
                 Id = Guid.NewGuid(),
                 Email = adminViewModel.Email,
@@ -17,21 +17,21 @@ namespace Application.Mapper
             };
         }
 
-        public static AdminEntity ToViewModel(this AdminEntity adminViewModel)
+        public static AdminAdicionarViewModel ToViewModel(this AdminEntity entity)
         {
-            return new AdminEntity()
+            return entity == null ? null : new AdminAdicionarViewModel()
             {
-                Id = adminViewModel.Id,
-                Email = adminViewModel.Email
+                Email = entity.Email,
+                Senha = entity.Senha
             };
         }
 
-        public static AdminsEvent ToAdminEvent(this AdminEntity paciente)
+        public static AdminEvent ToAdminEvent(this AdminEntity adminEntity)
         {
-            return new AdminsEvent()
+            return adminEntity == null ? null : new AdminEvent()
             {
-                Id = paciente.Id,
-                Email = paciente.Email
+                Id = adminEntity.Id,
+                Email = adminEntity.Email
             };
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Event
 {
-    public class AdminsEvent : UserEvent
+    public class AdminEvent : UserEvent
     {
     }
 }

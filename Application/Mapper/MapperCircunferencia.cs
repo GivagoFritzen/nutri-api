@@ -1,98 +1,62 @@
 ﻿using Application.ViewModel.Medidas;
 using Domain.Entity.Medidas;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Application.Mapper
 {
     public static class MapperCircunferencia
     {
-        public static List<CircunferenciasEntity> ToEntity(this CircunferenciasViewModel circunferenciasViewModel)
+        public static CircunferenciaEntity ToEntity(this CircunferenciaViewModel model)
         {
-            return new List<CircunferenciasEntity>()
+            return model == null ? null : new CircunferenciaEntity()
             {
-                new CircunferenciasEntity()
-                {
-                     BracoRelaxadoDireito = circunferenciasViewModel.BracoRelaxadoDireito,
-                     BracoRelaxadoEsquerdo = circunferenciasViewModel.BracoRelaxadoEsquerdo,
-                     BracoContraidoDireito = circunferenciasViewModel.BracoContraidoDireito,
-                     BracoContraidoEsquerdo = circunferenciasViewModel.BracoContraidoEsquerdo,
-                     AntebracoDireito = circunferenciasViewModel.AntebracoDireito,
-                     AntebracoEsquerdo = circunferenciasViewModel.AntebracoEsquerdo,
-                     PunhoDireito = circunferenciasViewModel.PunhoDireito,
-                     PunhoEsquerdo = circunferenciasViewModel.PunhoEsquerdo,
-                     Pescoso = circunferenciasViewModel.Pescoso,
-                     Ombro = circunferenciasViewModel.Ombro,
-                     Peitoral = circunferenciasViewModel.Peitoral,
-                     Cintura = circunferenciasViewModel.Cintura,
-                     Abdomen = circunferenciasViewModel.Abdomen,
-                     Quadril = circunferenciasViewModel.Quadril,
-                     PanturrilhaDireita = circunferenciasViewModel.PanturrilhaDireita,
-                     PanturrilhaEsquerda = circunferenciasViewModel.PanturrilhaEsquerda,
-                     CoxaDireita = circunferenciasViewModel.CoxaDireita,
-                     CoxaEsquerda = circunferenciasViewModel.CoxaEsquerda,
-                     CoxaProximalDireita = circunferenciasViewModel.CoxaProximalDireita,
-                     CoxaProximalEsquerda = circunferenciasViewModel.CoxaProximalEsquerda
-                }
+                BracoRelaxadoDireito = model.BracoRelaxadoDireito,
+                BracoRelaxadoEsquerdo = model.BracoRelaxadoEsquerdo,
+                BracoContraidoDireito = model.BracoContraidoDireito,
+                BracoContraidoEsquerdo = model.BracoContraidoEsquerdo,
+                AntebracoDireito = model.AntebracoDireito,
+                AntebracoEsquerdo = model.AntebracoEsquerdo,
+                PunhoDireito = model.PunhoDireito,
+                PunhoEsquerdo = model.PunhoEsquerdo,
+                Pescoco = model.Pescoco,
+                Ombro = model.Ombro,
+                Peitoral = model.Peitoral,
+                Cintura = model.Cintura,
+                Abdomen = model.Abdomen,
+                Quadril = model.Quadril,
+                PanturrilhaDireita = model.PanturrilhaDireita,
+                PanturrilhaEsquerda = model.PanturrilhaEsquerda,
+                CoxaDireita = model.CoxaDireita,
+                CoxaEsquerda = model.CoxaEsquerda,
+                CoxaProximalDireita = model.CoxaProximalDireita,
+                CoxaProximalEsquerda = model.CoxaProximalEsquerda
             };
         }
 
-        public static List<CircunferenciasEntity> ToEntity(this List<CircunferenciasViewModel> circunferenciasViewModel)
+        public static CircunferenciaViewModel ToViewModel(this CircunferenciaEntity entity)
         {
-            return circunferenciasViewModel.Select(circunferencia =>
-                 new CircunferenciasEntity()
-                 {
-                     BracoRelaxadoDireito = circunferencia.BracoRelaxadoDireito,
-                     BracoRelaxadoEsquerdo = circunferencia.BracoRelaxadoEsquerdo,
-                     BracoContraidoDireito = circunferencia.BracoContraidoDireito,
-                     BracoContraidoEsquerdo = circunferencia.BracoContraidoEsquerdo,
-                     AntebracoDireito = circunferencia.AntebracoDireito,
-                     AntebracoEsquerdo = circunferencia.AntebracoEsquerdo,
-                     PunhoDireito = circunferencia.PunhoDireito,
-                     PunhoEsquerdo = circunferencia.PunhoEsquerdo,
-                     Pescoso = circunferencia.Pescoso,
-                     Ombro = circunferencia.Ombro,
-                     Peitoral = circunferencia.Peitoral,
-                     Cintura = circunferencia.Cintura,
-                     Abdomen = circunferencia.Abdomen,
-                     Quadril = circunferencia.Quadril,
-                     PanturrilhaDireita = circunferencia.PanturrilhaDireita,
-                     PanturrilhaEsquerda = circunferencia.PanturrilhaEsquerda,
-                     CoxaDireita = circunferencia.CoxaDireita,
-                     CoxaEsquerda = circunferencia.CoxaEsquerda,
-                     CoxaProximalDireita = circunferencia.CoxaProximalDireita,
-                     CoxaProximalEsquerda = circunferencia.CoxaProximalEsquerda
-                 }
-            ).ToList();
-        }
-
-        public static List<CircunferenciasViewModel> ToViewModel(this List<CircunferenciasEntity> circunferencias)
-        {
-            return circunferencias.Select(circunferencia =>
-                new CircunferenciasViewModel()
-                {
-                    BracoRelaxadoDireito = circunferencia.BracoRelaxadoDireito,
-                    BracoRelaxadoEsquerdo = circunferencia.BracoRelaxadoEsquerdo,
-                    BracoContraidoDireito = circunferencia.BracoContraidoDireito,
-                    BracoContraidoEsquerdo = circunferencia.BracoContraidoEsquerdo,
-                    AntebracoDireito = circunferencia.AntebracoDireito,
-                    AntebracoEsquerdo = circunferencia.AntebracoEsquerdo,
-                    PunhoDireito = circunferencia.PunhoDireito,
-                    PunhoEsquerdo = circunferencia.PunhoEsquerdo,
-                    Pescoso = circunferencia.Pescoso,
-                    Ombro = circunferencia.Ombro,
-                    Peitoral = circunferencia.Peitoral,
-                    Cintura = circunferencia.Cintura,
-                    Abdomen = circunferencia.Abdomen,
-                    Quadril = circunferencia.Quadril,
-                    PanturrilhaDireita = circunferencia.PanturrilhaDireita,
-                    PanturrilhaEsquerda = circunferencia.PanturrilhaEsquerda,
-                    CoxaDireita = circunferencia.CoxaDireita,
-                    CoxaEsquerda = circunferencia.CoxaEsquerda,
-                    CoxaProximalDireita = circunferencia.CoxaProximalDireita,
-                    CoxaProximalEsquerda = circunferencia.CoxaProximalEsquerda
-                }
-            ).ToList();
+            return entity == null ? null : new CircunferenciaViewModel()
+            {
+                BracoRelaxadoDireito = entity.BracoRelaxadoDireito,
+                BracoRelaxadoEsquerdo = entity.BracoRelaxadoEsquerdo,
+                BracoContraidoDireito = entity.BracoContraidoDireito,
+                BracoContraidoEsquerdo = entity.BracoContraidoEsquerdo,
+                AntebracoDireito = entity.AntebracoDireito,
+                AntebracoEsquerdo = entity.AntebracoEsquerdo,
+                PunhoDireito = entity.PunhoDireito,
+                PunhoEsquerdo = entity.PunhoEsquerdo,
+                Pescoco = entity.Pescoco,
+                Ombro = entity.Ombro,
+                Peitoral = entity.Peitoral,
+                Cintura = entity.Cintura,
+                Abdomen = entity.Abdomen,
+                Quadril = entity.Quadril,
+                PanturrilhaDireita = entity.PanturrilhaDireita,
+                PanturrilhaEsquerda = entity.PanturrilhaEsquerda,
+                CoxaDireita = entity.CoxaDireita,
+                CoxaEsquerda = entity.CoxaEsquerda,
+                CoxaProximalDireita = entity.CoxaProximalDireita,
+                CoxaProximalEsquerda = entity.CoxaProximalEsquerda
+            };
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Services
         {
             var currentUser = (await mongoCollection.FindAsync(user => user.Id == currentId)).FirstOrDefault();
             if (currentUser != null && currentUser.Email != email)
-                return await mongoCollection.Find(new BsonDocument("Email", email)).AnyAsync();
+                return await VerificarEmailExiste(email);
 
             return false;
         }

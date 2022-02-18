@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Application.ViewModel.Medidas
 {
@@ -10,6 +9,6 @@ namespace Application.ViewModel.Medidas
         public float PesoAtual { get; set; }
         public float PesoIdeal { get; set; }
         public float Altura { get; set; }
-        public List<CircunferenciasViewModel> Circunferencias { get; set; }
+        public CircunferenciaViewModel Circunferencia { get; set; }
     }
 }

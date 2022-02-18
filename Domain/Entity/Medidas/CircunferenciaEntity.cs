@@ -1,7 +1,8 @@
-﻿namespace Application.ViewModel.Medidas
+﻿namespace Domain.Entity.Medidas
 {
-    public class CircunferenciasViewModel
+    public class CircunferenciaEntity : BaseEntity
     {
+        //  Membros Superiores
         public float BracoRelaxadoDireito { get; set; }
         public float BracoRelaxadoEsquerdo { get; set; }
         public float BracoContraidoDireito { get; set; }
@@ -13,13 +14,15 @@
         public float PunhoDireito { get; set; }
         public float PunhoEsquerdo { get; set; }
 
-        public float Pescoso { get; set; }
+        //  Tronco
+        public float Pescoco { get; set; }
         public float Ombro { get; set; }
         public float Peitoral { get; set; }
         public float Cintura { get; set; }
         public float Abdomen { get; set; }
         public float Quadril { get; set; }
 
+        //  Membros Inferiores
         public float PanturrilhaDireita { get; set; }
         public float PanturrilhaEsquerda { get; set; }
         public float CoxaDireita { get; set; }

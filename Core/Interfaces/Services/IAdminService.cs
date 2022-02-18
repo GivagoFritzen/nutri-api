@@ -3,7 +3,7 @@ using Domain.Event;
 
 namespace Core.Interfaces.Services
 {
-    public interface IAdminService : IServiceBase<AdminEntity, AdminsEvent>
+    public interface IAdminService : IServiceBase<AdminEntity, AdminEvent>
     {
     }
 }

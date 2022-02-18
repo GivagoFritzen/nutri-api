@@ -36,7 +36,7 @@ namespace Application.Services
 
             var paciente = pacienteViewModel.ToEntity();
             await pacienteService.AddAsync(paciente);
-            messagingService.Publish(paciente.ToPacienteEvent());
+            messagingService.Publish(paciente.ToEvent());
             messagingService.Publish(new UserEvent(paciente.Id, paciente.Email));
 
             return new ResponseView(paciente.ToViewModel());
