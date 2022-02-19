@@ -6414,8 +6414,8 @@
     },
     "CrossCutting/1.0.0": {
       "type": "project",
-      "path": "../../CrossCuttings/CrossCutting.csproj",
-      "msbuildProject": "../../CrossCuttings/CrossCutting.csproj"
+      "path": "../CrossCuttings/CrossCutting.csproj",
+      "msbuildProject": "../CrossCuttings/CrossCutting.csproj"
     },
     "Domain/1.0.0": {
       "type": "project",
@@ -6443,11 +6443,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
-      "outputPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\obj\\",
+      "outputPath": "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6464,14 +6464,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj": {
-              "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj"
+            "D:\\Projetos\\Git\\Nutri-Api\\Application\\Application.csproj": {
+              "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Application\\Application.csproj"
             },
-            "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj": {
-              "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj"
+            "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj": {
+              "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj"
             },
-            "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj": {
-              "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj"
+            "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj"
             }
           }
         }

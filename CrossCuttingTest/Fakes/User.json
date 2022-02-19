@@ -1,0 +1,38 @@
+[
+  {
+    "_id": {
+      "$binary": {
+        "base64": "waT3ss4+Wk+DJ0Wyfrs+eA==",
+        "subType": "03"
+      }
+    },
+    "Email": "string@teste.com"
+  },
+  {
+    "_id": {
+      "$binary": {
+        "base64": "ahEi8B+gMEuzqox+PWsh2A==",
+        "subType": "03"
+      }
+    },
+    "Email": "string2@teste.com"
+  },
+  {
+    "_id": {
+      "$binary": {
+        "base64": "zIo8hRDf8U+/9xYepYs2FA==",
+        "subType": "03"
+      }
+    },
+    "Email": "string0@teste.com"
+  },
+  {
+    "_id": {
+      "$binary": {
+        "base64": "+OK0567iN0yIZ/pWa1hxRg==",
+        "subType": "03"
+      }
+    },
+    "Email": "string00@teste.com"
+  }
+]

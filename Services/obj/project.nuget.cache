@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "x4vRwi2eSa5ZO9ptg5p9tSNZMIjLhwYihHRlX90CSVOPfM4M6obm/7CtIOQqR/2iNZqAwVtlvkO/8+hkH25b+Q==",
+  "dgSpecHash": "TTFBuogAULfTJfY2wT/dkCHMbkPAptnPWVsCdng57Rdp+axBnWbVDc/Ybsx/TKjqzXft9w8p16RYNqAr5eiiew==",
   "success": true,
-  "projectFilePath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Services\\Services.csproj",
+  "projectFilePath": "D:\\Projetos\\Git\\Nutri-Api\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\givag\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
     "C:\\Users\\givag\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",

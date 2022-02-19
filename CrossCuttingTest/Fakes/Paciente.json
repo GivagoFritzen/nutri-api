@@ -1,0 +1,74 @@
+[
+  {
+    "_id": {
+      "$binary": {
+        "base64": "waT3ss4+Wk+DJ0Wyfrs+eA==",
+        "subType": "03"
+      }
+    },
+    "Email": "string@teste.com",
+    "Nome": "string",
+    "Sobrenome": "string",
+    "Cidade": "string",
+    "Telefone": "string",
+    "Sexo": true,
+    "Medidas": {
+      "_id": {
+        "$binary": {
+          "base64": "V6PjJbA8JEJ+YQjZ44p2Xg==",
+          "subType": "03"
+        }
+      },
+      "Descricao": "string",
+      "Data": {
+        "$date": "2022-01-30T00:49:56.364Z"
+      },
+      "Circunferencias": [
+        {
+          "_id": {
+            "$binary": {
+              "base64": "WDwoE7aJsU1eFQjZ44p2bg==",
+              "subType": "03"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "_id": {
+      "$binary": {
+        "base64": "6bHHbczwQ0WL1teSKmL36Q==",
+        "subType": "03"
+      }
+    },
+    "Email": "string1234567@teste.com",
+    "Nome": "string",
+    "Sobrenome": "string",
+    "Cidade": "string",
+    "Telefone": "string",
+    "Sexo": true,
+    "Medidas": {
+      "_id": {
+        "$binary": {
+          "base64": "pDTrCpJyk0WBIgjZ8CIAlg==",
+          "subType": "03"
+        }
+      },
+      "Descricao": "string",
+      "Data": {
+        "$date": "2022-02-15T01:24:57.061Z"
+      },
+      "Circunferencias": [
+        {
+          "_id": {
+            "$binary": {
+              "base64": "BxEiOD05F0zEaAjZ8CIAnA==",
+              "subType": "03"
+            }
+          }
+        }
+      ]
+    }
+  }
+]

@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj",
+      "projectUniqueName": "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj",
       "projectName": "Core",
-      "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj",
+      "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj",
       "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
-      "outputPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\obj\\",
+      "outputPath": "D:\\Projetos\\Git\\Nutri-Api\\Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -53,8 +53,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj": {
-              "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj"
+            "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj"
             }
           }
         }

@@ -1,71 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\API\\API.csproj": {}
+    "D:\\Projetos\\Git\\Nutri-Api\\API\\API.csproj": {}
   },
   "projects": {
-    "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\CrossCutting.csproj": {
+    "D:\\Projetos\\Git\\Nutri-Api\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\CrossCutting.csproj",
-        "projectName": "CrossCutting",
-        "projectPath": "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\CrossCutting.csproj",
-        "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
-        "outputPath": "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net5.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\API\\API.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\API\\API.csproj",
+        "projectUniqueName": "D:\\Projetos\\Git\\Nutri-Api\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\API\\API.csproj",
+        "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\API\\API.csproj",
         "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
-        "outputPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\API\\obj\\",
+        "outputPath": "D:\\Projetos\\Git\\Nutri-Api\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -82,14 +28,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\Application\\Application.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Application\\Application.csproj"
               },
-              "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\Infrastructure.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\Infrastructure.csproj"
               },
-              "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Services\\Services.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Services\\Services.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\Services\\Services.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Services\\Services.csproj"
               }
             }
           }
@@ -157,14 +103,14 @@
         }
       }
     },
-    "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj": {
+    "D:\\Projetos\\Git\\Nutri-Api\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj",
+        "projectUniqueName": "D:\\Projetos\\Git\\Nutri-Api\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj",
+        "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
-        "outputPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\obj\\",
+        "outputPath": "D:\\Projetos\\Git\\Nutri-Api\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -181,11 +127,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\CrossCutting.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\CrossCuttings\\CrossCutting.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj"
               },
-              "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\CrossCuttings\\CrossCutting.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\CrossCuttings\\CrossCutting.csproj"
               }
             }
           }
@@ -224,14 +170,14 @@
         }
       }
     },
-    "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj": {
+    "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj",
+        "projectUniqueName": "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj",
+        "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
-        "outputPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\obj\\",
+        "outputPath": "D:\\Projetos\\Git\\Nutri-Api\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -248,8 +194,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj"
               }
             }
           }
@@ -282,14 +228,14 @@
         }
       }
     },
-    "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj": {
+    "D:\\Projetos\\Git\\Nutri-Api\\CrossCuttings\\CrossCutting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj",
-        "projectName": "Domain",
-        "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\Projetos\\Git\\Nutri-Api\\CrossCuttings\\CrossCutting.csproj",
+        "projectName": "CrossCutting",
+        "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\CrossCuttings\\CrossCutting.csproj",
         "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
-        "outputPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\obj\\",
+        "outputPath": "D:\\Projetos\\Git\\Nutri-Api\\CrossCuttings\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -336,14 +282,68 @@
         }
       }
     },
-    "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\Infrastructure.csproj": {
+    "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\Infrastructure.csproj",
-        "projectName": "Infrastructure",
-        "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
-        "outputPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\obj\\",
+        "outputPath": "D:\\Projetos\\Git\\Nutri-Api\\Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\Infrastructure.csproj",
+        "projectName": "Infrastructure",
+        "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
+        "outputPath": "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -360,14 +360,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Application\\Application.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\Application\\Application.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Application\\Application.csproj"
               },
-              "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj"
               },
-              "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj"
               }
             }
           }
@@ -432,14 +432,14 @@
         }
       }
     },
-    "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Services\\Services.csproj": {
+    "D:\\Projetos\\Git\\Nutri-Api\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Services\\Services.csproj",
+        "projectUniqueName": "D:\\Projetos\\Git\\Nutri-Api\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Services\\Services.csproj",
+        "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Services\\Services.csproj",
         "packagesPath": "C:\\Users\\givag\\.nuget\\packages\\",
-        "outputPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Services\\obj\\",
+        "outputPath": "D:\\Projetos\\Git\\Nutri-Api\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\givag\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -456,11 +456,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Core\\Core.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Core\\Core.csproj"
               },
-              "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Infrastructure\\Infrastructure.csproj"
+              "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }

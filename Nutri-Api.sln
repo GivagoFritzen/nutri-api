@@ -28,25 +28,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CF9857CB-868E-4F92-82C9-D2F6607FB876}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCutting", "..\CrossCuttings\CrossCutting.csproj", "{3A102EFA-9D99-46A5-94C2-88C186A8EA40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCutting", "CrossCuttings\CrossCutting.csproj", "{3A102EFA-9D99-46A5-94C2-88C186A8EA40}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainTest", "DomainTest", "{13D6A0AA-6730-4C6B-930E-FC1A5A82C709}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D4D2C0F8-A89F-4FE8-A8EA-B5BC4722C1D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicesTest", "..\ServicesTest\ServicesTest.csproj", "{73FC9532-974A-4E3C-9509-05D0C31B885D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicesTest", "ServicesTest\ServicesTest.csproj", "{73FC9532-974A-4E3C-9509-05D0C31B885D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InfrastructureTest", "InfrastructureTest", "{546762AF-FD50-4EBA-ACF4-900F5608981A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCuttingTest", "..\CrossCuttingTest\CrossCuttingTest.csproj", "{8EA4F1AD-EDD0-42CE-827E-D0A3E8587D89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCuttingTest", "CrossCuttingTest\CrossCuttingTest.csproj", "{8EA4F1AD-EDD0-42CE-827E-D0A3E8587D89}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationTest", "ApplicationTest", "{8BC8D737-2DA1-4C90-80C1-BE282834587C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationTest", "..\ApplicationTest\ApplicationTest.csproj", "{124E3D67-105B-4DFF-A370-31C283EF3F53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationTest", "ApplicationTest\ApplicationTest.csproj", "{124E3D67-105B-4DFF-A370-31C283EF3F53}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{1A29EEC4-03A6-43F9-932E-E6B88EEA0436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTest", "..\DomainTest\DomainTest.csproj", "{841AD6C2-6F21-4487-91F9-94DFE7DD6C8D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainTest", "DomainTest\DomainTest.csproj", "{841AD6C2-6F21-4487-91F9-94DFE7DD6C8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

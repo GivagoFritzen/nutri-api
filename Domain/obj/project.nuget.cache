@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "krtXimlHVY7UCBEp8W29/cf7M/1SNJw3uNwFpFA9YtKgWy7OMDjdMwHEDHRiroP7pkW6s/xbY8Dl2yi/VzKA5A==",
+  "dgSpecHash": "14XoFk0XX0VcEGOPcgrVfOOd0HU1sc1qC4LTxSRMrVDrE74tNFwTduBB4cuU5By0TKejszzjdTykNpy/lEJ0hg==",
   "success": true,
-  "projectFilePath": "D:\\Projetos\\Git\\nutrição\\Nutri-Api\\Domain\\Domain.csproj",
+  "projectFilePath": "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
