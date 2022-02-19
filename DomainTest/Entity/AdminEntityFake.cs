@@ -5,21 +5,21 @@ namespace DomainTest.Entity
 {
     public static class AdminEntityFake
     {
-        public static AdminEntity GetAdminEntitySemIdFake(
+        public static AdminsEntity GetAdminEntitySemIdFake(
             string senha = "senha",
             string email = "email")
         {
-            return new AdminEntity()
+            return new AdminsEntity()
             {
                 Senha = senha,
                 Email = email
             };
         }
 
-        public static AdminEntity GetAdminEntitySemSenhaFake(
+        public static AdminsEntity GetAdminEntitySemSenhaFake(
             string email = "email")
         {
-            return new AdminEntity()
+            return new AdminsEntity()
             {
                 Id = Guid.NewGuid(),
                 Email = email

@@ -45,7 +45,7 @@ namespace ApplicationTest.Mapper
         [TestMethod]
         public void Entity_To_Model_Null()
         {
-            AdminEntity entity = null;
+            AdminsEntity entity = null;
             entity.ToViewModel().Should().BeNull();
         }
 
@@ -68,7 +68,7 @@ namespace ApplicationTest.Mapper
         [TestMethod]
         public void Entity_To_Event_Null()
         {
-            AdminEntity entity = null;
+            AdminsEntity entity = null;
             entity.ToAdminEvent().Should().BeNull();
         }
     }

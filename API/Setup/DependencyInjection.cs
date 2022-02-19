@@ -45,7 +45,7 @@ namespace API.Setup
             //  Admin
             services.AddScoped<IApplicationServiceAdmin, ApplicationServiceAdmin>();
             services.AddScoped<IAdminService, AdminService>();
-            services.AddTransient<IRepositoryBase<AdminEntity>, RepositoryBase<AdminEntity>>();
+            services.AddTransient<IRepositoryBase<AdminsEntity>, RepositoryBase<AdminsEntity>>();
 
             //  Nutricionista
             services.AddScoped<IApplicationServiceNutricionista, ApplicationServiceNutricionista>();

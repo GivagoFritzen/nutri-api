@@ -7,9 +7,9 @@ namespace Application.Mapper
 {
     public static class MapperAdmin
     {
-        public static AdminEntity ToEntity(this AdminAdicionarViewModel adminViewModel)
+        public static AdminsEntity ToEntity(this AdminAdicionarViewModel adminViewModel)
         {
-            return adminViewModel == null ? null : new AdminEntity()
+            return adminViewModel == null ? null : new AdminsEntity()
             {
                 Id = Guid.NewGuid(),
                 Email = adminViewModel.Email,
@@ -17,7 +17,7 @@ namespace Application.Mapper
             };
         }
 
-        public static AdminAdicionarViewModel ToViewModel(this AdminEntity entity)
+        public static AdminAdicionarViewModel ToViewModel(this AdminsEntity entity)
         {
             return entity == null ? null : new AdminAdicionarViewModel()
             {
@@ -26,7 +26,7 @@ namespace Application.Mapper
             };
         }
 
-        public static AdminEvent ToAdminEvent(this AdminEntity adminEntity)
+        public static AdminEvent ToAdminEvent(this AdminsEntity adminEntity)
         {
             return adminEntity == null ? null : new AdminEvent()
             {
