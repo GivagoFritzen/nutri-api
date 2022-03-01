@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(SQLDataContext))]
-    [Migration("20220130004651_New-Migration")]
-    partial class NewMigration
+    [Migration("20220301002559_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Domain.Entity.AdminEntity", b =>
+            modelBuilder.Entity("Domain.Entity.AdminsEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,11 +47,17 @@ namespace Infrastructure.Migrations
                     b.Property<float>("Altura")
                         .HasColumnType("real");
 
+                    b.Property<Guid?>("CircunferenciaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Descricao")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("PacienteEntityId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("PesoAtual")
                         .HasColumnType("real");
@@ -61,10 +67,14 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CircunferenciaId");
+
+                    b.HasIndex("PacienteEntityId");
+
                     b.ToTable("MedidaEntity");
                 });
 
-            modelBuilder.Entity("Domain.Entity.Medidas.CircunferenciasEntity", b =>
+            modelBuilder.Entity("Domain.Entity.Medidas.CircunferenciaEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,9 +116,6 @@ namespace Infrastructure.Migrations
                     b.Property<float>("CoxaProximalEsquerda")
                         .HasColumnType("real");
 
-                    b.Property<Guid?>("MedidaEntityId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<float>("Ombro")
                         .HasColumnType("real");
 
@@ -121,7 +128,7 @@ namespace Infrastructure.Migrations
                     b.Property<float>("Peitoral")
                         .HasColumnType("real");
 
-                    b.Property<float>("Pescoso")
+                    b.Property<float>("Pescoco")
                         .HasColumnType("real");
 
                     b.Property<float>("PunhoDireito")
@@ -135,9 +142,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MedidaEntityId");
-
-                    b.ToTable("CircunferenciasEntity");
+                    b.ToTable("CircunferenciaEntity");
                 });
 
             modelBuilder.Entity("Domain.Entity.NutricionistaEntity", b =>
@@ -184,9 +189,6 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("MedidasId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
@@ -201,30 +203,25 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MedidasId");
-
                     b.ToTable("Pacientes");
-                });
-
-            modelBuilder.Entity("Domain.Entity.Medidas.CircunferenciasEntity", b =>
-                {
-                    b.HasOne("Domain.Entity.MedidaEntity", null)
-                        .WithMany("Circunferencias")
-                        .HasForeignKey("MedidaEntityId");
-                });
-
-            modelBuilder.Entity("Domain.Entity.PacienteEntity", b =>
-                {
-                    b.HasOne("Domain.Entity.MedidaEntity", "Medidas")
-                        .WithMany()
-                        .HasForeignKey("MedidasId");
-
-                    b.Navigation("Medidas");
                 });
 
             modelBuilder.Entity("Domain.Entity.MedidaEntity", b =>
                 {
-                    b.Navigation("Circunferencias");
+                    b.HasOne("Domain.Entity.Medidas.CircunferenciaEntity", "Circunferencia")
+                        .WithMany()
+                        .HasForeignKey("CircunferenciaId");
+
+                    b.HasOne("Domain.Entity.PacienteEntity", null)
+                        .WithMany("Medidas")
+                        .HasForeignKey("PacienteEntityId");
+
+                    b.Navigation("Circunferencia");
+                });
+
+            modelBuilder.Entity("Domain.Entity.PacienteEntity", b =>
+                {
+                    b.Navigation("Medidas");
                 });
 #pragma warning restore 612, 618
         }

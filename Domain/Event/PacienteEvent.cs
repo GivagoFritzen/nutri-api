@@ -1,5 +1,6 @@
 ﻿using Domain.Entity;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Event
 {
@@ -10,7 +11,7 @@ namespace Domain.Event
         public string Cidade { get; set; }
         public string Telefone { get; set; }
         public bool Sexo { get; set; }
-        public MedidaEntity Medida { get; set; }
+        public List<MedidaEntity> Medidas { get; set; }
 
         public PacienteEvent() { }
 

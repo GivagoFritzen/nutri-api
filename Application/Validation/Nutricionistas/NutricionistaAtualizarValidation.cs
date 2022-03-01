@@ -2,7 +2,6 @@
 using Core.Interfaces.Services;
 using CrossCutting.Message.Validation;
 using FluentValidation;
-using Services;
 
 namespace Application.Validation.Nutricionistas
 {
@@ -15,6 +14,10 @@ namespace Application.Validation.Nutricionistas
                 .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Nome"));
 
             RuleFor(c => c.nutricionistaViewModel.AntigaSenha)
+                .NotEmpty()
+                .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Senha"));
+
+            RuleFor(c => c.nutricionistaViewModel.NovaSenha)
                 .NotEmpty()
                 .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Senha"));
 

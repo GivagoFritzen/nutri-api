@@ -1,14 +1,13 @@
 ﻿using Domain.Entity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DomainTest.Entity
 {
-    public class NutricionistaEntityFake
+    public static class NutricionistaEntityFake
     {
+        public static Guid Id = Guid.Parse("f022116a-a01f-4b30-b3aa-8c7e3d6b21d8");
+
         public static NutricionistaEntity GetFake()
         {
             return new NutricionistaEntity()
@@ -16,7 +15,7 @@ namespace DomainTest.Entity
                 Senha = "senha",
                 Nome = "nome",
                 Sobrenome = "sobrenome",
-                Email = "email",
+                Email = "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
                 Sexo = true,

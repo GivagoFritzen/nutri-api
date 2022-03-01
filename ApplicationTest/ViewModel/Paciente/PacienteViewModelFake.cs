@@ -1,4 +1,5 @@
-﻿using Application.ViewModel.Pacientes;
+﻿using Application.ViewModel.Medidas;
+using Application.ViewModel.Pacientes;
 using System;
 using System.Collections.Generic;
 
@@ -13,26 +14,26 @@ namespace ApplicationTest.ViewModel.Paciente
                 Id = Guid.NewGuid(),
                 Nome = "nome",
                 Sobrenome = "sobrenome",
-                Email = "email",
+                Email = "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
                 Sexo = true,
-                Medida = null,
+                Medidas = new List<MedidaViewModel>(),
             };
         }
 
-        public static PacienteViewModel GetFDifferentIdFake(Guid id)
+        public static PacienteViewModel GetDifferentIdFake(Guid id)
         {
             return new PacienteViewModel()
             {
                 Id = id,
                 Nome = "nome",
                 Sobrenome = "sobrenome",
-                Email = "email",
+                Email = "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
                 Sexo = true,
-                Medida = null,
+                Medidas = new List<MedidaViewModel>(),
             };
         }
 
@@ -44,12 +45,68 @@ namespace ApplicationTest.ViewModel.Paciente
                     Id = id,
                     Nome = "nome",
                     Sobrenome = "sobrenome",
-                    Email = "email",
+                    Email = "teste@provedor.com",
                     Cidade = "cidade",
                     Telefone = "99999999",
                     Sexo = true,
-                    Medida = null
+                    Medidas = new List<MedidaViewModel>()
                 }
+            };
+        }
+
+        public static PacienteViewModel GetNomeVazioFake()
+        {
+            return new PacienteViewModel()
+            {
+                Nome = "",
+                Sobrenome = "sobrenome",
+                Email = "teste@provedor.com",
+                Cidade = "cidade",
+                Telefone = "99999999",
+                Sexo = true,
+                Medidas = new List<MedidaViewModel>(),
+            };
+        }
+
+        public static PacienteViewModel GetEmailAbaixoDoPermitidoFake()
+        {
+            return new PacienteViewModel()
+            {
+                Nome = "nome",
+                Sobrenome = "sobrenome",
+                Email = "1",
+                Cidade = "cidade",
+                Telefone = "99999999",
+                Sexo = true,
+                Medidas = new List<MedidaViewModel>(),
+            };
+        }
+
+        public static PacienteViewModel GetEmailAcimaDoPermitidoFake()
+        {
+            return new PacienteViewModel()
+            {
+                Nome = "nome",
+                Sobrenome = "sobrenome",
+                Email = new string('t', 254) + "teste@provedor.com",
+                Cidade = "cidade",
+                Telefone = "99999999",
+                Sexo = true,
+                Medidas = new List<MedidaViewModel>(),
+            };
+        }
+
+        public static PacienteViewModel GetEmailRequisitosInvalidosFake()
+        {
+            return new PacienteViewModel()
+            {
+                Nome = "nome",
+                Sobrenome = "sobrenome",
+                Email = "teste",
+                Cidade = "cidade",
+                Telefone = "99999999",
+                Sexo = true,
+                Medidas = new List<MedidaViewModel>(),
             };
         }
     }

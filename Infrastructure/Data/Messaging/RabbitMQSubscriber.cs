@@ -21,7 +21,7 @@ namespace Infrastructure.Data.Messaging
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             for (int i = 0; i < backgroundsQueue.Count; i++)
-                backgroundsQueue[i].Execute(stoppingToken);
+                await Task.Run(() => backgroundsQueue[i].Execute(stoppingToken));
         }
     }
 }

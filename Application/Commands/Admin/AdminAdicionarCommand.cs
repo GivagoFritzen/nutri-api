@@ -1,6 +1,6 @@
 ﻿using Application.Validation.Admin;
 using Application.ViewModel.Admin;
-using Services;
+using Core.Interfaces.Services;
 
 namespace Application.Commands.Admin
 {

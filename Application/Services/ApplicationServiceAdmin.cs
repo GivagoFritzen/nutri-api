@@ -5,7 +5,6 @@ using Application.ViewModel;
 using Application.ViewModel.Admin;
 using Core.Interfaces.Services;
 using Domain.Event;
-using Services;
 using System.Threading.Tasks;
 
 namespace Application.Services

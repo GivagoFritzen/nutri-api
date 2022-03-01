@@ -5,7 +5,6 @@ using Application.ViewModel;
 using Application.ViewModel.Pacientes;
 using Core.Interfaces.Services;
 using Domain.Event;
-using Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,7 +29,7 @@ namespace Application.Services
 
         public async Task<ResponseView> Add(PacienteAdicionarViewModel pacienteViewModel)
         {
-            var command = new AdicionarPacienteCommand(pacienteViewModel, userService);
+            var command = new PacienteAdicionarCommand(pacienteViewModel, userService);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
@@ -63,7 +62,7 @@ namespace Application.Services
 
         public ResponseView Update(PacienteViewModel pacienteViewModel)
         {
-            var command = new AtualizarPacienteCommand(pacienteViewModel, userService);
+            var command = new PacienteAtualizarCommand(pacienteViewModel, userService);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 

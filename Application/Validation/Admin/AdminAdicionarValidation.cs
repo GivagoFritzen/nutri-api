@@ -1,7 +1,7 @@
 ﻿using Application.Commands.Admin;
+using Core.Interfaces.Services;
 using CrossCutting.Message.Validation;
 using FluentValidation;
-using Services;
 
 namespace Application.Validation.Admin
 {
@@ -14,6 +14,10 @@ namespace Application.Validation.Admin
                 .WithMessage(GenericValidationMessages.EmailCadastrado);
 
             RuleFor(c => c.adminAdicionarViewModel.Email).ValidarEmail();
+
+            RuleFor(c => c.adminAdicionarViewModel.Senha)
+                .NotEmpty()
+                .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Senha"));
         }
     }
 }

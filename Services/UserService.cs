@@ -1,4 +1,5 @@
-﻿using Domain.Event;
+﻿using Core.Interfaces.Services;
+using Domain.Event;
 using Infrastructure.Data.Interfaces.Mongo;
 using MongoDB.Bson;
 using MongoDB.Driver;

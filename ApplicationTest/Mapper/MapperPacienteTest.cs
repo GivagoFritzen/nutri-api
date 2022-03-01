@@ -56,7 +56,7 @@ namespace ApplicationTest.Mapper
         public void Entity_To_Model()
         {
             var entity = PacienteEntityFake.GetPacienteEntityFake();
-            var expected = PacienteViewModelFake.GetFDifferentIdFake(entity.Id);
+            var expected = PacienteViewModelFake.GetDifferentIdFake(entity.Id);
 
             entity.ToViewModel()
                 .Should()
@@ -74,7 +74,7 @@ namespace ApplicationTest.Mapper
         public void Event_To_Model()
         {
             var @event = PacienteEventFake.GetPacienteEventFake();
-            var expected = PacienteViewModelFake.GetFDifferentIdFake(@event.Id);
+            var expected = PacienteViewModelFake.GetDifferentIdFake(@event.Id);
 
             @event.ToViewModel()
                 .Should()
@@ -115,7 +115,7 @@ namespace ApplicationTest.Mapper
         public void Entity_To_Event()
         {
             var entity = PacienteEntityFake.GetPacienteEntityFake();
-            var expected = PacienteViewModelFake.GetFDifferentIdFake(entity.Id);
+            var expected = PacienteViewModelFake.GetDifferentIdFake(entity.Id);
 
             entity.ToEvent()
                 .Should()

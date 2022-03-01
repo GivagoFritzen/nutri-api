@@ -1,0 +1,23 @@
+[{
+  "_id": {
+    "$binary": {
+      "base64": "ahEi8B+gMEuzqox+PWsh2A==",
+      "subType": "03"
+    }
+  },
+  "Email": "string2@teste.com",
+  "Senha": "$2b$10$k7fILP5UvsE.sf3FJt3Q/ebTD3VqdETibK3zmwMjBhsB1fpUrcCAS",
+  "Nome": "string",
+  "Sobrenome": "string",
+  "Cidade": "string",
+  "Telefone": "string",
+  "Sexo": true,
+  "PacientesIds": [
+    {
+      "$binary": {
+        "base64": "ZF+oPxdXYkWz/CyWP2avpg==",
+        "subType": "03"
+      }
+    }
+  ]
+}]

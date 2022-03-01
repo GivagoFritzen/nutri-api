@@ -1,17 +1,17 @@
 ﻿using Application.Commands;
 using Application.Validation.Pacientes;
 using Application.ViewModel.Pacientes;
-using Services;
+using Core.Interfaces.Services;
 
 namespace Application.Pacientes.Commands
 {
-    public class AtualizarPacienteCommand : Command
+    public class PacienteAdicionarCommand : Command
     {
-        public PacienteViewModel pacienteViewModel { get; private set; }
+        public PacienteAdicionarViewModel pacienteViewModel { get; private set; }
         private readonly IUserService userService;
 
-        public AtualizarPacienteCommand(
-            PacienteViewModel pacienteViewModel,
+        public PacienteAdicionarCommand(
+            PacienteAdicionarViewModel pacienteViewModel,
             IUserService userService)
         {
             this.pacienteViewModel = pacienteViewModel;
@@ -20,7 +20,7 @@ namespace Application.Pacientes.Commands
 
         public override bool EhValido()
         {
-            ValidationResult = new PacienteAtualizarValidation(userService).Validate(this);
+            ValidationResult = new PacienteAdicionarValidation(userService).Validate(this);
             return ValidationResult.IsValid;
         }
     }

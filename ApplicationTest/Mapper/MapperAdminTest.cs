@@ -15,7 +15,7 @@ namespace ApplicationTest.Mapper
         [TestMethod]
         public void Model_To_Entity()
         {
-            var model = AdminViewModelFake.GetAdminAdicionarViewModelFake();
+            var model = AdminViewModelFake.GetFake();
             var expected = AdminEntityFake.GetAdminEntitySemIdFake(model.Senha, model.Email);
 
             model.ToEntity()
@@ -35,7 +35,7 @@ namespace ApplicationTest.Mapper
         public void Entity_To_Model()
         {
             var entity = AdminEntityFake.GetAdminEntitySemIdFake();
-            var expected = AdminViewModelFake.GetAdminAdicionarViewModelFake(entity.Senha, entity.Email);
+            var expected = AdminViewModelFake.GetFake(entity.Senha, entity.Email);
 
             entity.ToViewModel()
                 .Should()

@@ -20,7 +20,7 @@ namespace Application.Mapper
                 Cidade = pacienteViewModel.Cidade,
                 Telefone = pacienteViewModel.Telefone,
                 Sexo = pacienteViewModel.Sexo,
-                Medida = pacienteViewModel.Medida.ToEntity()
+                Medidas = pacienteViewModel.Medida.ToEntity()
             };
         }
 
@@ -35,7 +35,7 @@ namespace Application.Mapper
                 Cidade = pacienteViewModel.Cidade,
                 Telefone = pacienteViewModel.Telefone,
                 Sexo = pacienteViewModel.Sexo,
-                Medida = pacienteViewModel.Medida.ToEntity()
+                Medidas = pacienteViewModel.Medidas.ToEntity()
             };
         }
 
@@ -50,7 +50,7 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medida = paciente.Medida.ToViewModel()
+                Medidas = paciente.Medidas.ToViewModel()
             };
         }
 
@@ -65,7 +65,7 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medida = paciente.Medida.ToViewModel()
+                Medidas = paciente.Medidas.ToViewModel()
             };
         }
 
@@ -80,7 +80,7 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medida = paciente.Medida.ToViewModel()
+                Medidas = paciente.Medidas.ToViewModel()
             });
         }
 
@@ -95,7 +95,7 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medida = paciente.Medida
+                Medidas = paciente.Medidas
             };
         }
 

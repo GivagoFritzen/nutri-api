@@ -1,7 +1,7 @@
 ﻿using Application.Commands.Nutricionistas;
+using Core.Interfaces.Services;
 using CrossCutting.Message.Validation;
 using FluentValidation;
-using Services;
 
 namespace Application.Validation.Nutricionistas
 {
@@ -12,6 +12,10 @@ namespace Application.Validation.Nutricionistas
             RuleFor(c => c.nutricionistaViewModel.Nome)
                 .NotEmpty()
                 .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Nome"));
+
+            RuleFor(c => c.nutricionistaViewModel.Senha)
+                .NotEmpty()
+                .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Senha"));
 
             RuleFor(c => c)
                 .MustAsync(async (x, cancellation) => await userService.VerificarEmailExiste(x.nutricionistaViewModel.Email) == false)

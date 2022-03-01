@@ -13,7 +13,7 @@ namespace DomainTest.Event
                 Senha = "senha",
                 Nome = "nome",
                 Sobrenome = "sobrenome",
-                Email = "email",
+                Email = "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
                 Sexo = true,

@@ -1,6 +1,6 @@
 ﻿using Application.Validation.Nutricionistas;
 using Application.ViewModel.Nutricionistas;
-using Services;
+using Core.Interfaces.Services;
 
 namespace Application.Commands.Nutricionistas
 {

@@ -86,5 +86,14 @@ namespace CrossCutting.Message.Exceptions {
                 return ResourceManager.GetString("NaoFoiPossivelDeletar", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuario não encontrado.
+        /// </summary>
+        public static string UsuarioNaoEncontrado {
+            get {
+                return ResourceManager.GetString("UsuarioNaoEncontrado", resourceCulture);
+            }
+        }
     }
 }

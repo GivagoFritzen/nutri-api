@@ -7,7 +7,7 @@ namespace DomainTest.Entity
     {
         public static AdminsEntity GetAdminEntitySemIdFake(
             string senha = "senha",
-            string email = "email")
+            string email = "teste@provedor.com")
         {
             return new AdminsEntity()
             {
@@ -17,7 +17,7 @@ namespace DomainTest.Entity
         }
 
         public static AdminsEntity GetAdminEntitySemSenhaFake(
-            string email = "email")
+            string email = "teste@provedor.com")
         {
             return new AdminsEntity()
             {

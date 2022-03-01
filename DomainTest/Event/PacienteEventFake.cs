@@ -1,4 +1,5 @@
-﻿using Domain.Event;
+﻿using Domain.Entity;
+using Domain.Event;
 using System;
 using System.Collections.Generic;
 
@@ -15,11 +16,11 @@ namespace DomainTest.Event
                 Id = Id,
                 Nome = "nome",
                 Sobrenome = "sobrenome",
-                Email = "email",
+                Email = "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
                 Sexo = true,
-                Medida = null
+                Medidas = new List<MedidaEntity>()
             };
         }
 
@@ -40,11 +41,11 @@ namespace DomainTest.Event
                     Id = Id,
                     Nome = "nome",
                     Sobrenome = "sobrenome",
-                    Email = "email",
+                    Email = "teste@provedor.com",
                     Cidade = "cidade",
                     Telefone = "99999999",
                     Sexo = true,
-                    Medida = null
+                    Medidas = new List<MedidaEntity>()
                 }
             };
         }

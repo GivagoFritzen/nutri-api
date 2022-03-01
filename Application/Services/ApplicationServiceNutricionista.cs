@@ -5,7 +5,6 @@ using Application.ViewModel;
 using Application.ViewModel.Nutricionistas;
 using Core.Interfaces.Services;
 using Domain.Event;
-using Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -74,6 +73,7 @@ namespace Application.Services
                 return new ResponseView(command.ValidationResult);
 
             messagingService.Publish(nutricionistaViewModel.ToNutricionistaEventUpdate());
+            messagingService.Publish(new UserEvent(nutricionistaViewModel.Id, nutricionistaViewModel.Email, true));
             nutricionistaService.Update(nutricionistaViewModel.ToEntity());
             return new ResponseView(nutricionistaViewModel);
         }

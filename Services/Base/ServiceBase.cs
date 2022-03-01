@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces.Services;
+using CrossCutting.Message.Exceptions;
 using Domain.Entity;
 using Domain.Event;
 using Infrastructure.Data.Interfaces;
@@ -45,7 +46,12 @@ namespace Services.Base
         public async Task<TEvent> GetById(Guid id)
         {
             var filter = Builders<TEvent>.Filter.Eq(x => x.Id, id);
-            return await mongoCollection.Find(filter).SingleAsync();
+            var @event = await mongoCollection.Find(filter).FirstOrDefaultAsync();
+
+            if (@event == null)
+                throw new InvalidOperationException($"{ExceptionsMessages.UsuarioNaoEncontrado}");
+
+            return @event;
         }
 
         public async Task RemoveById(Guid id)

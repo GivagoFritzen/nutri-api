@@ -1,7 +1,6 @@
 ﻿using Application.Validation.Nutricionistas;
 using Application.ViewModel.Nutricionistas;
 using Core.Interfaces.Services;
-using Services;
 
 namespace Application.Commands.Nutricionistas
 {

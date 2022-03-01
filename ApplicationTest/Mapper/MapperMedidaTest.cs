@@ -5,6 +5,8 @@ using Domain.Entity;
 using DomainTest.Entity;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ApplicationTest.Mapper
 {
@@ -18,6 +20,7 @@ namespace ApplicationTest.Mapper
             var expected = MedidaEntityFake.GetFake();
 
             model.ToEntity()
+                .FirstOrDefault()
                 .Should()
                 .BeEquivalentTo(expected,
                 options => options.Excluding(_ => _.Id).Excluding(_ => _.Data));
@@ -27,16 +30,17 @@ namespace ApplicationTest.Mapper
         public void Adicionar_Model_To_Entity_Null()
         {
             MedidaAdicionarViewModel model = null;
-            model.ToEntity().Should().BeNull();
+            model.ToEntity().Should().BeEmpty();
         }
 
         [TestMethod]
         public void Model_To_Entity()
         {
-            var model = MedidaViewModelFake.GetFake();
+            var model = new List<MedidaViewModel>() { MedidaViewModelFake.GetFake() };
             var expected = MedidaEntityFake.GetFake();
 
             model.ToEntity()
+                .FirstOrDefault()
                 .Should()
                 .BeEquivalentTo(expected,
                 options => options.Excluding(_ => _.Id).Excluding(_ => _.Data));
@@ -45,15 +49,15 @@ namespace ApplicationTest.Mapper
         [TestMethod]
         public void Model_To_Entity_Null()
         {
-            MedidaViewModel model = null;
-            model.ToEntity().Should().BeNull();
+            List<MedidaViewModel> models = null;
+            models.ToEntity().Should().BeEmpty();
         }
 
         [TestMethod]
         public void Entity_To_Model()
         {
-            var entity = MedidaEntityFake.GetFake();
-            var expected = MedidaViewModelFake.GetFake();
+            var entity = new List<MedidaEntity>() { MedidaEntityFake.GetFake() };
+            var expected = new List<MedidaViewModel>() { MedidaViewModelFake.GetFake() };
 
             entity.ToViewModel()
                 .Should()
@@ -64,8 +68,8 @@ namespace ApplicationTest.Mapper
         [TestMethod]
         public void Entity_To_Model_Null()
         {
-            MedidaEntity entity = null;
-            entity.ToViewModel().Should().BeNull();
+            List<MedidaEntity> entities = null;
+            entities.ToViewModel().Should().BeEmpty();
         }
     }
 }

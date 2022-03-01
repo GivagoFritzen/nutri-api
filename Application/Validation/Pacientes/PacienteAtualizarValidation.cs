@@ -1,11 +1,11 @@
 ﻿using Application.Pacientes.Commands;
+using Core.Interfaces.Services;
 using CrossCutting.Message.Validation;
 using FluentValidation;
-using Services;
 
 namespace Application.Validation.Pacientes
 {
-    public class PacienteAtualizarValidation : AbstractValidator<AtualizarPacienteCommand>
+    public class PacienteAtualizarValidation : AbstractValidator<PacienteAtualizarCommand>
     {
         public PacienteAtualizarValidation(IUserService userService)
         {

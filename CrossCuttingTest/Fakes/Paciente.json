@@ -1,74 +1,71 @@
-[
-  {
-    "_id": {
-      "$binary": {
-        "base64": "waT3ss4+Wk+DJ0Wyfrs+eA==",
-        "subType": "03"
-      }
-    },
-    "Email": "string@teste.com",
-    "Nome": "string",
-    "Sobrenome": "string",
-    "Cidade": "string",
-    "Telefone": "string",
-    "Sexo": true,
-    "Medidas": {
-      "_id": {
-        "$binary": {
-          "base64": "V6PjJbA8JEJ+YQjZ44p2Xg==",
-          "subType": "03"
-        }
-      },
-      "Descricao": "string",
-      "Data": {
-        "$date": "2022-01-30T00:49:56.364Z"
-      },
-      "Circunferencias": [
-        {
-          "_id": {
-            "$binary": {
-              "base64": "WDwoE7aJsU1eFQjZ44p2bg==",
-              "subType": "03"
-            }
-          }
-        }
-      ]
+[{
+  "_id": {
+    "$binary": {
+      "base64": "vtkUl3dIgUCE17as2z7Ugw==",
+      "subType": "03"
     }
   },
-  {
-    "_id": {
-      "$binary": {
-        "base64": "6bHHbczwQ0WL1teSKmL36Q==",
-        "subType": "03"
-      }
-    },
-    "Email": "string1234567@teste.com",
-    "Nome": "string",
-    "Sobrenome": "string",
-    "Cidade": "string",
-    "Telefone": "string",
-    "Sexo": true,
-    "Medidas": {
+  "Email": "string@teste.com",
+  "Nome": "string",
+  "Sobrenome": "string",
+  "Cidade": "string",
+  "Telefone": "string",
+  "Sexo": true,
+  "Medidas": [
+    {
       "_id": {
         "$binary": {
-          "base64": "pDTrCpJyk0WBIgjZ8CIAlg==",
+          "base64": "q2i4OPiM5U9VWgjZ+xqnlQ==",
           "subType": "03"
         }
       },
       "Descricao": "string",
       "Data": {
-        "$date": "2022-02-15T01:24:57.061Z"
+        "$date": "2022-03-01T00:30:08.372Z"
       },
-      "Circunferencias": [
-        {
-          "_id": {
-            "$binary": {
-              "base64": "BxEiOD05F0zEaAjZ8CIAnA==",
-              "subType": "03"
-            }
+      "Circunferencia": {
+        "_id": {
+          "$binary": {
+            "base64": "goIZWSq3Rk7MxwjZ+xqnnQ==",
+            "subType": "03"
           }
         }
-      ]
+      }
     }
-  }
-]
+  ]
+},{
+  "_id": {
+    "$binary": {
+      "base64": "upquEHjyMU6XP3P3Up/9Rg==",
+      "subType": "03"
+    }
+  },
+  "Email": "string123456789@teste.com",
+  "Nome": "string",
+  "Sobrenome": "string",
+  "Cidade": "string",
+  "Telefone": "string",
+  "Sexo": true,
+  "Medidas": [
+    {
+      "_id": {
+        "$binary": {
+          "base64": "mnstD48r3E9VWwjZ+xqnlQ==",
+          "subType": "03"
+        }
+      },
+      "Descricao": "string",
+      "Data": {
+        "$date": "2022-03-01T00:30:08.372Z"
+      },
+      "Circunferencia": {
+        "_id": {
+          "$binary": {
+            "base64": "TctBuXl1SErMyAjZ+xqnnQ==",
+            "subType": "03"
+          }
+        }
+      }
+    }
+  ]
+}]
