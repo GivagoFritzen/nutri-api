@@ -42,7 +42,8 @@ namespace ApplicationTest.Mapper
             model.ToEntity()
                 .Should()
                 .BeEquivalentTo(expected,
-                options => options.Excluding(_ => _.Id));
+                options => options.Excluding(_ => _.Id)
+                .Excluding(_ => _.Pacientes));
         }
 
         [TestMethod]
@@ -66,6 +67,24 @@ namespace ApplicationTest.Mapper
         {
             NutricionistaEntity entity = null;
             entity.ToViewModel().Should().BeNull();
+        }
+
+        [TestMethod]
+        public void Event_To_Entity()
+        {
+            var @event = NutricionistaEventFake.GetFake();
+            var expected = NutricionistaEntityFake.GetFake();
+
+            @event.ToEntity().Should()
+                .BeEquivalentTo(expected,
+                options => options.Excluding(_ => _.Pacientes));
+        }
+
+        [TestMethod]
+        public void Event_To_Entity_Null()
+        {
+            NutricionistaEvent model = null;
+            model.ToEntity().Should().BeNull();
         }
 
         [TestMethod]
@@ -113,7 +132,10 @@ namespace ApplicationTest.Mapper
             var entity = NutricionistaEntityFake.GetFake();
             var expected = NutricionistaEventFake.GetFake();
 
-            entity.ToNutricionistaEvent().Should().BeEquivalentTo(expected);
+            entity.ToNutricionistaEvent()
+                .Should()
+                .BeEquivalentTo(expected,
+                options => options.Excluding(_ => _.PacientesIds));
         }
 
         [TestMethod]
@@ -131,7 +153,8 @@ namespace ApplicationTest.Mapper
 
             model.ToNutricionistaEventUpdate()
                 .Should()
-                .BeEquivalentTo(expected);
+                .BeEquivalentTo(expected,
+                options => options.Excluding(_ => _.PacientesIds));
         }
     }
 }

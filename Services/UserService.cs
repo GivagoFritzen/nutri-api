@@ -26,6 +26,16 @@ namespace Services
             return await mongoCollection.Find(new BsonDocument("Email", email)).AnyAsync();
         }
 
+        public async Task<bool> VerificarEmailExiste(string email, string type)
+        {
+            string json = string.Format("{ Email : {0}, Type : {1} }", email, type);
+            var bsonDocument = MongoDB.Bson.Serialization
+                   .BsonSerializer
+                   .Deserialize<BsonDocument>(json);
+
+            return await mongoCollection.Find(bsonDocument).AnyAsync();
+        }
+
         public async Task<bool> VerificarEmailExiste(string email, Guid currentId)
         {
             var currentUser = (await mongoCollection.FindAsync(user => user.Id == currentId)).FirstOrDefault();

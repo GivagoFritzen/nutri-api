@@ -1,4 +1,5 @@
 ﻿using API.Controllers.Base;
+using API.Filters;
 using Application.Interfaces;
 using Application.ViewModel;
 using Application.ViewModel.Nutricionistas;
@@ -48,6 +49,12 @@ namespace API.Controllers
         public ActionResult Update([FromBody] NutricionistaAtualizarViewModel nutricionistaViewModel)
         {
             return CustomResponse(applicationServiceNutricionista.Update(nutricionistaViewModel));
+        }
+
+        [HttpPut("VincularPaciente")]
+        public ActionResult VincularPaciente(NutricionistaVincularViewModel nutricionistaViewModel)
+        {
+            return CustomResponse(applicationServiceNutricionista.VincularPaciente(nutricionistaViewModel));
         }
     }
 }

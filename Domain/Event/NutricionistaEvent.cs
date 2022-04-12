@@ -15,6 +15,6 @@ namespace Domain.Event
 
         public NutricionistaEvent() { }
 
-        public NutricionistaEvent(Guid id, bool delete) : base(id, delete) { }
+        public NutricionistaEvent(Guid id, bool delete) : base(id, "Nutricionista", delete) { }
     }
 }

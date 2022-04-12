@@ -97,6 +97,15 @@ namespace CrossCutting.Message.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email Invalido.
+        /// </summary>
+        public static string EmailInvalido {
+            get {
+                return ResourceManager.GetString("EmailInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Os requisitos de Email não foram atendidos..
         /// </summary>
         public static string RequisitosEmail {

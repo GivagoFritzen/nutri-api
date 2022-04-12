@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entity
 {
@@ -13,8 +12,7 @@ namespace Domain.Entity
         public string Cidade { get; set; }
         public string Telefone { get; set; }
         public bool Sexo { get; set; }
-        [NotMapped]
-        public List<Guid> PacientesIds { get; set; }
+        public List<PacienteEntity> Pacientes { get; set; }
 
         public NutricionistaEntity()
         {

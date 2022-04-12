@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces.Services;
+using CrossCutting.Helpers;
 using CrossCutting.Message.Exceptions;
 using Domain.Entity;
 using Domain.Event;
@@ -24,9 +25,7 @@ namespace Services.Base
         {
             this.repository = repository;
 
-            var queName = typeof(TEvent).Name
-                .Replace("Event", "")
-                .Replace("Entity", "");
+            var queName = StringHelper.GetEventName(typeof(TEvent).Name);
 
             mongoCollection = mongoDbContext
                 .GetDatabase(queName)
@@ -43,9 +42,25 @@ namespace Services.Base
             return await mongoCollection.Aggregate().ToListAsync();
         }
 
+        public async Task<IEnumerable<TEvent>> GetAll(ProjectionDefinition<TEvent> fields)
+        {
+            return await mongoCollection.Aggregate().Project<TEvent>(fields).ToListAsync();
+        }
+
         public async Task<TEvent> GetById(Guid id)
         {
             var filter = Builders<TEvent>.Filter.Eq(x => x.Id, id);
+            var @event = await mongoCollection.Find(filter).FirstOrDefaultAsync();
+
+            if (@event == null)
+                throw new InvalidOperationException($"{ExceptionsMessages.UsuarioNaoEncontrado}");
+
+            return @event;
+        }
+
+        public async Task<TEvent> GetByEmail(string email)
+        {
+            var filter = Builders<TEvent>.Filter.Eq(x => x.Email, email);
             var @event = await mongoCollection.Find(filter).FirstOrDefaultAsync();
 
             if (@event == null)

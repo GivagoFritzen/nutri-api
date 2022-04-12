@@ -1,4 +1,5 @@
-﻿using Domain.Interface;
+﻿using CrossCutting.Helpers;
+using Domain.Interface;
 using Infrastructure.Data.Interfaces.RabbitMQ;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -27,9 +28,7 @@ namespace Infrastructure.Data.Messaging
 
         public void Publish(IEvent @event)
         {
-            var queName = @event.GetType().Name
-                .Replace("Entity", "")
-                .Replace("Event", "");
+            var queName = StringHelper.GetEventName(@event.GetType().Name);
 
             channel.QueueDeclare(
                 queue: queName,

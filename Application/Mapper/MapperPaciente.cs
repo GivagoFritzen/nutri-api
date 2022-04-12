@@ -24,6 +24,21 @@ namespace Application.Mapper
             };
         }
 
+        public static PacienteEntity ToEntity(this PacienteAtualizarViewModel pacienteViewModel)
+        {
+            return pacienteViewModel == null ? null : new PacienteEntity()
+            {
+                Id = pacienteViewModel.Id,
+                Nome = pacienteViewModel.Nome,
+                Sobrenome = pacienteViewModel.Sobrenome,
+                Email = pacienteViewModel.Email,
+                Cidade = pacienteViewModel.Cidade,
+                Telefone = pacienteViewModel.Telefone,
+                Sexo = pacienteViewModel.Sexo,
+                Medidas = pacienteViewModel.Medida.ToEntity()
+            };
+        }
+
         public static PacienteEntity ToEntity(this PacienteViewModel pacienteViewModel)
         {
             return pacienteViewModel == null ? null : new PacienteEntity()
@@ -84,6 +99,18 @@ namespace Application.Mapper
             });
         }
 
+        public static IEnumerable<PacienteSimplificadoViewModel> ToListPacientesSimplificadoViewModelViewModel(this IEnumerable<PacienteEvent> pacientes)
+        {
+            return pacientes == null ? null : pacientes.Select(paciente => new PacienteSimplificadoViewModel
+            {
+                Id = paciente.Id,
+                Nome = paciente.Nome,
+                Sobrenome = paciente.Sobrenome,
+                Email = paciente.Email,
+                Telefone = paciente.Telefone
+            });
+        }
+
         public static PacienteEvent ToEvent(this PacienteEntity paciente)
         {
             return paciente == null ? null : new PacienteEvent()
@@ -99,7 +126,7 @@ namespace Application.Mapper
             };
         }
 
-        public static PacienteEvent ToPacienteEventUpdate(this PacienteViewModel paciente)
+        public static PacienteEvent ToPacienteEventUpdate(this PacienteAtualizarViewModel paciente)
         {
             var pacienteEvent = paciente
                                 .ToEntity()

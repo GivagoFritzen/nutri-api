@@ -6,7 +6,6 @@ namespace Infrastructure.Data.SQL
 {
     public class SQLDataContext : DbContext
     {
-        public DbSet<AdminsEntity> Admins { get; set; }
         public DbSet<PacienteEntity> Pacientes { get; set; }
         public DbSet<NutricionistaEntity> Nutricionistas { get; set; }
 

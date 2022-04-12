@@ -1589,7 +1589,8 @@
       },
       "Core/1.0.0": {
         "dependencies": {
-          "Domain": "1.0.0"
+          "Domain": "1.0.0",
+          "MongoDB.Driver": "2.13.2"
         },
         "runtime": {
           "Core.dll": {}
@@ -1599,6 +1600,9 @@
         }
       },
       "CrossCutting/1.0.0": {
+        "dependencies": {
+          "Domain": "1.0.0"
+        },
         "runtime": {
           "CrossCutting.dll": {}
         },

@@ -34,18 +34,12 @@ namespace API.Setup
             services.AddScoped<IRabbitMQUrlProvider>(x => new AppsettingRabbitMQUrlProvider(configuration));
 
             services.AddSingleton<IBackgroundQueue, UserEventQueue>();
-            services.AddSingleton<IBackgroundQueue, AdminEventQueue>();
             services.AddSingleton<IBackgroundQueue, PacienteEventQueue>();
             services.AddSingleton<IBackgroundQueue, NutricionistaEventQueue>();
 
             services.AddHostedService<RabbitMQSubscriber>();
             services.AddScoped<IMessagingService, MessagingService>();
             services.AddScoped<IEventPublisher, RabbitMQPublisher>();
-
-            //  Admin
-            services.AddScoped<IApplicationServiceAdmin, ApplicationServiceAdmin>();
-            services.AddScoped<IAdminService, AdminService>();
-            services.AddTransient<IRepositoryBase<AdminsEntity>, RepositoryBase<AdminsEntity>>();
 
             //  Nutricionista
             services.AddScoped<IApplicationServiceNutricionista, ApplicationServiceNutricionista>();

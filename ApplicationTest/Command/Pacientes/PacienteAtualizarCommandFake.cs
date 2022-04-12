@@ -12,35 +12,35 @@ namespace ApplicationTest.Command.Pacientes
         public static PacienteAtualizarCommand GetFake()
         {
             return new PacienteAtualizarCommand(
-                PacienteViewModelFake.GetFake(),
+                PacienteAtualizarViewModelFake.GetFake(),
                 userServiceMock.Object);
         }
 
         public static PacienteAtualizarCommand GetNomeVazioFake()
         {
             return new PacienteAtualizarCommand(
-                PacienteViewModelFake.GetNomeVazioFake(),
+                PacienteAtualizarViewModelFake.GetNomeVazioFake(),
                 userServiceMock.Object);
         }
 
         public static PacienteAtualizarCommand GetEmailAbaixoDoPermitidoFake()
         {
             return new PacienteAtualizarCommand(
-                PacienteViewModelFake.GetEmailAbaixoDoPermitidoFake(),
+                PacienteAtualizarViewModelFake.GetEmailAbaixoDoPermitidoFake(),
                 userServiceMock.Object);
         }
 
         public static PacienteAtualizarCommand GetEmailAcimaDoPermitidoFake()
         {
             return new PacienteAtualizarCommand(
-                PacienteViewModelFake.GetEmailAcimaDoPermitidoFake(),
+                PacienteAtualizarViewModelFake.GetEmailAcimaDoPermitidoFake(),
                 userServiceMock.Object);
         }
 
         public static PacienteAtualizarCommand GetEmailRequisitosInvalidosFake()
         {
             return new PacienteAtualizarCommand(
-                PacienteViewModelFake.GetEmailRequisitosInvalidosFake(),
+                PacienteAtualizarViewModelFake.GetEmailRequisitosInvalidosFake(),
                 userServiceMock.Object);
         }
     }

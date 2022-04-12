@@ -26,7 +26,8 @@ namespace ApplicationTest.Services
                 new Mock<INutricionistaService>().Object,
                 new Mock<IMessagingService>().Object,
                 new SecurityService(),
-                new Mock<IUserService>().Object);
+                new Mock<IUserService>().Object,
+                new Mock<IPacienteService>().Object);
         }
 
         [TestMethod]
@@ -58,7 +59,8 @@ namespace ApplicationTest.Services
                 nutricionistaService,
                 new Mock<IMessagingService>().Object,
                 new SecurityService(),
-                new Mock<IUserService>().Object);
+                new Mock<IUserService>().Object,
+                new Mock<IPacienteService>().Object);
 
             await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
                 applicationServiceNutricionista.GetById(Guid.NewGuid())
@@ -76,7 +78,8 @@ namespace ApplicationTest.Services
                 nutricionistaService,
                 new Mock<IMessagingService>().Object,
                 new SecurityService(),
-                new Mock<IUserService>().Object);
+                new Mock<IUserService>().Object,
+                new Mock<IPacienteService>().Object);
 
             var retorno = await applicationServiceNutricionista.GetById(NutricionistaEntityFake.Id);
             retorno.Should().NotBeNull();
@@ -93,7 +96,7 @@ namespace ApplicationTest.Services
         public void Update_Valido()
         {
             var model = NutricionistaAtualizarViewModelFake.GetFake();
-            var retorno = applicationService.Update(model).Body as NutricionistaViewModel;
+            var retorno = applicationService.Update(model).Body as NutricionistaAtualizarViewModel;
 
             retorno.Should()
                 .BeEquivalentTo(model, options =>

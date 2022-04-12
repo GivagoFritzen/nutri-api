@@ -129,6 +129,9 @@
   <data name="EmailCadastrado" xml:space="preserve">
     <value>Email já cadastrado</value>
   </data>
+  <data name="EmailInvalido" xml:space="preserve">
+    <value>Email Invalido</value>
+  </data>
   <data name="RequisitosEmail" xml:space="preserve">
     <value>Os requisitos de Email não foram atendidos.</value>
   </data>

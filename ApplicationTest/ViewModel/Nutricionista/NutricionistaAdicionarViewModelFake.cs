@@ -1,6 +1,4 @@
 ﻿using Application.ViewModel.Nutricionistas;
-using System;
-using System.Collections.Generic;
 
 namespace ApplicationTest.ViewModel.Nutricionista
 {
@@ -16,8 +14,7 @@ namespace ApplicationTest.ViewModel.Nutricionista
                 Email = "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                PacientesIds = new List<Guid>()
+                Sexo = true
             };
         }
 
@@ -31,8 +28,7 @@ namespace ApplicationTest.ViewModel.Nutricionista
                 Email = "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                PacientesIds = new List<Guid>()
+                Sexo = true
             };
         }
 
@@ -46,8 +42,7 @@ namespace ApplicationTest.ViewModel.Nutricionista
                 Email = "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                PacientesIds = new List<Guid>()
+                Sexo = true
             };
         }
 
@@ -61,8 +56,7 @@ namespace ApplicationTest.ViewModel.Nutricionista
                 Email = "1",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                PacientesIds = new List<Guid>()
+                Sexo = true
             };
         }
 
@@ -76,8 +70,7 @@ namespace ApplicationTest.ViewModel.Nutricionista
                 Email = new string('t', 254) + "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                PacientesIds = new List<Guid>()
+                Sexo = true
             };
         }
 
@@ -91,8 +84,7 @@ namespace ApplicationTest.ViewModel.Nutricionista
                 Email = "teste",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                PacientesIds = new List<Guid>()
+                Sexo = true
             };
         }
     }

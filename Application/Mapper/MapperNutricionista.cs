@@ -21,7 +21,7 @@ namespace Application.Mapper
                 Cidade = nutricionistaViewModel.Cidade,
                 Telefone = nutricionistaViewModel.Telefone,
                 Sexo = nutricionistaViewModel.Sexo,
-                PacientesIds = nutricionistaViewModel.PacientesIds
+                Pacientes = new List<PacienteEntity>()
             };
         }
 
@@ -36,8 +36,22 @@ namespace Application.Mapper
                 Email = nutricionistaViewModel.Email,
                 Cidade = nutricionistaViewModel.Cidade,
                 Telefone = nutricionistaViewModel.Telefone,
-                Sexo = nutricionistaViewModel.Sexo,
-                PacientesIds = nutricionistaViewModel.PacientesIds
+                Sexo = nutricionistaViewModel.Sexo
+            };
+        }
+
+        public static NutricionistaEntity ToEntity(this NutricionistaEvent nutricionistaEvent)
+        {
+            return nutricionistaEvent == null ? null : new NutricionistaEntity()
+            {
+                Id = nutricionistaEvent.Id,
+                Nome = nutricionistaEvent.Nome,
+                Senha = nutricionistaEvent.Senha,
+                Sobrenome = nutricionistaEvent.Sobrenome,
+                Email = nutricionistaEvent.Email,
+                Cidade = nutricionistaEvent.Cidade,
+                Telefone = nutricionistaEvent.Telefone,
+                Sexo = nutricionistaEvent.Sexo,
             };
         }
 
@@ -51,7 +65,7 @@ namespace Application.Mapper
                 Cidade = nutricionista.Cidade,
                 Telefone = nutricionista.Telefone,
                 Sexo = nutricionista.Sexo,
-                PacientesIds = nutricionista.PacientesIds
+                PacientesIds = nutricionista.Pacientes.Select(x => x.Id).ToList()
             };
         }
 
@@ -95,7 +109,7 @@ namespace Application.Mapper
                 Cidade = nutricionista.Cidade,
                 Telefone = nutricionista.Telefone,
                 Sexo = nutricionista.Sexo,
-                PacientesIds = nutricionista.PacientesIds
+                PacientesIds = nutricionista.Pacientes?.Select(x => x.Id).ToList()
             };
         }
 

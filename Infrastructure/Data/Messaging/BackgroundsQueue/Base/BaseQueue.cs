@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data.Interfaces.Mongo;
+﻿using CrossCutting.Helpers;
+using Infrastructure.Data.Interfaces.Mongo;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using Newtonsoft.Json;
@@ -16,7 +17,7 @@ namespace Infrastructure.Data.Messaging.BackgroundsQueue.Base
         protected readonly IModel channel;
         protected readonly IConnection connection;
         protected readonly IMongoCollection<TEvent> mongoCollection;
-        
+
         protected string queName;
 
         public BaseQueue(
@@ -34,7 +35,7 @@ namespace Infrastructure.Data.Messaging.BackgroundsQueue.Base
             connection = factory.CreateConnection();
             channel = connection.CreateModel();
 
-            queName = GetQueuName();
+            queName = StringHelper.GetEventName(typeof(TEvent).Name);
             mongoCollection = mongoDbContext
                     .GetDatabase(queName)
                     .GetCollection<TEvent>(queName);
@@ -71,12 +72,5 @@ namespace Infrastructure.Data.Messaging.BackgroundsQueue.Base
         }
 
         public abstract void QueueController(TEvent evento);
-
-        private string GetQueuName()
-        {
-            return typeof(TEvent).Name
-                .Replace("Event", "")
-                .Replace("Entity", "");
-        }
     }
 }

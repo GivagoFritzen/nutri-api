@@ -112,6 +112,29 @@ namespace ApplicationTest.Mapper
         }
 
         [TestMethod]
+        public void Events_To_List_Model_Simplificado_Empty()
+        {
+            var events = new List<PacienteEvent>();
+            events.ToListPacientesSimplificadoViewModelViewModel().Should().BeEquivalentTo(new List<PacienteSimplificadoViewModel>());
+        }
+
+        [TestMethod]
+        public void Events_To_List_Model_Simplificado()
+        {
+            var events = PacienteEventFake.GetListPacienteEventFake();
+            var expected = PacienteSimplificadoViewModelFake.GetListDifferentIdFake(PacienteEventFake.Id);
+
+            events.ToListPacientesSimplificadoViewModelViewModel().Should().BeEquivalentTo(expected);
+        }
+
+        [TestMethod]
+        public void Events_To_List_Model_Simplificado_Null()
+        {
+            List<PacienteEvent> events = null;
+            events.ToListPacientesSimplificadoViewModelViewModel().Should().BeNull();
+        }
+
+        [TestMethod]
         public void Entity_To_Event()
         {
             var entity = PacienteEntityFake.GetPacienteEntityFake();
@@ -132,7 +155,7 @@ namespace ApplicationTest.Mapper
         [TestMethod]
         public void Model_To_Event_Update()
         {
-            var model = PacienteViewModelFake.GetFake();
+            var model = PacienteAtualizarViewModelFake.GetFake();
             var expected = PacienteEventFake.GetPacienteEventUpdateFake(model.Id);
 
             model.ToPacienteEventUpdate()

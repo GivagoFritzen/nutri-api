@@ -19,23 +19,6 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Domain.Entity.AdminsEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Senha")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Admins");
-                });
-
             modelBuilder.Entity("Domain.Entity.MedidaEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -190,6 +173,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("NutricionistaEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("Sexo")
                         .HasColumnType("bit");
 
@@ -200,6 +186,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NutricionistaEntityId");
 
                     b.ToTable("Pacientes");
                 });
@@ -215,6 +203,18 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("PacienteEntityId");
 
                     b.Navigation("Circunferencia");
+                });
+
+            modelBuilder.Entity("Domain.Entity.PacienteEntity", b =>
+                {
+                    b.HasOne("Domain.Entity.NutricionistaEntity", null)
+                        .WithMany("Pacientes")
+                        .HasForeignKey("NutricionistaEntityId");
+                });
+
+            modelBuilder.Entity("Domain.Entity.NutricionistaEntity", b =>
+                {
+                    b.Navigation("Pacientes");
                 });
 
             modelBuilder.Entity("Domain.Entity.PacienteEntity", b =>

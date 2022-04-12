@@ -19,7 +19,7 @@ namespace DomainTest.Entity
                 Cidade = "cidade",
                 Telefone = "99999999",
                 Sexo = true,
-                PacientesIds = new List<Guid>()
+                Pacientes = new List<PacienteEntity>()
             };
         }
     }

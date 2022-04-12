@@ -1,3 +1,4 @@
+using CrossCutting.Helpers;
 using CrossCuttingTest.Interfaces;
 using Domain.Interface;
 using Mongo2Go;
@@ -27,24 +28,17 @@ namespace CrossCuttingTest
         public IMongoDatabase GetDatabase()
         {
             var client = new MongoClient(runner.ConnectionString);
-            return client.GetDatabase(GetName());
+            return client.GetDatabase(StringHelper.GetEventName(typeof(TEvent).Name));
         }
 
         public async Task<IMongoCollection<TEvent>> GetCollection()
         {
             var client = new MongoClient(runner.ConnectionString);
-            var database = client.GetDatabase(GetName());
-            var collection = database.GetCollection<TEvent>(GetName());
+            var database = client.GetDatabase(StringHelper.GetEventName(typeof(TEvent).Name));
+            var collection = database.GetCollection<TEvent>(StringHelper.GetEventName(typeof(TEvent).Name));
             await collection.InsertManyAsync(ReadFiles());
 
             return collection;
-        }
-
-        private string GetName()
-        {
-            return typeof(TEvent).Name
-                .Replace("Event", "")
-                .Replace("Entity", "");
         }
 
         private List<TEvent> ReadFiles()
@@ -56,7 +50,7 @@ namespace CrossCuttingTest
             path = path.Remove(path.LastIndexOf('\\'));
             path += "\\CrossCuttingTest";
 
-            path += $@"\Fakes\{GetName()}.json";
+            path += $@"\Fakes\{StringHelper.GetEventName(typeof(TEvent).Name)}.json";
             path = File.ReadAllText(path);
 
             return BsonSerializer.Deserialize<List<TEvent>>(path);

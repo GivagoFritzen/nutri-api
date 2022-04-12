@@ -4,9 +4,11 @@ using Application.Mapper;
 using Application.ViewModel;
 using Application.ViewModel.Nutricionistas;
 using Core.Interfaces.Services;
+using CrossCutting.Helpers;
 using Domain.Event;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -17,17 +19,20 @@ namespace Application.Services
         private readonly IMessagingService messagingService;
         private readonly ISecurityService securityService;
         private readonly IUserService userService;
+        private readonly IPacienteService pacienteService;
 
         public ApplicationServiceNutricionista(
             INutricionistaService nutricionistaService,
             IMessagingService messagingService,
             ISecurityService securityService,
-            IUserService userService)
+            IUserService userService,
+            IPacienteService pacienteService)
         {
             this.nutricionistaService = nutricionistaService;
             this.messagingService = messagingService;
             this.securityService = securityService;
             this.userService = userService;
+            this.pacienteService = pacienteService;
         }
 
         public async Task<ResponseView> Add(NutricionistaAdicionarViewModel nutricionistaViewModel)
@@ -42,7 +47,7 @@ namespace Application.Services
 
             await nutricionistaService.AddAsync(nutricionista);
             messagingService.Publish(nutricionista.ToNutricionistaEvent());
-            messagingService.Publish(new UserEvent(nutricionista.Id, nutricionista.Email));
+            messagingService.Publish(new UserEvent(nutricionista.Id, nutricionista.Email, StringHelper.GetEventName(typeof(NutricionistaViewModel).Name)));
 
             return new ResponseView(nutricionista.ToViewModel());
         }
@@ -56,7 +61,7 @@ namespace Application.Services
 
         public async Task<NutricionistaViewModel> GetById(Guid id)
         {
-            var nutricionista = await nutricionistaService.GetById(id);
+            var nutricionista = await GetEventById(id);
             return nutricionista.ToViewModel();
         }
 
@@ -73,9 +78,38 @@ namespace Application.Services
                 return new ResponseView(command.ValidationResult);
 
             messagingService.Publish(nutricionistaViewModel.ToNutricionistaEventUpdate());
-            messagingService.Publish(new UserEvent(nutricionistaViewModel.Id, nutricionistaViewModel.Email, true));
+            messagingService.Publish(
+                new UserEvent(
+                    nutricionistaViewModel.Id,
+                    nutricionistaViewModel.Email,
+                    StringHelper.GetEventName(typeof(NutricionistaAtualizarViewModel).Name),
+                    true));
             nutricionistaService.Update(nutricionistaViewModel.ToEntity());
             return new ResponseView(nutricionistaViewModel);
+        }
+
+        public async Task<ResponseView> VincularPaciente(NutricionistaVincularViewModel nutricionistaViewModel)
+        {
+            var command = new NutricionistaVincularCommand(nutricionistaViewModel, userService);
+            if (!command.EhValido())
+                return new ResponseView(command.ValidationResult);
+
+            var nutricionistaEvent = await GetEventById(nutricionistaViewModel.Id);
+            var pacienteEvent = await pacienteService.GetByEmail(nutricionistaViewModel.PacienteEmail);
+            nutricionistaEvent.PacientesIds.Add(pacienteEvent.Id);
+
+            var entity = nutricionistaEvent.ToEntity();
+            entity.Pacientes = (await pacienteService.GetAllByListIdAsync(nutricionistaEvent.PacientesIds)).ToList();
+
+            messagingService.Publish(nutricionistaEvent);
+            nutricionistaService.Update(entity);
+
+            return new ResponseView(nutricionistaViewModel);
+        }
+
+        private async Task<NutricionistaEvent> GetEventById(Guid id)
+        {
+            return await nutricionistaService.GetById(id);
         }
     }
 }

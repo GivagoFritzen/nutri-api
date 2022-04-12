@@ -58,7 +58,6 @@ namespace ApplicationTest.Services
                 new Mock<IMessagingService>().Object,
                 new Mock<IUserService>().Object);
 
-            var teste = applicationServicePaciente.GetById(Guid.NewGuid());
             await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
                 applicationServicePaciente.GetById(Guid.NewGuid())
             );
@@ -83,15 +82,15 @@ namespace ApplicationTest.Services
         [TestMethod]
         public void Update_Invalido()
         {
-            var retorno = applicationService.Update(PacienteViewModelFake.GetNomeVazioFake());
+            var retorno = applicationService.Update(PacienteAtualizarViewModelFake.GetNomeVazioFake());
             retorno.Errors.Should().NotBeNullOrEmpty();
         }
 
         [TestMethod]
         public void Update_Valido()
         {
-            var model = PacienteViewModelFake.GetFake();
-            var retorno = applicationService.Update(model).Body as PacienteViewModel;
+            var model = PacienteAtualizarViewModelFake.GetFake();
+            var retorno = applicationService.Update(model).Body as PacienteAtualizarViewModel;
 
             retorno.Should()
                 .BeEquivalentTo(model, options =>

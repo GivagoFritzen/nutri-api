@@ -10,11 +10,11 @@ namespace Application.Interfaces
     {
         Task<ResponseView> Add(PacienteAdicionarViewModel pacienteViewModel);
 
-        ResponseView Update(PacienteViewModel pacienteViewModel);
+        ResponseView Update(PacienteAtualizarViewModel pacienteViewModel);
 
         Task RemoveById(Guid id);
 
-        Task<IEnumerable<PacienteViewModel>> GetAll();
+        Task<IEnumerable<PacienteSimplificadoViewModel>> GetAll();
 
         Task<PacienteViewModel> GetById(Guid id);
     }

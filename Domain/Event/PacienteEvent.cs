@@ -15,6 +15,6 @@ namespace Domain.Event
 
         public PacienteEvent() { }
 
-        public PacienteEvent(Guid id, bool delete) : base(id, delete) { }
+        public PacienteEvent(Guid id, bool delete) : base(id, "Paciente", delete) { }
     }
 }

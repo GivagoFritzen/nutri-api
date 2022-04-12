@@ -7,11 +7,11 @@ namespace Application.Pacientes.Commands
 {
     public class PacienteAtualizarCommand : Command
     {
-        public PacienteViewModel pacienteViewModel { get; private set; }
+        public PacienteAtualizarViewModel pacienteViewModel { get; private set; }
         private readonly IUserService userService;
 
         public PacienteAtualizarCommand(
-            PacienteViewModel pacienteViewModel,
+            PacienteAtualizarViewModel pacienteViewModel,
             IUserService userService)
         {
             this.pacienteViewModel = pacienteViewModel;
