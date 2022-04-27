@@ -95,14 +95,24 @@ namespace Application.Services
                 return new ResponseView(command.ValidationResult);
 
             var nutricionistaEvent = await GetEventById(nutricionistaViewModel.Id);
+            if (nutricionistaEvent.PacientesIds == null)
+                nutricionistaEvent.PacientesIds = new List<Guid>();
+
             var pacienteEvent = await pacienteService.GetByEmail(nutricionistaViewModel.PacienteEmail);
+            nutricionistaEvent.PacientesIds.Remove(pacienteEvent.Id);
+
+            var pacientes = (await pacienteService.GetAll()).Where(x => nutricionistaEvent.PacientesIds.Contains(x.Id));
+
+            nutricionistaEvent.PacientesIds = new List<Guid>();
             nutricionistaEvent.PacientesIds.Add(pacienteEvent.Id);
+            nutricionistaEvent.PacientesIds.AddRange(pacientes.Select(x => x.Id));
 
             var entity = nutricionistaEvent.ToEntity();
-            entity.Pacientes = (await pacienteService.GetAllByListIdAsync(nutricionistaEvent.PacientesIds)).ToList();
+            entity.Pacientes.AddRange(pacientes.ToListPacientesEntity());
 
-            messagingService.Publish(nutricionistaEvent);
+            nutricionistaEvent.Update = true;
             nutricionistaService.Update(entity);
+            messagingService.Publish(nutricionistaEvent);
 
             return new ResponseView(nutricionistaViewModel);
         }

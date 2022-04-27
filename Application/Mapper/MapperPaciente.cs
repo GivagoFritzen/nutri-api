@@ -54,6 +54,21 @@ namespace Application.Mapper
             };
         }
 
+        public static PacienteEntity ToEntity(this PacienteEvent pacienteEvent)
+        {
+            return pacienteEvent == null ? null : new PacienteEntity()
+            {
+                Id = pacienteEvent.Id,
+                Nome = pacienteEvent.Nome,
+                Sobrenome = pacienteEvent.Sobrenome,
+                Email = pacienteEvent.Email,
+                Cidade = pacienteEvent.Cidade,
+                Telefone = pacienteEvent.Telefone,
+                Sexo = pacienteEvent.Sexo,
+                Medidas = pacienteEvent.Medidas
+            };
+        }
+
         public static PacienteViewModel ToViewModel(this PacienteEntity paciente)
         {
             return paciente == null ? null : new PacienteViewModel()
@@ -96,6 +111,21 @@ namespace Application.Mapper
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
                 Medidas = paciente.Medidas.ToViewModel()
+            });
+        }
+
+        public static IEnumerable<PacienteEntity> ToListPacientesEntity(this IEnumerable<PacienteEvent> pacientes)
+        {
+            return pacientes == null ? null : pacientes.Select(paciente => new PacienteEntity()
+            {
+                Id = paciente.Id,
+                Nome = paciente.Nome,
+                Sobrenome = paciente.Sobrenome,
+                Email = paciente.Email,
+                Cidade = paciente.Cidade,
+                Telefone = paciente.Telefone,
+                Sexo = paciente.Sexo,
+                Medidas = paciente.Medidas
             });
         }
 

@@ -26,7 +26,7 @@ namespace Infrastructure.Data.Repositories.SQL
             }
             catch (Exception e)
             {
-                throw new InvalidOperationException($"{ExceptionsMessages.NaoFoiPossivelCadastrar} - {e.InnerException.Message}");
+                throw new InvalidOperationException($"{ExceptionsMessages.NaoFoiPossivelCadastrar} - {e.Message}");
             }
         }
 
@@ -51,7 +51,7 @@ namespace Infrastructure.Data.Repositories.SQL
             }
             catch (Exception e)
             {
-                throw new InvalidOperationException($"{ExceptionsMessages.NaoFoiPossivelDeletar} - {e.InnerException.Message}");
+                throw new InvalidOperationException($"{ExceptionsMessages.NaoFoiPossivelDeletar} - {e.Message}");
             }
         }
 
@@ -59,13 +59,14 @@ namespace Infrastructure.Data.Repositories.SQL
         {
             try
             {
-                context.Entry(obj).State = EntityState.Modified;
                 context.Set<TEntity>().Update(obj);
+                context.Entry(obj).State = EntityState.Modified;
+
                 context.SaveChanges();
             }
             catch (Exception e)
             {
-                throw new InvalidOperationException($"{ExceptionsMessages.NaoFoiPossivelAtualizar} - {e.InnerException.Message}");
+                throw new InvalidOperationException($"{ExceptionsMessages.NaoFoiPossivelAtualizar} - {e.Message}");
             }
         }
 

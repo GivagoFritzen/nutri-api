@@ -52,9 +52,9 @@ namespace API.Controllers
         }
 
         [HttpPut("VincularPaciente")]
-        public ActionResult VincularPaciente(NutricionistaVincularViewModel nutricionistaViewModel)
+        public async Task<ActionResult<ResponseView>> VincularPaciente(NutricionistaVincularViewModel nutricionistaViewModel)
         {
-            return CustomResponse(applicationServiceNutricionista.VincularPaciente(nutricionistaViewModel));
+            return CustomResponse(await applicationServiceNutricionista.VincularPaciente(nutricionistaViewModel));
         }
     }
 }

@@ -28,12 +28,11 @@ namespace Services
 
         public async Task<bool> VerificarEmailExiste(string email, string type)
         {
-            string json = string.Format("{ Email : {0}, Type : {1} }", email, type);
-            var bsonDocument = MongoDB.Bson.Serialization
-                   .BsonSerializer
-                   .Deserialize<BsonDocument>(json);
+            var filter = Builders<UserEvent>.Filter.And(
+                Builders<UserEvent>.Filter.Where(p => p.Email.Equals(email)),
+                Builders<UserEvent>.Filter.Where(p => p.Type.Equals(type)));
 
-            return await mongoCollection.Find(bsonDocument).AnyAsync();
+            return await mongoCollection.Find(filter).AnyAsync();
         }
 
         public async Task<bool> VerificarEmailExiste(string email, Guid currentId)

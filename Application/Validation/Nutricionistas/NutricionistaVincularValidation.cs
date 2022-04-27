@@ -21,8 +21,7 @@ namespace Application.Validation.Nutricionistas
                 .MustAsync(async (x, cancellation) => await userService.VerificarEmailExiste(
                     x.nutricionistaViewModel.PacienteEmail,
                     "Paciente"
-                ) == false)
-                .WithMessage(GenericValidationMessages.EmailInvalido);
+                )).WithMessage(GenericValidationMessages.EmailInvalido);
         }
     }
 }
