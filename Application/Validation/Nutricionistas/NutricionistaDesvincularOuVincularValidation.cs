@@ -5,9 +5,9 @@ using FluentValidation;
 
 namespace Application.Validation.Nutricionistas
 {
-    public class NutricionistaVincularValidation : AbstractValidator<NutricionistaVincularCommand>
+    public class NutricionistaDesvincularOuVincularValidation : AbstractValidator<NutricionistaDesvincularOuVincularCommand>
     {
-        public NutricionistaVincularValidation(IUserService userService)
+        public NutricionistaDesvincularOuVincularValidation(IUserService userService)
         {
             RuleFor(c => c.nutricionistaViewModel.Id)
                 .NotEmpty()

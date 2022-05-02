@@ -4,13 +4,13 @@ using Core.Interfaces.Services;
 
 namespace Application.Commands.Nutricionistas
 {
-    public class NutricionistaVincularCommand : Command
+    public class NutricionistaDesvincularOuVincularCommand : Command
     {
-        public NutricionistaVincularViewModel nutricionistaViewModel { get; private set; }
+        public NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel { get; private set; }
         private readonly IUserService userService;
 
-        public NutricionistaVincularCommand(
-            NutricionistaVincularViewModel nutricionistaViewModel,
+        public NutricionistaDesvincularOuVincularCommand(
+            NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel,
             IUserService userService)
         {
             this.nutricionistaViewModel = nutricionistaViewModel;
@@ -19,7 +19,7 @@ namespace Application.Commands.Nutricionistas
 
         public override bool EhValido()
         {
-            ValidationResult = new NutricionistaVincularValidation(userService).Validate(this);
+            ValidationResult = new NutricionistaDesvincularOuVincularValidation(userService).Validate(this);
             return ValidationResult.IsValid;
         }
     }

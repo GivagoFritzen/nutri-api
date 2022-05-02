@@ -1,5 +1,4 @@
 ﻿using API.Controllers.Base;
-using API.Filters;
 using Application.Interfaces;
 using Application.ViewModel;
 using Application.ViewModel.Nutricionistas;
@@ -52,9 +51,15 @@ namespace API.Controllers
         }
 
         [HttpPut("VincularPaciente")]
-        public async Task<ActionResult<ResponseView>> VincularPaciente(NutricionistaVincularViewModel nutricionistaViewModel)
+        public async Task<ActionResult<ResponseView>> VincularPaciente([FromBody] NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
         {
             return CustomResponse(await applicationServiceNutricionista.VincularPaciente(nutricionistaViewModel));
+        }
+
+        [HttpPut("DesvincularPaciente")]
+        public async Task<ActionResult<ResponseView>> DesvincularPaciente([FromBody] NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
+        {
+            return CustomResponse(await applicationServiceNutricionista.DesvincularPaciente(nutricionistaViewModel));
         }
     }
 }

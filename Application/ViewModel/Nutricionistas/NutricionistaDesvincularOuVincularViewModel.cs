@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.ViewModel.Nutricionistas
 {
-    public class NutricionistaVincularViewModel
+    public class NutricionistaDesvincularOuVincularViewModel
     {
         [Required]
         public Guid Id { get; set; }

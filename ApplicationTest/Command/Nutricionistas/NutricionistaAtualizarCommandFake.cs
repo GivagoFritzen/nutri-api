@@ -2,7 +2,6 @@
 using ApplicationTest.ViewModel.Nutricionista;
 using Core.Interfaces.Services;
 using Moq;
-using Services;
 
 namespace ApplicationTest.Command.Nutricionistas
 {

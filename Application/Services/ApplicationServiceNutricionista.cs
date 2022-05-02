@@ -88,9 +88,9 @@ namespace Application.Services
             return new ResponseView(nutricionistaViewModel);
         }
 
-        public async Task<ResponseView> VincularPaciente(NutricionistaVincularViewModel nutricionistaViewModel)
+        public async Task<ResponseView> VincularPaciente(NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
         {
-            var command = new NutricionistaVincularCommand(nutricionistaViewModel, userService);
+            var command = new NutricionistaDesvincularOuVincularCommand(nutricionistaViewModel, userService);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
@@ -101,14 +101,34 @@ namespace Application.Services
             var pacienteEvent = await pacienteService.GetByEmail(nutricionistaViewModel.PacienteEmail);
             nutricionistaEvent.PacientesIds.Remove(pacienteEvent.Id);
 
-            var pacientes = (await pacienteService.GetAll()).Where(x => nutricionistaEvent.PacientesIds.Contains(x.Id));
+            var pacientes = (await pacienteService.GetAll()).Where(x => nutricionistaEvent.PacientesIds.Contains(x.Id)).ToList();
 
-            nutricionistaEvent.PacientesIds = new List<Guid>();
             nutricionistaEvent.PacientesIds.Add(pacienteEvent.Id);
             nutricionistaEvent.PacientesIds.AddRange(pacientes.Select(x => x.Id));
 
             var entity = nutricionistaEvent.ToEntity();
+            entity.Pacientes.Add(pacienteEvent.ToEntity());
             entity.Pacientes.AddRange(pacientes.ToListPacientesEntity());
+
+            nutricionistaEvent.Update = true;
+            nutricionistaService.Update(entity);
+            messagingService.Publish(nutricionistaEvent);
+
+            return new ResponseView(nutricionistaViewModel);
+        }
+
+        public async Task<ResponseView> DesvincularPaciente(NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
+        {
+            var command = new NutricionistaDesvincularOuVincularCommand(nutricionistaViewModel, userService);
+            if (!command.EhValido())
+                return new ResponseView(command.ValidationResult);
+
+            var nutricionistaEvent = await GetEventById(nutricionistaViewModel.Id);
+
+            var pacienteEvent = await pacienteService.GetByEmail(nutricionistaViewModel.PacienteEmail);
+            nutricionistaEvent.PacientesIds.Remove(pacienteEvent.Id);
+
+            var entity = nutricionistaEvent.ToEntity();
 
             nutricionistaEvent.Update = true;
             nutricionistaService.Update(entity);
