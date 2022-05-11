@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "14XoFk0XX0VcEGOPcgrVfOOd0HU1sc1qC4LTxSRMrVDrE74tNFwTduBB4cuU5By0TKejszzjdTykNpy/lEJ0hg==",
+  "dgSpecHash": "WWPLqbFSw1BPEV30dzqcHBgGzVJNYNI3BM0G+LvIP/XLiN3s8DMSsB1xLaMOhEb7N3lVO59A83EI/2LJk5/zQQ==",
   "success": true,
   "projectFilePath": "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\givag\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\givag\\.nuget\\packages\\microsoft.identitymodel.logging\\6.17.0\\microsoft.identitymodel.logging.6.17.0.nupkg.sha512",
+    "C:\\Users\\givag\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.17.0\\microsoft.identitymodel.tokens.6.17.0.nupkg.sha512",
+    "C:\\Users\\givag\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

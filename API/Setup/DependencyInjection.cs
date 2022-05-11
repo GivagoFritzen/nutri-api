@@ -54,6 +54,10 @@ namespace API.Setup
             // User 
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IMongoClient, MongoClient>(_ => new MongoClient(configuration.GetConnectionString("MongoConnection")));
+
+            //  Login
+            services.AddScoped<IApplicationServiceLogin, ApplicationServiceLogin>();
+            services.AddScoped<ITokenService, TokenService>();
         }
     }
 }

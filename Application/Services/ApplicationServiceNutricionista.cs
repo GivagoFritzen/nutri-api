@@ -42,8 +42,7 @@ namespace Application.Services
                 return new ResponseView(command.ValidationResult);
 
             var nutricionista = nutricionistaViewModel.ToEntity();
-            var passwordEncripted = securityService.EncryptPassword(nutricionista.Senha);
-            nutricionista.Senha = passwordEncripted;
+            nutricionista.Senha = securityService.EncryptPassword(nutricionista.Senha);
 
             await nutricionistaService.AddAsync(nutricionista);
             messagingService.Publish(nutricionista.ToNutricionistaEvent());
@@ -77,6 +76,8 @@ namespace Application.Services
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
+            nutricionistaViewModel.NovaSenha = securityService.EncryptPassword(nutricionistaViewModel.NovaSenha);
+
             messagingService.Publish(nutricionistaViewModel.ToNutricionistaEventUpdate());
             messagingService.Publish(
                 new UserEvent(
@@ -103,6 +104,7 @@ namespace Application.Services
 
             var pacientes = (await pacienteService.GetAll()).Where(x => nutricionistaEvent.PacientesIds.Contains(x.Id)).ToList();
 
+            nutricionistaEvent.Senha = securityService.EncryptPassword(nutricionistaEvent.Senha);
             nutricionistaEvent.PacientesIds.Add(pacienteEvent.Id);
             nutricionistaEvent.PacientesIds.AddRange(pacientes.Select(x => x.Id));
 
@@ -124,12 +126,12 @@ namespace Application.Services
                 return new ResponseView(command.ValidationResult);
 
             var nutricionistaEvent = await GetEventById(nutricionistaViewModel.Id);
+            nutricionistaEvent.Senha = securityService.EncryptPassword(nutricionistaEvent.Senha);
 
             var pacienteEvent = await pacienteService.GetByEmail(nutricionistaViewModel.PacienteEmail);
             nutricionistaEvent.PacientesIds.Remove(pacienteEvent.Id);
 
             var entity = nutricionistaEvent.ToEntity();
-
             nutricionistaEvent.Update = true;
             nutricionistaService.Update(entity);
             messagingService.Publish(nutricionistaEvent);

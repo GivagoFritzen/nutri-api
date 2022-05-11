@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-  </ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.17.0" />
+  </ItemGroup>  
 
   <ItemGroup>
     <Compile Update="Message\Exceptions\ExceptionsMessages.Designer.cs">

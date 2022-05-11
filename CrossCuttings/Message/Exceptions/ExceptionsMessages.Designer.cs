@@ -95,5 +95,14 @@ namespace CrossCutting.Message.Exceptions {
                 return ResourceManager.GetString("UsuarioNaoEncontrado", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuario ou senha invalido.
+        /// </summary>
+        public static string UsuarioOuSenhaInvalido {
+            get {
+                return ResourceManager.GetString("UsuarioOuSenhaInvalido", resourceCulture);
+            }
+        }
     }
 }

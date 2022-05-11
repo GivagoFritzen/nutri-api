@@ -129,4 +129,7 @@
   <data name="UsuarioNaoEncontrado" xml:space="preserve">
     <value>Usuario não encontrado</value>
   </data>
+  <data name="UsuarioOuSenhaInvalido" xml:space="preserve">
+    <value>Usuario ou senha invalido</value>
+  </data>
 </root>

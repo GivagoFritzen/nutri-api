@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace API.Filters
+namespace API.Attributes
 {
     public class NullExceptionFilter : ActionFilterAttribute
     {

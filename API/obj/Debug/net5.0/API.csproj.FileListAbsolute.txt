@@ -192,3 +192,4 @@ D:\Projetos\Git\Nutri-Api\API\obj\Debug\net5.0\API.dll
 D:\Projetos\Git\Nutri-Api\API\obj\Debug\net5.0\ref\API.dll
 D:\Projetos\Git\Nutri-Api\API\obj\Debug\net5.0\API.pdb
 D:\Projetos\Git\Nutri-Api\API\obj\Debug\net5.0\API.genruntimeconfig.cache
+D:\Projetos\Git\Nutri-Api\API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

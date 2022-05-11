@@ -7,14 +7,82 @@
   "targets": {
     ".NETCoreApp,Version=v5.0": {
       "Domain/1.0.0": {
+        "dependencies": {
+          "CrossCutting": "1.0.0",
+          "Microsoft.IdentityModel.Tokens": "6.17.0"
+        },
         "runtime": {
           "Domain.dll": {}
+        }
+      },
+      "Microsoft.CSharp/4.5.0": {},
+      "Microsoft.IdentityModel.Logging/6.17.0": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.Logging.dll": {
+            "assemblyVersion": "6.17.0.0",
+            "fileVersion": "6.17.0.30323"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Tokens/6.17.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "Microsoft.IdentityModel.Logging": "6.17.0",
+          "System.Security.Cryptography.Cng": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.IdentityModel.Tokens.dll": {
+            "assemblyVersion": "6.17.0.0",
+            "fileVersion": "6.17.0.30323"
+          }
+        }
+      },
+      "System.Security.Cryptography.Cng/4.5.0": {},
+      "CrossCutting/1.0.0": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Tokens": "6.17.0"
+        },
+        "runtime": {
+          "CrossCutting.dll": {}
         }
       }
     }
   },
   "libraries": {
     "Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.CSharp/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
+      "path": "microsoft.csharp/4.5.0",
+      "hashPath": "microsoft.csharp.4.5.0.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.Logging/6.17.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ix6/CMLDoo939NDf1ARDuGK6YERY7pAX9WYbfwb4gZqx7r52unMFIykJk+zlEBX7jjtbDz/0uzikQFvheV9KsQ==",
+      "path": "microsoft.identitymodel.logging/6.17.0",
+      "hashPath": "microsoft.identitymodel.logging.6.17.0.nupkg.sha512"
+    },
+    "Microsoft.IdentityModel.Tokens/6.17.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mhOe+d9BQg5U45TkTCyXAFOjl7RvwaFj6v9qo8b+WFolkuGsfjSFfQ+WI9D3ho9sD/fK75gvL4JptmjLzyUPkw==",
+      "path": "microsoft.identitymodel.tokens/6.17.0",
+      "hashPath": "microsoft.identitymodel.tokens.6.17.0.nupkg.sha512"
+    },
+    "System.Security.Cryptography.Cng/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WG3r7EyjUe9CMPFSs6bty5doUqT+q9pbI80hlNzo2SkPkZ4VTuZkGWjpp77JB8+uaL4DFPRdBsAY+DX3dBK92A==",
+      "path": "system.security.cryptography.cng/4.5.0",
+      "hashPath": "system.security.cryptography.cng.4.5.0.nupkg.sha512"
+    },
+    "CrossCutting/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

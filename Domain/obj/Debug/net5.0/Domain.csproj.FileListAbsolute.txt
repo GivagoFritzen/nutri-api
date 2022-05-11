@@ -22,3 +22,6 @@ D:\Projetos\Git\Nutri-Api\Domain\obj\Debug\net5.0\Domain.dll
 D:\Projetos\Git\Nutri-Api\Domain\obj\Debug\net5.0\ref\Domain.dll
 D:\Projetos\Git\Nutri-Api\Domain\obj\Debug\net5.0\Domain.pdb
 D:\Projetos\Git\Nutri-Api\Domain\obj\Debug\net5.0\Domain.csprojAssemblyReference.cache
+D:\Projetos\Git\Nutri-Api\Domain\bin\Debug\net5.0\CrossCutting.dll
+D:\Projetos\Git\Nutri-Api\Domain\bin\Debug\net5.0\CrossCutting.pdb
+D:\Projetos\Git\Nutri-Api\Domain\obj\Debug\net5.0\Domain.csproj.CopyComplete

@@ -50,6 +50,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.16, )"
+            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[5.0.8, )"
@@ -149,6 +153,10 @@
             "FluentValidation": {
               "target": "Package",
               "version": "[10.3.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.17.0, )"
             }
           },
           "imports": [
@@ -257,11 +265,7 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {
-              "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\Domain\\Domain.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -273,6 +277,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.17.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -315,7 +325,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\Projetos\\Git\\Nutri-Api\\CrossCuttings\\CrossCutting.csproj": {
+                "projectPath": "D:\\Projetos\\Git\\Nutri-Api\\CrossCuttings\\CrossCutting.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -327,6 +341,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.17.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
