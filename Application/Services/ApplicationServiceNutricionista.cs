@@ -5,6 +5,7 @@ using Application.ViewModel;
 using Application.ViewModel.Nutricionistas;
 using Core.Interfaces.Services;
 using CrossCutting.Helpers;
+using Domain.Entity;
 using Domain.Event;
 using System;
 using System.Collections.Generic;
@@ -76,16 +77,15 @@ namespace Application.Services
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
-            nutricionistaViewModel.NovaSenha = securityService.EncryptPassword(nutricionistaViewModel.NovaSenha);
+            UpdateRepositories(nutricionistaViewModel.ToNutricionistaEventUpdate(), nutricionistaViewModel.ToEntity());
 
-            messagingService.Publish(nutricionistaViewModel.ToNutricionistaEventUpdate());
             messagingService.Publish(
                 new UserEvent(
                     nutricionistaViewModel.Id,
                     nutricionistaViewModel.Email,
                     StringHelper.GetEventName(typeof(NutricionistaAtualizarViewModel).Name),
-                    true));
-            nutricionistaService.Update(nutricionistaViewModel.ToEntity());
+                true));
+
             return new ResponseView(nutricionistaViewModel);
         }
 
@@ -102,9 +102,10 @@ namespace Application.Services
             var pacienteEvent = await pacienteService.GetByEmail(nutricionistaViewModel.PacienteEmail);
             nutricionistaEvent.PacientesIds.Remove(pacienteEvent.Id);
 
-            var pacientes = (await pacienteService.GetAll()).Where(x => nutricionistaEvent.PacientesIds.Contains(x.Id)).ToList();
+            var pacientes = (await pacienteService.GetAll())
+                .Where(x => nutricionistaEvent.PacientesIds.Contains(x.Id))
+                .ToList();
 
-            nutricionistaEvent.Senha = securityService.EncryptPassword(nutricionistaEvent.Senha);
             nutricionistaEvent.PacientesIds.Add(pacienteEvent.Id);
             nutricionistaEvent.PacientesIds.AddRange(pacientes.Select(x => x.Id));
 
@@ -112,9 +113,7 @@ namespace Application.Services
             entity.Pacientes.Add(pacienteEvent.ToEntity());
             entity.Pacientes.AddRange(pacientes.ToListPacientesEntity());
 
-            nutricionistaEvent.Update = true;
-            nutricionistaService.Update(entity);
-            messagingService.Publish(nutricionistaEvent);
+            UpdateRepositories(nutricionistaEvent, entity);
 
             return new ResponseView(nutricionistaViewModel);
         }
@@ -126,22 +125,28 @@ namespace Application.Services
                 return new ResponseView(command.ValidationResult);
 
             var nutricionistaEvent = await GetEventById(nutricionistaViewModel.Id);
-            nutricionistaEvent.Senha = securityService.EncryptPassword(nutricionistaEvent.Senha);
 
             var pacienteEvent = await pacienteService.GetByEmail(nutricionistaViewModel.PacienteEmail);
             nutricionistaEvent.PacientesIds.Remove(pacienteEvent.Id);
 
-            var entity = nutricionistaEvent.ToEntity();
-            nutricionistaEvent.Update = true;
-            nutricionistaService.Update(entity);
-            messagingService.Publish(nutricionistaEvent);
-
+            UpdateRepositories(nutricionistaEvent, nutricionistaEvent.ToEntity());
             return new ResponseView(nutricionistaViewModel);
         }
 
         private async Task<NutricionistaEvent> GetEventById(Guid id)
         {
             return await nutricionistaService.GetById(id);
+        }
+
+        private void UpdateRepositories(NutricionistaEvent nutricionistaEvent, NutricionistaEntity entity)
+        {
+            entity.Senha = securityService.EncryptPassword(entity.Senha);
+
+            nutricionistaEvent.Senha = securityService.EncryptPassword(nutricionistaEvent.Senha);
+            nutricionistaEvent.Update = true;
+
+            messagingService.Publish(nutricionistaEvent);
+            nutricionistaService.Update(entity);
         }
     }
 }

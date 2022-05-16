@@ -33,7 +33,6 @@ namespace ApplicationTest.Validation.Nutricionista
 
             var erros = result.Errors.Select(x => x.ErrorMessage);
             erros.Should().Contain(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Nome"));
-
         }
 
         [TestMethod]

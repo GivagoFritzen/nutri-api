@@ -8,9 +8,7 @@ namespace Application.Validation.Login
     {
         public LoginNutricionistaValidation()
         {
-            RuleFor(c => c.loginNutricionistaViewModel.Email)
-                .NotEmpty()
-                .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Email"));
+            RuleFor(c => c.loginNutricionistaViewModel.Email).ValidarEmail();
 
             RuleFor(c => c.loginNutricionistaViewModel.Senha)
                 .NotEmpty()
