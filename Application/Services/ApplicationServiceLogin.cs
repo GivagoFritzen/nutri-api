@@ -4,6 +4,7 @@ using Application.ViewModel;
 using Application.ViewModel.Login;
 using Core.Interfaces.Services;
 using CrossCutting.Message.Exceptions;
+using Domain.Event;
 using System;
 using System.Threading.Tasks;
 
@@ -30,9 +31,10 @@ namespace Application.Services
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
+            NutricionistaEvent nutricionista = null;
             try
             {
-                var nutricionista = await nutricionistaService.GetByEmail(loginViewModel.Email);
+                nutricionista = await nutricionistaService.GetByEmail(loginViewModel.Email);
 
                 if (!securityService.VerifyPassword(loginViewModel.Senha, nutricionista.Senha))
                     ExceptionUsuarioOuSenhaInvalido();
@@ -42,7 +44,12 @@ namespace Application.Services
                 ExceptionUsuarioOuSenhaInvalido();
             }
 
-            return new ResponseView(tokenService.GenerateToken(loginViewModel.Email, loginViewModel.Permissao));
+            return new ResponseView(tokenService.GenerateToken(
+                nutricionista.Nome,
+                loginViewModel.Email,
+                nutricionista.Id,
+                loginViewModel.Permissao
+            ));
         }
 
         private void ExceptionUsuarioOuSenhaInvalido()

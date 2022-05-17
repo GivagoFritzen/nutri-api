@@ -1235,6 +1235,7 @@
           "Core": "1.0.0",
           "CrossCutting": "1.0.0",
           "FluentValidation": "10.3.3",
+          "Microsoft.Extensions.Configuration.Abstractions": "6.0.0",
           "System.IdentityModel.Tokens.Jwt": "6.17.0"
         },
         "runtime": {
