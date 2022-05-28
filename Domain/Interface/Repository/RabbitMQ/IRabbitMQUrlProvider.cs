@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Data.Interfaces.RabbitMQ
+﻿namespace Domain.Interface.RabbitMQ
 {
     public interface IRabbitMQUrlProvider
     {

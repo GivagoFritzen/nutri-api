@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Data.Interfaces.Mongo
+namespace Domain.Interface.Repository.Mongo
 {
     public interface IMongoDbContext
     {

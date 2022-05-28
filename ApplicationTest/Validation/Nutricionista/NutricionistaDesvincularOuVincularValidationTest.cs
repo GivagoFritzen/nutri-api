@@ -1,7 +1,7 @@
 ﻿using Application.Validation.Nutricionistas;
 using ApplicationTest.Command.Nutricionistas;
-using Core.Interfaces.Services;
 using CrossCutting.Message.Validation;
+using Domain.Interface.Repository;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -13,14 +13,14 @@ namespace ApplicationTest.Validation.Nutricionista
     [TestClass]
     public class NutricionistaDesvincularOuVincularValidationTest
     {
-        private Mock<IUserService> userServiceMock = new Mock<IUserService>();
+        private Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>();
 
         [TestMethod]
         public void Validar()
         {
-            userServiceMock.Setup(x => x.VerificarEmailExiste(It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(true));
+            userRepositoryMock.Setup(x => x.VerificarEmailExiste(It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(true));
 
-            var validation = new NutricionistaDesvincularOuVincularValidation(userServiceMock.Object);
+            var validation = new NutricionistaDesvincularOuVincularValidation(userRepositoryMock.Object);
             var result = validation.Validate(NutricionistaDesvincularOuVincularCommandFake.GetFake());
 
             Assert.IsTrue(result.IsValid);
@@ -29,7 +29,7 @@ namespace ApplicationTest.Validation.Nutricionista
         [TestMethod]
         public void Validar_Id_Vazio()
         {
-            var validation = new NutricionistaDesvincularOuVincularValidation(userServiceMock.Object);
+            var validation = new NutricionistaDesvincularOuVincularValidation(userRepositoryMock.Object);
             var result = validation.Validate(NutricionistaDesvincularOuVincularCommandFake.GetFakeIdVazio());
 
             Assert.IsFalse(result.IsValid);
@@ -41,8 +41,8 @@ namespace ApplicationTest.Validation.Nutricionista
         [TestMethod]
         public void Validar_Email_Vazio()
         {
-            userServiceMock.Setup(x => x.VerificarEmailExiste(It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(false));
-            var validation = new NutricionistaDesvincularOuVincularValidation(userServiceMock.Object);
+            userRepositoryMock.Setup(x => x.VerificarEmailExiste(It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(false));
+            var validation = new NutricionistaDesvincularOuVincularValidation(userRepositoryMock.Object);
 
             var result = validation.Validate(NutricionistaDesvincularOuVincularCommandFake.GetFake());
 

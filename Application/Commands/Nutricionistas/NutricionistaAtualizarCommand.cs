@@ -1,6 +1,7 @@
 ﻿using Application.Validation.Nutricionistas;
 using Application.ViewModel.Nutricionistas;
-using Core.Interfaces.Services;
+using Domain.Interface.Repository;
+using Domain.Interface.Services;
 
 namespace Application.Commands.Nutricionistas
 {
@@ -8,21 +9,21 @@ namespace Application.Commands.Nutricionistas
     {
         public NutricionistaAtualizarViewModel nutricionistaViewModel { get; private set; }
         private ISecurityService securityService;
-        private readonly IUserService userService;
+        private readonly IUserRepository userRepository;
 
         public NutricionistaAtualizarCommand(
             ISecurityService securityService,
             NutricionistaAtualizarViewModel nutricionistaViewModel,
-            IUserService userService)
+            IUserRepository userRepository)
         {
             this.securityService = securityService;
             this.nutricionistaViewModel = nutricionistaViewModel;
-            this.userService = userService;
+            this.userRepository = userRepository;
         }
 
         public override bool EhValido()
         {
-            ValidationResult = new NutricionistaAtualizarValidation(securityService, userService).Validate(this);
+            ValidationResult = new NutricionistaAtualizarValidation(securityService, userRepository).Validate(this);
             return ValidationResult.IsValid;
         }
     }

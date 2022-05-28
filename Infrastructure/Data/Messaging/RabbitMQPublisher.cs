@@ -1,6 +1,7 @@
 ﻿using CrossCutting.Helpers;
 using Domain.Interface;
-using Infrastructure.Data.Interfaces.RabbitMQ;
+using Domain.Interface.RabbitMQ;
+using Domain.Interface.Repository.RabbitMQ;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System;

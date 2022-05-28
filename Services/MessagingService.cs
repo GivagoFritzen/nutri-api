@@ -1,4 +1,4 @@
-﻿using Core.Interfaces.Services;
+﻿using Domain.Interface.Services;
 using Domain.Interface;
 using Infrastructure.Data.Interfaces.RabbitMQ;
 

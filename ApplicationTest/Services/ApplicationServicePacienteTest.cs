@@ -1,14 +1,15 @@
 ﻿using Application.Services;
 using Application.ViewModel.Pacientes;
 using ApplicationTest.ViewModel.Paciente;
-using Core.Interfaces.Services;
 using CrossCuttingTest;
 using Domain.Event;
+using Domain.Interface.Repository;
+using Domain.Interface.Services;
+using Domain.Repository;
 using DomainTest.Entity;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Services;
 using System;
 using System.Threading.Tasks;
 
@@ -23,9 +24,9 @@ namespace ApplicationTest.Services
         public void Initialize()
         {
             applicationService = new ApplicationServicePaciente(
-                new Mock<IPacienteService>().Object,
+                new Mock<IPacienteRepository>().Object,
                 new Mock<IMessagingService>().Object,
-                new Mock<IUserService>().Object);
+                new Mock<IUserRepository>().Object);
         }
 
         [TestMethod]
@@ -51,12 +52,12 @@ namespace ApplicationTest.Services
         {
             var mongoFake = new MongoFake<PacienteEvent>();
             var mongoDbContextoMock = await new MongoDbContextFake<PacienteEvent>().GetMongoDbContext(mongoFake);
-            var pacienteService = new PacienteService(null, mongoDbContextoMock.Object);
+            var pacienteRepository = new PacienteRepository(null, mongoDbContextoMock.Object);
 
             var applicationServicePaciente = new ApplicationServicePaciente(
-                pacienteService,
+                pacienteRepository,
                 new Mock<IMessagingService>().Object,
-                new Mock<IUserService>().Object);
+                new Mock<IUserRepository>().Object);
 
             await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
                 applicationServicePaciente.GetById(Guid.NewGuid())
@@ -68,12 +69,12 @@ namespace ApplicationTest.Services
         {
             var mongoFake = new MongoFake<PacienteEvent>();
             var mongoDbContextoMock = await new MongoDbContextFake<PacienteEvent>().GetMongoDbContext(mongoFake);
-            var pacienteService = new PacienteService(null, mongoDbContextoMock.Object);
+            var pacienteRepository = new PacienteRepository(null, mongoDbContextoMock.Object);
 
             var applicationServicePaciente = new ApplicationServicePaciente(
-                pacienteService,
+                pacienteRepository,
                 new Mock<IMessagingService>().Object,
-                new Mock<IUserService>().Object);
+                new Mock<IUserRepository>().Object);
 
             var retorno = await applicationServicePaciente.GetById(PacienteEntityFake.Id);
             retorno.Should().NotBeNull();

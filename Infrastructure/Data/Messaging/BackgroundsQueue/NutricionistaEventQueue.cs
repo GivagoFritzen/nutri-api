@@ -1,5 +1,5 @@
 ﻿using Domain.Event;
-using Infrastructure.Data.Interfaces.Mongo;
+using Domain.Interface.Repository.Mongo;
 using Infrastructure.Data.Messaging.BackgroundsQueue.Base;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
@@ -10,7 +10,9 @@ namespace Infrastructure.Data.Messaging.BackgroundsQueue
     {
         public NutricionistaEventQueue(
             IConfiguration configuration,
-            IMongoDbContext mongoDbContext) : base(configuration, mongoDbContext) { }
+            IMongoDbContext mongoDbContext) : base(configuration, mongoDbContext)
+        {
+        }
 
         public override void QueueController(NutricionistaEvent evento)
         {

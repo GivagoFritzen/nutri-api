@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace Infrastructure.Data.Interfaces.Mongo
+namespace Domain.Interface.Repository.Mongo
 {
     public interface IBackgroundQueue
     {

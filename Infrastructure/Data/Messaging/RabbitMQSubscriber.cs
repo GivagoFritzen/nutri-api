@@ -1,4 +1,4 @@
-﻿using Infrastructure.Data.Interfaces.Mongo;
+﻿using Domain.Interface.Repository.Mongo;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Linq;

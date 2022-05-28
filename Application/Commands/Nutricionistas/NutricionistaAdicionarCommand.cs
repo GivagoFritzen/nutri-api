@@ -1,25 +1,25 @@
 ﻿using Application.Validation.Nutricionistas;
 using Application.ViewModel.Nutricionistas;
-using Core.Interfaces.Services;
+using Domain.Interface.Repository;
 
 namespace Application.Commands.Nutricionistas
 {
     public class NutricionistaAdicionarCommand : Command
     {
         public NutricionistaAdicionarViewModel nutricionistaViewModel { get; private set; }
-        private readonly IUserService userService;
+        private readonly IUserRepository userRepository;
 
         public NutricionistaAdicionarCommand(
             NutricionistaAdicionarViewModel nutricionistaViewModel,
-            IUserService userService)
+            IUserRepository userService)
         {
             this.nutricionistaViewModel = nutricionistaViewModel;
-            this.userService = userService;
+            this.userRepository = userService;
         }
 
         public override bool EhValido()
         {
-            ValidationResult = new NutricionistaAdicionarValidation(userService).Validate(this);
+            ValidationResult = new NutricionistaAdicionarValidation(userRepository).Validate(this);
             return ValidationResult.IsValid;
         }
     }

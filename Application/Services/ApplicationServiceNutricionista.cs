@@ -3,42 +3,52 @@ using Application.Interfaces;
 using Application.Mapper;
 using Application.ViewModel;
 using Application.ViewModel.Nutricionistas;
-using Core.Interfaces.Services;
+using Application.ViewModel.Pacientes;
+using Domain.Interface.Services;
 using CrossCutting.Helpers;
 using Domain.Entity;
 using Domain.Event;
+using Microsoft.Extensions.Primitives;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Interface.Repository;
 
 namespace Application.Services
 {
     public class ApplicationServiceNutricionista : IApplicationServiceNutricionista
     {
-        private readonly INutricionistaService nutricionistaService;
+        private readonly INutricionistaRepository nutricionistaService;
         private readonly IMessagingService messagingService;
         private readonly ISecurityService securityService;
-        private readonly IUserService userService;
-        private readonly IPacienteService pacienteService;
+        private readonly IUserRepository userRepository;
+        private readonly IPacienteRepository pacienteService;
+        private readonly IApplicationServicePaciente applicationServicePaciente;
+        private readonly ITokenService tokenService;
 
         public ApplicationServiceNutricionista(
-            INutricionistaService nutricionistaService,
+            INutricionistaRepository nutricionistaService,
             IMessagingService messagingService,
             ISecurityService securityService,
-            IUserService userService,
-            IPacienteService pacienteService)
+            IUserRepository userRepository,
+            IPacienteRepository pacienteService,
+            IApplicationServicePaciente applicationServicePaciente, 
+            ITokenService tokenService)
         {
             this.nutricionistaService = nutricionistaService;
             this.messagingService = messagingService;
             this.securityService = securityService;
-            this.userService = userService;
+            this.userRepository = userRepository;
             this.pacienteService = pacienteService;
+            this.applicationServicePaciente = applicationServicePaciente;
+            this.tokenService = tokenService;
         }
 
         public async Task<ResponseView> Add(NutricionistaAdicionarViewModel nutricionistaViewModel)
         {
-            var command = new NutricionistaAdicionarCommand(nutricionistaViewModel, userService);
+            var command = new NutricionistaAdicionarCommand(nutricionistaViewModel, userRepository);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
@@ -61,7 +71,7 @@ namespace Application.Services
 
         public async Task<NutricionistaViewModel> GetById(Guid id)
         {
-            var nutricionista = await GetEventById(id);
+            var nutricionista = await nutricionistaService.GetById(id);
             return nutricionista.ToViewModel();
         }
 
@@ -71,12 +81,19 @@ namespace Application.Services
             return nutricionistas.ToViewModel();
         }
 
+        public async Task<IEnumerable<PacienteSimplificadoViewModel>> GetPacientes(Guid id)
+        {
+            var nutricionista = await nutricionistaService.GetById(id);
+            return nutricionista.PacientesIds == null ? null : await applicationServicePaciente.GetAll(nutricionista.PacientesIds);
+        }
+
         public ResponseView Update(NutricionistaAtualizarViewModel nutricionistaViewModel)
         {
-            var command = new NutricionistaAtualizarCommand(securityService, nutricionistaViewModel, userService);
+            var command = new NutricionistaAtualizarCommand(securityService, nutricionistaViewModel, userRepository);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
+            nutricionistaViewModel.NovaSenha = securityService.EncryptPassword(nutricionistaViewModel.NovaSenha);
             UpdateRepositories(nutricionistaViewModel.ToNutricionistaEventUpdate(), nutricionistaViewModel.ToEntity());
 
             messagingService.Publish(
@@ -91,11 +108,11 @@ namespace Application.Services
 
         public async Task<ResponseView> VincularPaciente(NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
         {
-            var command = new NutricionistaDesvincularOuVincularCommand(nutricionistaViewModel, userService);
+            var command = new NutricionistaDesvincularOuVincularCommand(nutricionistaViewModel, userRepository);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
-            var nutricionistaEvent = await GetEventById(nutricionistaViewModel.Id);
+            var nutricionistaEvent = await nutricionistaService.GetById(nutricionistaViewModel.Id);
             if (nutricionistaEvent.PacientesIds == null)
                 nutricionistaEvent.PacientesIds = new List<Guid>();
 
@@ -118,13 +135,19 @@ namespace Application.Services
             return new ResponseView(nutricionistaViewModel);
         }
 
-        public async Task<ResponseView> DesvincularPaciente(NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
+        public async Task<ResponseView> DesvincularPaciente(string emailDoPaciente, StringValues token)
         {
-            var command = new NutricionistaDesvincularOuVincularCommand(nutricionistaViewModel, userService);
+            var nutricionistaViewModel = new NutricionistaDesvincularOuVincularViewModel()
+            {
+                PacienteEmail = emailDoPaciente,
+                Id = tokenService.GetInformacoesDoToken(token.ToString()).Id
+            };
+
+            var command = new NutricionistaDesvincularOuVincularCommand(nutricionistaViewModel, userRepository);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
-            var nutricionistaEvent = await GetEventById(nutricionistaViewModel.Id);
+            var nutricionistaEvent = await nutricionistaService.GetById(nutricionistaViewModel.Id);
 
             var pacienteEvent = await pacienteService.GetByEmail(nutricionistaViewModel.PacienteEmail);
             nutricionistaEvent.PacientesIds.Remove(pacienteEvent.Id);
@@ -133,16 +156,8 @@ namespace Application.Services
             return new ResponseView(nutricionistaViewModel);
         }
 
-        private async Task<NutricionistaEvent> GetEventById(Guid id)
-        {
-            return await nutricionistaService.GetById(id);
-        }
-
         private void UpdateRepositories(NutricionistaEvent nutricionistaEvent, NutricionistaEntity entity)
         {
-            entity.Senha = securityService.EncryptPassword(entity.Senha);
-
-            nutricionistaEvent.Senha = securityService.EncryptPassword(nutricionistaEvent.Senha);
             nutricionistaEvent.Update = true;
 
             messagingService.Publish(nutricionistaEvent);

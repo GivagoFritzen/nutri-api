@@ -20,13 +20,6 @@ namespace API.Controllers
             this.applicationServicePaciente = applicationServicePaciente;
         }
 
-        [HttpGet("GetAll")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetAll()
-        {
-            return CustomResponse(await applicationServicePaciente.GetAll());
-        }
-
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetById(Guid id)

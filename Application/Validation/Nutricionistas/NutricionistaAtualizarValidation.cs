@@ -1,13 +1,14 @@
 ﻿using Application.Commands.Nutricionistas;
-using Core.Interfaces.Services;
+using Domain.Interface.Services;
 using CrossCutting.Message.Validation;
 using FluentValidation;
+using Domain.Interface.Repository;
 
 namespace Application.Validation.Nutricionistas
 {
     public class NutricionistaAtualizarValidation : AbstractValidator<NutricionistaAtualizarCommand>
     {
-        public NutricionistaAtualizarValidation(ISecurityService securityService, IUserService userService)
+        public NutricionistaAtualizarValidation(ISecurityService securityService, IUserRepository userRepository)
         {
             RuleFor(c => c.nutricionistaViewModel.Nome)
                 .NotEmpty()
@@ -24,7 +25,7 @@ namespace Application.Validation.Nutricionistas
             RuleFor(c => c.nutricionistaViewModel.Email).ValidarEmail();
 
             RuleFor(c => c)
-                .MustAsync(async (x, cancellation) => await userService.VerificarEmailExiste(
+                .MustAsync(async (x, cancellation) => await userRepository.VerificarEmailExiste(
                     x.nutricionistaViewModel.Email,
                     x.nutricionistaViewModel.Id
                 ) == false)

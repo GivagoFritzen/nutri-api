@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Core.Interfaces.Services
+namespace Domain.Interface.Repository
 {
-    public interface IUserService
+    public interface IUserRepository
     {
         Task<bool> VerificarEmailExiste(string email);
         Task<bool> VerificarEmailExiste(string email, string type);

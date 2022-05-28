@@ -19,7 +19,6 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\CrossCuttingTest\CrossCuttingTest.csproj" />
     <ProjectReference Include="..\DomainTest\DomainTest.csproj" />
-    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 </Project>

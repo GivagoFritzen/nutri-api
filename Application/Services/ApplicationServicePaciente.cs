@@ -3,9 +3,10 @@ using Application.Mapper;
 using Application.Pacientes.Commands;
 using Application.ViewModel;
 using Application.ViewModel.Pacientes;
-using Core.Interfaces.Services;
 using CrossCutting.Helpers;
 using Domain.Event;
+using Domain.Interface.Repository;
+using Domain.Interface.Services;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -15,23 +16,23 @@ namespace Application.Services
 {
     public class ApplicationServicePaciente : IApplicationServicePaciente
     {
-        private readonly IPacienteService pacienteService;
+        private readonly IPacienteRepository pacienteService;
         private readonly IMessagingService messagingService;
-        private readonly IUserService userService;
+        private readonly IUserRepository userRepository;
 
         public ApplicationServicePaciente(
-            IPacienteService pacienteService,
+            IPacienteRepository pacienteService,
             IMessagingService messagingService,
-            IUserService userService)
+            IUserRepository userRepository)
         {
             this.pacienteService = pacienteService;
             this.messagingService = messagingService;
-            this.userService = userService;
+            this.userRepository = userRepository;
         }
 
         public async Task<ResponseView> Add(PacienteAdicionarViewModel pacienteViewModel)
         {
-            var command = new PacienteAdicionarCommand(pacienteViewModel, userService);
+            var command = new PacienteAdicionarCommand(pacienteViewModel, userRepository);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
@@ -46,14 +47,15 @@ namespace Application.Services
             return new ResponseView(paciente.ToViewModel());
         }
 
-        public async Task<IEnumerable<PacienteSimplificadoViewModel>> GetAll()
+        public async Task<IEnumerable<PacienteSimplificadoViewModel>> GetAll(List<Guid> pacientesIds)
         {
+            var filter = Builders<PacienteEvent>.Filter.In("Id", pacientesIds);
             var fields = Builders<PacienteEvent>.Projection
                 .Exclude(e => e.Cidade)
                 .Exclude(e => e.Sexo)
                 .Exclude(e => e.Medidas);
 
-            var pacientes = await pacienteService.GetAll(fields);
+            var pacientes = await pacienteService.GetAll(filter, fields);
             return pacientes.ToListPacientesSimplificadoViewModelViewModel();
         }
 
@@ -72,7 +74,7 @@ namespace Application.Services
 
         public ResponseView Update(PacienteAtualizarViewModel pacienteViewModel)
         {
-            var command = new PacienteAtualizarCommand(pacienteViewModel, userService);
+            var command = new PacienteAtualizarCommand(pacienteViewModel, userRepository);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 

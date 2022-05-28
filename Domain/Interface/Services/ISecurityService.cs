@@ -1,6 +1,4 @@
-﻿using Domain.Entity;
-
-namespace Core.Interfaces.Services
+﻿namespace Domain.Interface.Services
 {
     public interface ISecurityService
     {

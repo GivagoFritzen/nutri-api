@@ -1,4 +1,4 @@
-﻿using Core.Interfaces.Services;
+﻿using Domain.Interface.Services;
 using CrossCutting.Helpers;
 using CrossCutting.Message.Exceptions;
 using Domain.Entity;
@@ -45,6 +45,13 @@ namespace Services.Base
         public async Task<IEnumerable<TEvent>> GetAll(ProjectionDefinition<TEvent> fields)
         {
             return await mongoCollection.Aggregate().Project<TEvent>(fields).ToListAsync();
+        }
+
+        public async Task<IEnumerable<TEvent>> GetAll(FilterDefinition<TEvent> filter, ProjectionDefinition<TEvent> fields)
+        {
+            return await mongoCollection.Find(filter)
+                .Project<TEvent>(fields)
+                .ToListAsync();
         }
 
         public async Task<TEvent> GetById(Guid id)

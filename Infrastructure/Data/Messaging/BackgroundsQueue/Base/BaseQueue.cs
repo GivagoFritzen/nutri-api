@@ -1,5 +1,5 @@
 ﻿using CrossCutting.Helpers;
-using Infrastructure.Data.Interfaces.Mongo;
+using Domain.Interface.Repository.Mongo;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using Newtonsoft.Json;
@@ -39,6 +39,12 @@ namespace Infrastructure.Data.Messaging.BackgroundsQueue.Base
             mongoCollection = mongoDbContext
                     .GetDatabase(queName)
                     .GetCollection<TEvent>(queName);
+        }
+
+        protected void CreateExpireAtIndex()
+        {
+            var indexKeysDefinition = Builders<TEvent>.IndexKeys.Ascending("ExpireAtIndex");
+            mongoCollection.Indexes.CreateOne(new CreateIndexModel<TEvent>(indexKeysDefinition));
         }
 
         public void Execute(CancellationToken stoppingToken)

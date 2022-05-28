@@ -1,5 +1,5 @@
 ﻿using CrossCutting.Message.Exceptions;
-using Infrastructure.Data.Interfaces;
+using Domain.Interface.Repository.Base;
 using Infrastructure.Data.SQL;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories.SQL
 {
-    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    public class RepositorySQLBase<TEntity> : IRepositorySQL<TEntity> where TEntity : class
     {
         private readonly SQLDataContext context;
 
-        public RepositoryBase(SQLDataContext context)
+        public RepositorySQLBase(SQLDataContext context)
         {
             this.context = context;
         }

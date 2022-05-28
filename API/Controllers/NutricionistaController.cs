@@ -36,6 +36,13 @@ namespace API.Controllers
             return CustomResponse(await applicationServiceNutricionista.GetAll());
         }
 
+        [HttpGet("GetPacientes")]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
+        public async Task<IActionResult> GetPacientes(Guid id)
+        {
+            return CustomResponse(await applicationServiceNutricionista.GetPacientes(id));
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult<ResponseView>> Add([FromBody] NutricionistaAdicionarViewModel nutricionistaViewModel)
@@ -66,10 +73,12 @@ namespace API.Controllers
         }
 
         [HttpPatch("DesvincularPaciente")]
-        [AllowAnonymous]
-        public async Task<ActionResult<ResponseView>> DesvincularPaciente([FromBody] NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
+        [AuthorizeRoles(Permissoes.Nutricionista)]
+        public async Task<ActionResult<ResponseView>> DesvincularPaciente(string paciente)
         {
-            return CustomResponse(await applicationServiceNutricionista.DesvincularPaciente(nutricionistaViewModel));
+            return CustomResponse(await applicationServiceNutricionista.DesvincularPaciente(
+                paciente,
+                HttpContext.Request.Headers["Authorization"]));
         }
     }
 }

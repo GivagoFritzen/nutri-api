@@ -1,5 +1,5 @@
 ﻿using Application.Commands;
-using Core.Interfaces.Services;
+using Domain.Interface.Services;
 using CrossCutting.Message.Validation;
 using FluentValidation;
 using System.Text.RegularExpressions;

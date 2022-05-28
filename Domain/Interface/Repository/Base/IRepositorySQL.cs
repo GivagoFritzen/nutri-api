@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Data.Interfaces
+namespace Domain.Interface.Repository.Base
 {
-    public interface IRepositoryBase<TEntity> where TEntity : class
+    public interface IRepositorySQL<TEntity> where TEntity : class
     {
         Task AddAsync(TEntity obj);
 

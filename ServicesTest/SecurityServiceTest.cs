@@ -1,9 +1,9 @@
-﻿using Core.Interfaces.Services;
+﻿using Domain.Interface.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Services;
 using System;
 
-namespace ServicesTest
+namespace Domain.ServicesTest
 {
     [TestClass]
     public class SecurityServiceTest

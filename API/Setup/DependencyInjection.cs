@@ -1,10 +1,14 @@
 ﻿using Application.Interfaces;
 using Application.Services;
-using Core.Interfaces.Services;
 using Domain.Entity;
-using Infrastructure.Data.Interfaces;
-using Infrastructure.Data.Interfaces.Mongo;
-using Infrastructure.Data.Interfaces.RabbitMQ;
+using Domain.Interface.RabbitMQ;
+using Domain.Interface.Repository;
+using Domain.Interface.Repository.Base;
+using Domain.Interface.Repository.Mongo;
+using Domain.Interface.Repository.RabbitMQ;
+using Domain.Interface.Services;
+using Domain.Repository;
+using Domain.Services;
 using Infrastructure.Data.Messaging;
 using Infrastructure.Data.Messaging.BackgroundsQueue;
 using Infrastructure.Data.Repositories.Mongo;
@@ -14,7 +18,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using Services;
 
 namespace API.Setup
 {
@@ -33,6 +36,7 @@ namespace API.Setup
             // Event Sourcing
             services.AddScoped<IRabbitMQUrlProvider>(x => new AppsettingRabbitMQUrlProvider(configuration));
 
+            services.AddSingleton<IBackgroundQueue, TokenEventQueue>();
             services.AddSingleton<IBackgroundQueue, UserEventQueue>();
             services.AddSingleton<IBackgroundQueue, PacienteEventQueue>();
             services.AddSingleton<IBackgroundQueue, NutricionistaEventQueue>();
@@ -43,16 +47,16 @@ namespace API.Setup
 
             //  Nutricionista
             services.AddScoped<IApplicationServiceNutricionista, ApplicationServiceNutricionista>();
-            services.AddScoped<INutricionistaService, NutricionistaService>();
-            services.AddTransient<IRepositoryBase<NutricionistaEntity>, RepositoryBase<NutricionistaEntity>>();
+            services.AddScoped<INutricionistaRepository, NutricionistaRepository>();
+            services.AddTransient<IRepositorySQL<NutricionistaEntity>, RepositorySQLBase<NutricionistaEntity>>();
 
             //  Paciente
             services.AddScoped<IApplicationServicePaciente, ApplicationServicePaciente>();
-            services.AddScoped<IPacienteService, PacienteService>();
-            services.AddTransient<IRepositoryBase<PacienteEntity>, RepositoryBase<PacienteEntity>>();
+            services.AddScoped<IPacienteRepository, PacienteRepository>();
+            services.AddTransient<IRepositorySQL<PacienteEntity>, RepositorySQLBase<PacienteEntity>>();
 
             // User 
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddSingleton<IMongoClient, MongoClient>(_ => new MongoClient(configuration.GetConnectionString("MongoConnection")));
 
             //  Login

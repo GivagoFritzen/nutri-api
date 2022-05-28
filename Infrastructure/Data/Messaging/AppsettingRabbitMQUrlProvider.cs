@@ -1,4 +1,4 @@
-﻿using Infrastructure.Data.Interfaces.RabbitMQ;
+﻿using Domain.Interface.RabbitMQ;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Data.Messaging

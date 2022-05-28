@@ -1,6 +1,7 @@
 ﻿using Application.Commands.Nutricionistas;
 using ApplicationTest.ViewModel.Nutricionista;
-using Core.Interfaces.Services;
+using Domain.Interface.Repository;
+using Domain.Interface.Services;
 using Moq;
 
 namespace ApplicationTest.Command.Nutricionistas
@@ -8,7 +9,7 @@ namespace ApplicationTest.Command.Nutricionistas
     public static class NutricionistaAtualizarCommandFake
     {
         private static Mock<ISecurityService> securityServiceMock = new Mock<ISecurityService>();
-        private static Mock<IUserService> userServiceMock = new Mock<IUserService>();
+        private static Mock<IUserRepository> userServiceMock = new Mock<IUserRepository>();
 
         public static NutricionistaAtualizarCommand GetFake()
         {

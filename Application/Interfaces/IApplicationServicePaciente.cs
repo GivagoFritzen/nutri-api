@@ -14,7 +14,7 @@ namespace Application.Interfaces
 
         Task RemoveById(Guid id);
 
-        Task<IEnumerable<PacienteSimplificadoViewModel>> GetAll();
+        Task<IEnumerable<PacienteSimplificadoViewModel>> GetAll(List<Guid> pacientesIds);
 
         Task<PacienteViewModel> GetById(Guid id);
     }

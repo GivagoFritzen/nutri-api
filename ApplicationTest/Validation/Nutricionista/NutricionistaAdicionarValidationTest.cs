@@ -1,7 +1,7 @@
 ﻿using Application.Validation.Nutricionistas;
 using ApplicationTest.Command.Nutricionistas;
-using Core.Interfaces.Services;
 using CrossCutting.Message.Validation;
+using Domain.Interface.Repository;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -13,12 +13,12 @@ namespace ApplicationTest.Validation.Nutricionista
     [TestClass]
     public class NutricionistaAdicionarValidationTest
     {
-        private Mock<IUserService> userServiceMock = new Mock<IUserService>();
+        private Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>();
 
         [TestMethod]
         public void Validar()
         {
-            var validation = new NutricionistaAdicionarValidation(userServiceMock.Object);
+            var validation = new NutricionistaAdicionarValidation(userRepositoryMock.Object);
             var result = validation.Validate(NutricionistaAdicionarCommandFake.GetFake());
             Assert.IsTrue(result.IsValid);
         }
@@ -26,7 +26,7 @@ namespace ApplicationTest.Validation.Nutricionista
         [TestMethod]
         public void Nome_Invalido()
         {
-            var validation = new NutricionistaAdicionarValidation(userServiceMock.Object);
+            var validation = new NutricionistaAdicionarValidation(userRepositoryMock.Object);
             var result = validation.Validate(NutricionistaAdicionarCommandFake.GetNomeVazioFake());
 
             Assert.IsFalse(result.IsValid);
@@ -38,7 +38,7 @@ namespace ApplicationTest.Validation.Nutricionista
         [TestMethod]
         public void Senha_Invalida()
         {
-            var validation = new NutricionistaAdicionarValidation(userServiceMock.Object);
+            var validation = new NutricionistaAdicionarValidation(userRepositoryMock.Object);
             var result = validation.Validate(NutricionistaAdicionarCommandFake.GetSenhaInvalidaFake());
 
             Assert.IsFalse(result.IsValid);
@@ -50,9 +50,9 @@ namespace ApplicationTest.Validation.Nutricionista
         [TestMethod]
         public void Email_Existe()
         {
-            userServiceMock.Setup(x => x.VerificarEmailExiste(It.IsAny<string>())).Returns(Task.FromResult(true));
+            userRepositoryMock.Setup(x => x.VerificarEmailExiste(It.IsAny<string>())).Returns(Task.FromResult(true));
 
-            var validation = new NutricionistaAdicionarValidation(userServiceMock.Object);
+            var validation = new NutricionistaAdicionarValidation(userRepositoryMock.Object);
             var result = validation.Validate(NutricionistaAdicionarCommandFake.GetFake());
 
             Assert.IsFalse(result.IsValid);
@@ -64,7 +64,7 @@ namespace ApplicationTest.Validation.Nutricionista
         [TestMethod]
         public void Email_Caracteres_Abaixo_Do_Permitido()
         {
-            var validation = new NutricionistaAdicionarValidation(userServiceMock.Object);
+            var validation = new NutricionistaAdicionarValidation(userRepositoryMock.Object);
             var result = validation.Validate(NutricionistaAdicionarCommandFake.GetEmailAbaixoDoPermitidoFake());
 
             Assert.IsFalse(result.IsValid);
@@ -77,7 +77,7 @@ namespace ApplicationTest.Validation.Nutricionista
         [TestMethod]
         public void Email_Caracteres_Acima_Do_Permitido()
         {
-            var validation = new NutricionistaAdicionarValidation(userServiceMock.Object);
+            var validation = new NutricionistaAdicionarValidation(userRepositoryMock.Object);
             var result = validation.Validate(NutricionistaAdicionarCommandFake.GetEmailAcimaDoPermitidoFake());
 
             Assert.IsFalse(result.IsValid);
@@ -89,7 +89,7 @@ namespace ApplicationTest.Validation.Nutricionista
         [TestMethod]
         public void Email_Invalido()
         {
-            var validation = new NutricionistaAdicionarValidation(userServiceMock.Object);
+            var validation = new NutricionistaAdicionarValidation(userRepositoryMock.Object);
             var result = validation.Validate(NutricionistaAdicionarCommandFake.GetEmailRequisitosInvalidosFake());
 
             Assert.IsFalse(result.IsValid);

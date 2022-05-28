@@ -1,7 +1,7 @@
 ﻿using Application.Validation.Pacientes;
 using ApplicationTest.Command.Pacientes;
-using Core.Interfaces.Services;
 using CrossCutting.Message.Validation;
+using Domain.Interface.Repository;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -14,12 +14,12 @@ namespace ApplicationTest.Validation.Pacientes
     [TestClass]
     public class PacienteAtualizarValidationTest
     {
-        private Mock<IUserService> userServiceMock = new Mock<IUserService>();
+        private Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>();
 
         [TestMethod]
         public void Validar()
         {
-            var validation = new PacienteAtualizarValidation(userServiceMock.Object);
+            var validation = new PacienteAtualizarValidation(userRepositoryMock.Object);
             var result = validation.Validate(PacienteAtualizarCommandFake.GetFake());
             Assert.IsTrue(result.IsValid);
         }
@@ -27,7 +27,7 @@ namespace ApplicationTest.Validation.Pacientes
         [TestMethod]
         public void Nome_Invalido()
         {
-            var validation = new PacienteAtualizarValidation(userServiceMock.Object);
+            var validation = new PacienteAtualizarValidation(userRepositoryMock.Object);
             var result = validation.Validate(PacienteAtualizarCommandFake.GetNomeVazioFake());
 
             Assert.IsFalse(result.IsValid);
@@ -40,9 +40,9 @@ namespace ApplicationTest.Validation.Pacientes
         [TestMethod]
         public void Email_Existe()
         {
-            userServiceMock.Setup(x => x.VerificarEmailExiste(It.IsAny<string>(), It.IsAny<Guid>())).Returns(Task.FromResult(true));
+            userRepositoryMock.Setup(x => x.VerificarEmailExiste(It.IsAny<string>(), It.IsAny<Guid>())).Returns(Task.FromResult(true));
 
-            var validation = new PacienteAtualizarValidation(userServiceMock.Object);
+            var validation = new PacienteAtualizarValidation(userRepositoryMock.Object);
             var result = validation.Validate(PacienteAtualizarCommandFake.GetFake());
 
             Assert.IsFalse(result.IsValid);
@@ -54,7 +54,7 @@ namespace ApplicationTest.Validation.Pacientes
         [TestMethod]
         public void Email_Caracteres_Abaixo_Do_Permitido()
         {
-            var validation = new PacienteAtualizarValidation(userServiceMock.Object);
+            var validation = new PacienteAtualizarValidation(userRepositoryMock.Object);
             var result = validation.Validate(PacienteAtualizarCommandFake.GetEmailAbaixoDoPermitidoFake());
 
             Assert.IsFalse(result.IsValid);
@@ -67,7 +67,7 @@ namespace ApplicationTest.Validation.Pacientes
         [TestMethod]
         public void Email_Caracteres_Acima_Do_Permitido()
         {
-            var validation = new PacienteAtualizarValidation(userServiceMock.Object);
+            var validation = new PacienteAtualizarValidation(userRepositoryMock.Object);
             var result = validation.Validate(PacienteAtualizarCommandFake.GetEmailAcimaDoPermitidoFake());
 
             Assert.IsFalse(result.IsValid);
@@ -79,7 +79,7 @@ namespace ApplicationTest.Validation.Pacientes
         [TestMethod]
         public void Email_Invalido()
         {
-            var validation = new PacienteAtualizarValidation(userServiceMock.Object);
+            var validation = new PacienteAtualizarValidation(userRepositoryMock.Object);
             var result = validation.Validate(PacienteAtualizarCommandFake.GetEmailRequisitosInvalidosFake());
 
             Assert.IsFalse(result.IsValid);

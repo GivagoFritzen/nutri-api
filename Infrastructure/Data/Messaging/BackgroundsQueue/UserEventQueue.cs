@@ -1,5 +1,5 @@
 ﻿using Domain.Event;
-using Infrastructure.Data.Interfaces.Mongo;
+using Domain.Interface.Repository.Mongo;
 using Infrastructure.Data.Messaging.BackgroundsQueue.Base;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;

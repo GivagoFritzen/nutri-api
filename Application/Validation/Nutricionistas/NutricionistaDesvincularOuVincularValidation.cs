@@ -1,13 +1,13 @@
 ﻿using Application.Commands.Nutricionistas;
-using Core.Interfaces.Services;
 using CrossCutting.Message.Validation;
+using Domain.Interface.Repository;
 using FluentValidation;
 
 namespace Application.Validation.Nutricionistas
 {
     public class NutricionistaDesvincularOuVincularValidation : AbstractValidator<NutricionistaDesvincularOuVincularCommand>
     {
-        public NutricionistaDesvincularOuVincularValidation(IUserService userService)
+        public NutricionistaDesvincularOuVincularValidation(IUserRepository userRepository)
         {
             RuleFor(c => c.nutricionistaViewModel.Id)
                 .NotEmpty()
@@ -18,7 +18,7 @@ namespace Application.Validation.Nutricionistas
                 .WithMessage(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Email"));
 
             RuleFor(c => c)
-                .MustAsync(async (x, cancellation) => await userService.VerificarEmailExiste(
+                .MustAsync(async (x, cancellation) => await userRepository.VerificarEmailExiste(
                     x.nutricionistaViewModel.PacienteEmail,
                     "Paciente"
                 )).WithMessage(GenericValidationMessages.EmailInvalido);

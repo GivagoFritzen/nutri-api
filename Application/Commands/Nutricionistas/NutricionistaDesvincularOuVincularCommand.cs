@@ -1,25 +1,25 @@
 ﻿using Application.Validation.Nutricionistas;
 using Application.ViewModel.Nutricionistas;
-using Core.Interfaces.Services;
+using Domain.Interface.Repository;
 
 namespace Application.Commands.Nutricionistas
 {
     public class NutricionistaDesvincularOuVincularCommand : Command
     {
         public NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel { get; private set; }
-        private readonly IUserService userService;
+        private readonly IUserRepository userRepository;
 
         public NutricionistaDesvincularOuVincularCommand(
             NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel,
-            IUserService userService)
+            IUserRepository userRepository)
         {
             this.nutricionistaViewModel = nutricionistaViewModel;
-            this.userService = userService;
+            this.userRepository = userRepository;
         }
 
         public override bool EhValido()
         {
-            ValidationResult = new NutricionistaDesvincularOuVincularValidation(userService).Validate(this);
+            ValidationResult = new NutricionistaDesvincularOuVincularValidation(userRepository).Validate(this);
             return ValidationResult.IsValid;
         }
     }

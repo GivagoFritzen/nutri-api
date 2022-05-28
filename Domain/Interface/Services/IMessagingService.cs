@@ -1,6 +1,4 @@
-﻿using Domain.Interface;
-
-namespace Core.Interfaces.Services
+﻿namespace Domain.Interface.Services
 {
     public interface IMessagingService
     {

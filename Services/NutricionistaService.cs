@@ -1,4 +1,4 @@
-﻿using Core.Interfaces.Services;
+﻿using Domain.Interface.Services;
 using Domain.Entity;
 using Domain.Event;
 using Infrastructure.Data.Interfaces;

@@ -1,4 +1,4 @@
-﻿using Infrastructure.Data.Interfaces.Mongo;
+﻿using Domain.Interface.Repository.Mongo;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -21,7 +21,7 @@ namespace Infrastructure.Data.Repositories.Mongo
         private IMongoDatabase database { get; set; }
         private readonly List<Func<Task>> _commands;
 
-        public MongoDbContext(IMongoClient client, IConfiguration configuration)
+        public MongoDbContext(IConfiguration configuration)
         {
             // Set Guid to CSharp style (with dash -)
             BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));

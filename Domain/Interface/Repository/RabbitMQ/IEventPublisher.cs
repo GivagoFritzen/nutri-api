@@ -1,7 +1,6 @@
-﻿using Domain.Interface;
-using System;
+﻿using System;
 
-namespace Infrastructure.Data.Interfaces.RabbitMQ
+namespace Domain.Interface.Repository.RabbitMQ
 {
     public interface IEventPublisher : IDisposable
     {

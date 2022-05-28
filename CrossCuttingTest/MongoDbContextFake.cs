@@ -1,6 +1,6 @@
 ﻿using CrossCuttingTest.Interfaces;
 using Domain.Interface;
-using Infrastructure.Data.Interfaces.Mongo;
+using Domain.Interface.Repository.Mongo;
 using Moq;
 using System.Threading.Tasks;
 

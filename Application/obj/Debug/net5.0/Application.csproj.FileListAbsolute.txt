@@ -21,11 +21,9 @@ D:\Projetos\Git\Nutri-Api\Application\bin\Debug\net5.0\Application.deps.json
 D:\Projetos\Git\Nutri-Api\Application\bin\Debug\net5.0\Application.dll
 D:\Projetos\Git\Nutri-Api\Application\bin\Debug\net5.0\ref\Application.dll
 D:\Projetos\Git\Nutri-Api\Application\bin\Debug\net5.0\Application.pdb
-D:\Projetos\Git\Nutri-Api\Application\bin\Debug\net5.0\Core.dll
 D:\Projetos\Git\Nutri-Api\Application\bin\Debug\net5.0\CrossCutting.dll
 D:\Projetos\Git\Nutri-Api\Application\bin\Debug\net5.0\Domain.dll
 D:\Projetos\Git\Nutri-Api\Application\bin\Debug\net5.0\CrossCutting.pdb
-D:\Projetos\Git\Nutri-Api\Application\bin\Debug\net5.0\Core.pdb
 D:\Projetos\Git\Nutri-Api\Application\bin\Debug\net5.0\Domain.pdb
 D:\Projetos\Git\Nutri-Api\Application\obj\Debug\net5.0\Application.csprojAssemblyReference.cache
 D:\Projetos\Git\Nutri-Api\Application\obj\Debug\net5.0\Application.GeneratedMSBuildEditorConfig.editorconfig

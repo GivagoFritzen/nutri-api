@@ -1,47 +1,47 @@
 ﻿using Application.Pacientes.Commands;
 using ApplicationTest.ViewModel.Paciente;
-using Core.Interfaces.Services;
+using Domain.Interface.Repository;
 using Moq;
 
 namespace ApplicationTest.Command.Pacientes
 {
     public static class PacienteAdicionarCommandFake
     {
-        private static Mock<IUserService> userServiceMock = new Mock<IUserService>();
+        private static Mock<IUserRepository> userRepositoryMock = new Mock<IUserRepository>();
 
         public static PacienteAdicionarCommand GetFake()
         {
             return new PacienteAdicionarCommand(
                 PacienteAdicionarViewModelFake.GetFake(),
-                userServiceMock.Object);
+                userRepositoryMock.Object);
         }
 
         public static PacienteAdicionarCommand GetNomeVazioFake()
         {
             return new PacienteAdicionarCommand(
                 PacienteAdicionarViewModelFake.GetNomeVazioFake(),
-                userServiceMock.Object);
+                userRepositoryMock.Object);
         }
 
         public static PacienteAdicionarCommand GetEmailAbaixoDoPermitidoFake()
         {
             return new PacienteAdicionarCommand(
                 PacienteAdicionarViewModelFake.GetEmailAbaixoDoPermitidoFake(),
-                userServiceMock.Object);
+                userRepositoryMock.Object);
         }
 
         public static PacienteAdicionarCommand GetEmailAcimaDoPermitidoFake()
         {
             return new PacienteAdicionarCommand(
                 PacienteAdicionarViewModelFake.GetEmailAcimaDoPermitidoFake(),
-                userServiceMock.Object);
+                userRepositoryMock.Object);
         }
 
         public static PacienteAdicionarCommand GetEmailRequisitosInvalidosFake()
         {
             return new PacienteAdicionarCommand(
                 PacienteAdicionarViewModelFake.GetEmailRequisitosInvalidosFake(),
-                userServiceMock.Object);
+                userRepositoryMock.Object);
         }
     }
 }
