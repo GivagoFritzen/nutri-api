@@ -52,7 +52,7 @@ namespace Application.Mapper
                 Cidade = nutricionistaEvent.Cidade,
                 Telefone = nutricionistaEvent.Telefone,
                 Sexo = nutricionistaEvent.Sexo,
-                Pacientes= new List<PacienteEntity>()
+                Pacientes = new List<PacienteEntity>()
             };
         }
 

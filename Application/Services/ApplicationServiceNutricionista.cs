@@ -4,17 +4,17 @@ using Application.Mapper;
 using Application.ViewModel;
 using Application.ViewModel.Nutricionistas;
 using Application.ViewModel.Pacientes;
-using Domain.Interface.Services;
 using CrossCutting.Helpers;
 using Domain.Entity;
 using Domain.Event;
+using Domain.Interface.Repository;
+using Domain.Interface.Services;
 using Microsoft.Extensions.Primitives;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Domain.Interface.Repository;
 
 namespace Application.Services
 {
@@ -34,7 +34,7 @@ namespace Application.Services
             ISecurityService securityService,
             IUserRepository userRepository,
             IPacienteRepository pacienteService,
-            IApplicationServicePaciente applicationServicePaciente, 
+            IApplicationServicePaciente applicationServicePaciente,
             ITokenService tokenService)
         {
             this.nutricionistaRepository = nutricionistaRepository;

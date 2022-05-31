@@ -1,8 +1,8 @@
 ﻿using Application.Commands.Nutricionistas;
-using Domain.Interface.Services;
 using CrossCutting.Message.Validation;
-using FluentValidation;
 using Domain.Interface.Repository;
+using Domain.Interface.Services;
+using FluentValidation;
 
 namespace Application.Validation.Nutricionistas
 {

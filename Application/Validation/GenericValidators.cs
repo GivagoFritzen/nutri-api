@@ -1,6 +1,6 @@
 ﻿using Application.Commands;
-using Domain.Interface.Services;
 using CrossCutting.Message.Validation;
+using Domain.Interface.Services;
 using FluentValidation;
 using System.Text.RegularExpressions;
 

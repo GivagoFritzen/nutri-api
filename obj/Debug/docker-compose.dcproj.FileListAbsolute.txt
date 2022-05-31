@@ -1,1 +1,0 @@
-D:\Projetos\Git\Nutri-Api\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
