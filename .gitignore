@@ -396,3 +396,16 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# file types<br>
+*.cache<
+*.dtbcache.v2
+*.dll
+*.pdb
+*.suo
+.suo
+*.testlog
+*.user
+
+# directories
+**/Release
