@@ -126,6 +126,9 @@
   <data name="NaoFoiPossivelDeletar" xml:space="preserve">
     <value>Ocorreu algum erro ao tentar Deletar</value>
   </data>
+  <data name="RefreshTokenInvalido" xml:space="preserve">
+    <value>RefreshToken Invalido</value>
+  </data>
   <data name="UsuarioNaoEncontrado" xml:space="preserve">
     <value>Usuario não encontrado</value>
   </data>

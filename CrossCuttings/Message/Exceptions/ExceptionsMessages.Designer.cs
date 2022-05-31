@@ -88,6 +88,15 @@ namespace CrossCutting.Message.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RefreshToken Invalido.
+        /// </summary>
+        public static string RefreshTokenInvalido {
+            get {
+                return ResourceManager.GetString("RefreshTokenInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Usuario não encontrado.
         /// </summary>
         public static string UsuarioNaoEncontrado {

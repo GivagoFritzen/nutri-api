@@ -22,6 +22,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCuttingTest", "CrossCuttingTest\CrossCuttingTest.csproj", "{8EA4F1AD-EDD0-42CE-827E-D0A3E8587D89}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationTest", "ApplicationTest\ApplicationTest.csproj", "{124E3D67-105B-4DFF-A370-31C283EF3F53}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D87CE212-E35C-4712-A263-2A43F56EB1D3} = {D87CE212-E35C-4712-A263-2A43F56EB1D3}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainTest", "DomainTest\DomainTest.csproj", "{841AD6C2-6F21-4487-91F9-94DFE7DD6C8D}"
 EndProject

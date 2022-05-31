@@ -1,6 +1,11 @@
-﻿using Domain.Interface.Services;
+﻿using CrossCutting.Authentication;
+using Domain.Interface.Services;
 using Domain.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 
 namespace Domain.ServicesTest
 {
@@ -14,7 +19,7 @@ namespace Domain.ServicesTest
         {
             tokenService = new TokenService();
         }
-        /*
+
         [TestMethod]
         public void Gerar_Token()
         {
@@ -23,14 +28,25 @@ namespace Domain.ServicesTest
             var email = "email";
             var role = Permissoes.Nutricionista;
 
-            var actual = tokenService.GenerateToken(name, email, id, role);
-            var decode = new JwtSecurityTokenHandler().ReadToken(actual);
+            var claims = new List<Claim>() {
+                new Claim(ClaimTypes.Name, name),
+                new Claim(ClaimTypes.Email, email),
+                new Claim(ClaimTypes.PrimarySid, id.ToString()),
+                new Claim(ClaimTypes.Role, role.ToString())
+            };
 
-            Assert.AreEqual(name, ((JwtSecurityToken)decode).Payload["unique_name"].ToString());
-            Assert.AreEqual(role.ToString(), ((JwtSecurityToken)decode).Payload["role"].ToString());
-            Assert.AreEqual(id.ToString(), ((JwtSecurityToken)decode).Payload["primarysid"].ToString());
-            Assert.AreEqual(email, ((JwtSecurityToken)decode).Payload["email"].ToString());
+            var actual = tokenService.GetLoginToken(claims);
+            var principal = tokenService.GetPrincipalFromToken(actual.Token);
+
+            Assert.AreEqual(name, GetClaim(principal, ClaimTypes.Name));
+            Assert.AreEqual(role.ToString(), GetClaim(principal, ClaimTypes.Role));
+            Assert.AreEqual(id.ToString(), GetClaim(principal, ClaimTypes.PrimarySid));
+            Assert.AreEqual(email, GetClaim(principal, ClaimTypes.Email));
         }
-        */
+
+        private string GetClaim(ClaimsPrincipal principal, string type)
+        {
+            return principal.Claims.FirstOrDefault(c => c.Type == type).Value.ToString();
+        }
     }
 }

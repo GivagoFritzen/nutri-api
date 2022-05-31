@@ -15,6 +15,7 @@ namespace ApplicationTest.Services
     public class ApplicationServiceLoginTest
     {
         private ApplicationServiceLogin applicationService;
+        private Mock<ITokenRepository> tokenRepositoryMock = new Mock<ITokenRepository>();
         private Mock<INutricionistaRepository> nutricionistaRepositoryMock = new Mock<INutricionistaRepository>();
 
         [TestInitialize]
@@ -22,8 +23,9 @@ namespace ApplicationTest.Services
         {
             applicationService = new ApplicationServiceLogin(
                 new TokenService(),
-                nutricionistaRepositoryMock.Object,
-                new SecurityService());
+                new SecurityService(),
+                tokenRepositoryMock.Object,
+                nutricionistaRepositoryMock.Object);
         }
 
         [TestMethod]

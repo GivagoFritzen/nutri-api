@@ -33,7 +33,7 @@ namespace Domain.Services
                 ValidateAudience = false,
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthenticationSettings.Secret)),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(AuthenticationSettings.Secret)),
                 ValidateLifetime = false
             };
 
@@ -50,7 +50,7 @@ namespace Domain.Services
         public TokenDTO GetInformacoesDoToken(string token)
         {
             token = token.Replace("Bearer ", "");
-            var decode = (JwtSecurityToken)new JwtSecurityTokenHandler().ReadToken(token);
+            var decode = (JwtSecurityToken)tokenHandler.ReadToken(token);
             Enum.TryParse("Active", out Permissoes role);
 
             return new TokenDTO()

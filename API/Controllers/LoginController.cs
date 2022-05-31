@@ -24,5 +24,12 @@ namespace API.Controllers
         {
             return CustomResponse(await applicationServiceLogin.Login(loginNutricionistaViewModel));
         }
+
+        [HttpPatch]
+        [AllowAnonymous]
+        public ActionResult Refresh([FromBody] LoginTokenViewModel loginTokenViewModel)
+        {
+            return CustomResponse(applicationServiceLogin.Refresh(loginTokenViewModel));
+        }
     }
 }

@@ -36,7 +36,6 @@ namespace API.Setup
             // Event Sourcing
             services.AddScoped<IRabbitMQUrlProvider>(x => new AppsettingRabbitMQUrlProvider(configuration));
 
-            services.AddSingleton<IBackgroundQueue, TokenEventQueue>();
             services.AddSingleton<IBackgroundQueue, UserEventQueue>();
             services.AddSingleton<IBackgroundQueue, PacienteEventQueue>();
             services.AddSingleton<IBackgroundQueue, NutricionistaEventQueue>();
@@ -62,6 +61,7 @@ namespace API.Setup
             //  Login
             services.AddScoped<IApplicationServiceLogin, ApplicationServiceLogin>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ITokenRepository, TokenRepository>();
         }
     }
 }

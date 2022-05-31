@@ -1,5 +1,6 @@
 ﻿using Application.Commands.Login;
 using Application.Interfaces;
+using Application.Mapper;
 using Application.ViewModel;
 using Application.ViewModel.Login;
 using CrossCutting.Message.Exceptions;
@@ -16,16 +17,19 @@ namespace Application.Services
     public class ApplicationServiceLogin : IApplicationServiceLogin
     {
         private readonly ITokenService tokenService;
-        private readonly INutricionistaRepository nutricionistaRepository;
         private readonly ISecurityService securityService;
+        private readonly ITokenRepository tokenRepository;
+        private readonly INutricionistaRepository nutricionistaRepository;
 
         public ApplicationServiceLogin(ITokenService tokenService,
-            INutricionistaRepository nutricionistaService,
-            ISecurityService securityRepository)
+            ISecurityService securityService,
+            ITokenRepository tokenRepository,
+            INutricionistaRepository nutricionistaRepository)
         {
             this.tokenService = tokenService;
-            this.nutricionistaRepository = nutricionistaService;
-            this.securityService = securityRepository;
+            this.securityService = securityService;
+            this.nutricionistaRepository = nutricionistaRepository;
+            this.tokenRepository = tokenRepository;
         }
 
         public async Task<ResponseView> Login(LoginNutricionistaViewModel loginViewModel)
@@ -54,30 +58,22 @@ namespace Application.Services
                 new Claim(ClaimTypes.Role, loginViewModel.Permissao.ToString())
             };
 
-            var tokenEntity = tokenService.GetLoginToken(claims);
-
-            return new ResponseView(new LoginTokenViewModel()
-            {
-                Token = tokenEntity.Token,
-                RefreshToken = tokenEntity.RefreshToken
-            });
+            var tokenDTO = tokenService.GetLoginToken(claims);
+            tokenRepository.AddRefreshToken(tokenDTO.ToEvent());
+            return new ResponseView(tokenDTO.ToViewModel());
         }
 
-        public ResponseView Refresh(string token, string refreshToken)
+        public ResponseView Refresh(LoginTokenViewModel loginTokenViewModel)
         {
-            //Verifica se o refreshToken é valido (Lista)
+            var command = new RefreshTokenCommand(loginTokenViewModel, tokenRepository);
+            if (!command.EhValido())
+                return new ResponseView(command.ValidationResult);
 
-            var principal = tokenService.GetPrincipalFromToken(token);
-            var tokenEntity = tokenService.GetLoginToken(principal.Claims);
+            var principal = tokenService.GetPrincipalFromToken(loginTokenViewModel.Token);
+            var tokenDTO = tokenService.GetLoginToken(principal.Claims);
 
-            // Deletar Refresh Token
-            // Salvar novo Refresh Token
-
-            return new ResponseView(new LoginTokenViewModel()
-            {
-                Token = tokenEntity.Token,
-                RefreshToken = tokenEntity.RefreshToken
-            });
+            tokenRepository.UpdateRefreshToken(tokenDTO.ToEvent(), loginTokenViewModel.RefreshToken);
+            return new ResponseView(tokenDTO.ToViewModel());
         }
 
         private void ExceptionUsuarioOuSenhaInvalido()

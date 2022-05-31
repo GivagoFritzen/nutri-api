@@ -20,7 +20,7 @@ namespace Application.Services
 {
     public class ApplicationServiceNutricionista : IApplicationServiceNutricionista
     {
-        private readonly INutricionistaRepository nutricionistaService;
+        private readonly INutricionistaRepository nutricionistaRepository;
         private readonly IMessagingService messagingService;
         private readonly ISecurityService securityService;
         private readonly IUserRepository userRepository;
@@ -29,7 +29,7 @@ namespace Application.Services
         private readonly ITokenService tokenService;
 
         public ApplicationServiceNutricionista(
-            INutricionistaRepository nutricionistaService,
+            INutricionistaRepository nutricionistaRepository,
             IMessagingService messagingService,
             ISecurityService securityService,
             IUserRepository userRepository,
@@ -37,7 +37,7 @@ namespace Application.Services
             IApplicationServicePaciente applicationServicePaciente, 
             ITokenService tokenService)
         {
-            this.nutricionistaService = nutricionistaService;
+            this.nutricionistaRepository = nutricionistaRepository;
             this.messagingService = messagingService;
             this.securityService = securityService;
             this.userRepository = userRepository;
@@ -55,7 +55,7 @@ namespace Application.Services
             var nutricionista = nutricionistaViewModel.ToEntity();
             nutricionista.Senha = securityService.EncryptPassword(nutricionista.Senha);
 
-            await nutricionistaService.AddAsync(nutricionista);
+            await nutricionistaRepository.AddAsync(nutricionista);
             messagingService.Publish(nutricionista.ToNutricionistaEvent());
             messagingService.Publish(new UserEvent(nutricionista.Id, nutricionista.Email, StringHelper.GetEventName(typeof(NutricionistaViewModel).Name)));
 
@@ -64,26 +64,26 @@ namespace Application.Services
 
         public async Task RemoveById(Guid id)
         {
-            await nutricionistaService.RemoveById(id);
+            await nutricionistaRepository.RemoveById(id);
             messagingService.Publish(new UserEvent(id, true));
             messagingService.Publish(new NutricionistaEvent(id, true));
         }
 
         public async Task<NutricionistaViewModel> GetById(Guid id)
         {
-            var nutricionista = await nutricionistaService.GetById(id);
+            var nutricionista = await nutricionistaRepository.GetById(id);
             return nutricionista.ToViewModel();
         }
 
         public async Task<IEnumerable<NutricionistaViewModel>> GetAll()
         {
-            var nutricionistas = await nutricionistaService.GetAll();
+            var nutricionistas = await nutricionistaRepository.GetAll();
             return nutricionistas.ToViewModel();
         }
 
         public async Task<IEnumerable<PacienteSimplificadoViewModel>> GetPacientes(Guid id)
         {
-            var nutricionista = await nutricionistaService.GetById(id);
+            var nutricionista = await nutricionistaRepository.GetById(id);
             return nutricionista.PacientesIds == null ? null : await applicationServicePaciente.GetAll(nutricionista.PacientesIds);
         }
 
@@ -112,7 +112,7 @@ namespace Application.Services
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
-            var nutricionistaEvent = await nutricionistaService.GetById(nutricionistaViewModel.Id);
+            var nutricionistaEvent = await nutricionistaRepository.GetById(nutricionistaViewModel.Id);
             if (nutricionistaEvent.PacientesIds == null)
                 nutricionistaEvent.PacientesIds = new List<Guid>();
 
@@ -147,7 +147,7 @@ namespace Application.Services
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
-            var nutricionistaEvent = await nutricionistaService.GetById(nutricionistaViewModel.Id);
+            var nutricionistaEvent = await nutricionistaRepository.GetById(nutricionistaViewModel.Id);
 
             var pacienteEvent = await pacienteService.GetByEmail(nutricionistaViewModel.PacienteEmail);
             nutricionistaEvent.PacientesIds.Remove(pacienteEvent.Id);
@@ -161,7 +161,7 @@ namespace Application.Services
             nutricionistaEvent.Update = true;
 
             messagingService.Publish(nutricionistaEvent);
-            nutricionistaService.Update(entity);
+            nutricionistaRepository.Update(entity);
         }
     }
 }
