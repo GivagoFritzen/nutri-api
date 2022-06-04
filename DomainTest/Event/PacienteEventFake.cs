@@ -8,6 +8,7 @@ namespace DomainTest.Event
     public static class PacienteEventFake
     {
         public static Guid Id = Guid.Parse("efa0f903-3275-4607-a376-22eb0d96fa0e");
+        public static Guid MongoId = Guid.Parse("f24cb320-2aec-4116-bcee-4bc6841a84a9");
 
         public static PacienteEvent GetPacienteEventFake()
         {
@@ -32,13 +33,13 @@ namespace DomainTest.Event
             return @event;
         }
 
-        public static List<PacienteEvent> GetListPacienteEventFake()
+        public static IEnumerable<PacienteEvent> GetListPacienteEventFake(Guid? id = null)
         {
             return new List<PacienteEvent>
             {
                 new PacienteEvent()
                 {
-                    Id = Id,
+                    Id = id is null ? Id : id.Value,
                     Nome = "nome",
                     Sobrenome = "sobrenome",
                     Email = "teste@provedor.com",

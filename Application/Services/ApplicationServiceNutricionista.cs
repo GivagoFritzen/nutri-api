@@ -84,7 +84,14 @@ namespace Application.Services
         public async Task<IEnumerable<PacienteSimplificadoViewModel>> GetPacientes(Guid id)
         {
             var nutricionista = await nutricionistaRepository.GetById(id);
-            return nutricionista.PacientesIds == null ? null : await applicationServicePaciente.GetAll(nutricionista.PacientesIds);
+
+            IEnumerable<PacienteSimplificadoViewModel> pacientes = null;
+            if (nutricionista != null &&
+                nutricionista.PacientesIds != null &&
+                nutricionista.PacientesIds.Count() > 0)
+                pacientes = await applicationServicePaciente.GetAll(nutricionista.PacientesIds);
+
+            return pacientes;
         }
 
         public ResponseView Update(NutricionistaAtualizarViewModel nutricionistaViewModel)

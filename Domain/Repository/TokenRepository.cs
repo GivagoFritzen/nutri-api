@@ -29,7 +29,6 @@ namespace Domain.Repository
             mongoCollection.InsertOne(evento);
         }
 
-
         public void UpdateRefreshToken(TokenEvent evento, string olderRefreshToken)
         {
             mongoCollection.ReplaceOne(ev => ev.RefreshToken == olderRefreshToken, evento);

@@ -18,6 +18,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ApplicationTest.Services
@@ -59,6 +60,21 @@ namespace ApplicationTest.Services
         }
 
         [TestMethod]
+        public async Task Remove()
+        {
+            var nutricionistaRepositoryMock = new Mock<INutricionistaRepository>();
+            var messagingServiceMock = new Mock<IMessagingService>();
+
+            var application = GetApplicationServiceNutricionistaFake(
+                nutricionistaRepositoryMock.Object, messagingServiceMock.Object);
+
+            await application.RemoveById(Guid.NewGuid());
+            nutricionistaRepositoryMock.Verify(mock => mock.RemoveById(It.IsAny<Guid>()), Times.Once());
+            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<UserEvent>()), Times.Exactly(2));
+            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<NutricionistaEvent>()), Times.Once());
+        }
+
+        [TestMethod]
         public async Task Get_By_Id_Inexistente()
         {
             var mongoFake = new MongoFake<NutricionistaEvent>();
@@ -83,6 +99,44 @@ namespace ApplicationTest.Services
 
             var retorno = await applicationServiceNutricionista.GetById(NutricionistaEntityFake.Id);
             retorno.Should().NotBeNull();
+        }
+
+        [TestMethod]
+        public async Task Get_All_Vazio()
+        {
+            var nutricionistaRepositoryMock = new Mock<INutricionistaRepository>();
+
+            var applicationServiceNutricionista = GetApplicationServiceNutricionistaFake(nutricionistaRepositoryMock.Object);
+
+            var retorno = await applicationServiceNutricionista.GetAll();
+
+            retorno.Should().BeEmpty();
+            nutricionistaRepositoryMock.Verify(mock => mock.GetAll(), Times.Once());
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(GetVerificacoesInvalidosPacientes), DynamicDataSourceType.Method)]
+        public async Task Get_Nutri_Sem_Pacientes(NutricionistaEvent nutricionista)
+        {
+            var nutricionistaRepositoryMock = new Mock<INutricionistaRepository>();
+            nutricionistaRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(nutricionista));
+
+            var applicationServiceNutricionista = GetApplicationServiceNutricionistaFake(nutricionistaRepositoryMock.Object);
+            var result = await applicationServiceNutricionista.GetPacientes(new Guid());
+            result.Should().BeNull();
+        }
+
+        [TestMethod]
+        public async Task Get_Nutri_Com_Pacientes()
+        {
+            var nutricionistaRepositoryMock = new Mock<INutricionistaRepository>();
+            nutricionistaRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(NutricionistaEventFake.GetFakeComPacientes()));
+
+            var applicationServiceNutricionista = GetApplicationServiceNutricionistaFake(
+                nutricionistaRepositoryMock.Object, null, null, null,
+                await GetApplicationServicePaciente());
+            var result = await applicationServiceNutricionista.GetPacientes(new Guid());
+            result.Should().NotBeEmpty();
         }
 
         [TestMethod]
@@ -127,13 +181,41 @@ namespace ApplicationTest.Services
             userServiceMock.Setup(x => x.VerificarEmailExiste(It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(true));
 
             var pacienteServiceMock = new Mock<IPacienteRepository>();
-            pacienteServiceMock.Setup(x => x.GetByEmail(It.IsAny<string>())).Returns(Task.FromResult(PacienteEventFake.GetPacienteEventFake()));
+            var paciente = PacienteEventFake.GetPacienteEventFake();
+            pacienteServiceMock.Setup(x => x.GetByEmail(It.IsAny<string>())).Returns(Task.FromResult(paciente));
+            pacienteServiceMock.Setup(x => x.GetAll()).Returns(Task.FromResult(PacienteEventFake.GetListPacienteEventFake(PacienteEventFake.MongoId)));
 
             var nutricionistaRepositoryMock = new Mock<IRepositorySQL<NutricionistaEntity>>();
             var nutricionistaRepository = new NutricionistaRepository(nutricionistaRepositoryMock.Object, mongoDbContextoMock.Object);
 
             var applicationServiceNutricionista = GetApplicationServiceNutricionistaFake(
                 nutricionistaRepository, null,
+                userServiceMock.Object, pacienteServiceMock.Object);
+
+            var retorno = await applicationServiceNutricionista.VincularPaciente(model);
+            nutricionistaRepositoryMock.Verify(mock => mock.Update(It.IsAny<NutricionistaEntity>()), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task VincularPaciente_Valido_Sem_Pacientes()
+        {
+            var model = NutricionistaDesvincularOuVincularViewModelFake.GetFake();
+
+            var userServiceMock = new Mock<IUserRepository>();
+            userServiceMock.Setup(x => x.VerificarEmailExiste(It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(true));
+
+            var pacienteServiceMock = new Mock<IPacienteRepository>();
+            var paciente = PacienteEventFake.GetPacienteEventFake();
+            pacienteServiceMock.Setup(x => x.GetByEmail(It.IsAny<string>())).Returns(Task.FromResult(paciente));
+            pacienteServiceMock.Setup(x => x.GetAll()).Returns(Task.FromResult(PacienteEventFake.GetListPacienteEventFake(PacienteEventFake.MongoId)));
+
+            var nutricionista = NutricionistaEventFake.GetFake();
+            nutricionista.PacientesIds = null;
+            var nutricionistaRepositoryMock = new Mock<INutricionistaRepository>();
+            nutricionistaRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(nutricionista));
+
+            var applicationServiceNutricionista = GetApplicationServiceNutricionistaFake(
+                nutricionistaRepositoryMock.Object, null,
                 userServiceMock.Object, pacienteServiceMock.Object);
 
             var retorno = await applicationServiceNutricionista.VincularPaciente(model);
@@ -196,6 +278,14 @@ namespace ApplicationTest.Services
                 tokenService is null ? new Mock<ITokenService>().Object : tokenService);
         }
 
+        private async Task<ApplicationServicePaciente> GetApplicationServicePaciente()
+        {
+            var mongoFake = new MongoFake<PacienteEvent>();
+            var mongoDbContextoMock = await new MongoDbContextFake<PacienteEvent>().GetMongoDbContext(mongoFake);
+            var pacienteRepository = new PacienteRepository(null, mongoDbContextoMock.Object);
+            return new ApplicationServicePaciente(pacienteRepository, null, null);
+        }
+
         private ITokenService GetTokenServiceMock()
         {
             var tokenServiceMock = new Mock<ITokenService>();
@@ -207,6 +297,13 @@ namespace ApplicationTest.Services
 
             tokenServiceMock.Setup(x => x.GetInformacoesDoToken(It.IsAny<string>())).Returns(tokenDTO);
             return tokenServiceMock.Object;
+        }
+
+        private static IEnumerable<object[]> GetVerificacoesInvalidosPacientes()
+        {
+            yield return new object[] { NutricionistaEventFake.GetFakePacientesNull() };
+            yield return new object[] { NutricionistaEventFake.GetFakeNull() };
+            yield return new object[] { NutricionistaEventFake.GetFake() };
         }
     }
 }

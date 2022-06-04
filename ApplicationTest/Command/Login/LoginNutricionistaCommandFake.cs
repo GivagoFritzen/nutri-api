@@ -15,11 +15,6 @@ namespace ApplicationTest.Command.Login
             return new LoginNutricionistaCommand(LoginNutricionistaViewModelFake.GetSenhaInvalido());
         }
 
-        public static LoginNutricionistaCommand GetEmailVazio()
-        {
-            return new LoginNutricionistaCommand(LoginNutricionistaViewModelFake.GetEmailVazio());
-        }
-
         public static LoginNutricionistaCommand GetEmailAbaixoDoPermitidoFake()
         {
             return new LoginNutricionistaCommand(LoginNutricionistaViewModelFake.GetEmailAbaixoDoPermitidoFake());

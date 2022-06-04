@@ -66,7 +66,7 @@ namespace Application.Mapper
                 Cidade = nutricionista.Cidade,
                 Telefone = nutricionista.Telefone,
                 Sexo = nutricionista.Sexo,
-                PacientesIds = nutricionista.Pacientes.Select(x => x.Id).ToList()
+                PacientesIds = nutricionista.Pacientes?.Select(x => x.Id).ToList()
             };
         }
 

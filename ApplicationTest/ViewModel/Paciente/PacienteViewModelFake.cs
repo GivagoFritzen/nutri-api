@@ -53,19 +53,5 @@ namespace ApplicationTest.ViewModel.Paciente
                 }
             };
         }
-
-        public static PacienteViewModel GetNomeVazioFake()
-        {
-            return new PacienteViewModel()
-            {
-                Nome = "",
-                Sobrenome = "sobrenome",
-                Email = "teste@provedor.com",
-                Cidade = "cidade",
-                Telefone = "99999999",
-                Sexo = true,
-                Medidas = new List<MedidaViewModel>(),
-            };
-        }
     }
 }

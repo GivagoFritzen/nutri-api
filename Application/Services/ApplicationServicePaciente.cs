@@ -16,16 +16,16 @@ namespace Application.Services
 {
     public class ApplicationServicePaciente : IApplicationServicePaciente
     {
-        private readonly IPacienteRepository pacienteService;
+        private readonly IPacienteRepository pacienteRepository;
         private readonly IMessagingService messagingService;
         private readonly IUserRepository userRepository;
 
         public ApplicationServicePaciente(
-            IPacienteRepository pacienteService,
+            IPacienteRepository pacienteRepository,
             IMessagingService messagingService,
             IUserRepository userRepository)
         {
-            this.pacienteService = pacienteService;
+            this.pacienteRepository = pacienteRepository;
             this.messagingService = messagingService;
             this.userRepository = userRepository;
         }
@@ -37,7 +37,7 @@ namespace Application.Services
                 return new ResponseView(command.ValidationResult);
 
             var paciente = pacienteViewModel.ToEntity();
-            await pacienteService.AddAsync(paciente);
+            await pacienteRepository.AddAsync(paciente);
             messagingService.Publish(paciente.ToEvent());
             messagingService.Publish(new UserEvent(
                 paciente.Id,
@@ -55,19 +55,19 @@ namespace Application.Services
                 .Exclude(e => e.Sexo)
                 .Exclude(e => e.Medidas);
 
-            var pacientes = await pacienteService.GetAll(filter, fields);
+            var pacientes = await pacienteRepository.GetAll(filter, fields);
             return pacientes.ToListPacientesSimplificadoViewModelViewModel();
         }
 
         public async Task<PacienteViewModel> GetById(Guid id)
         {
-            var paciente = await pacienteService.GetById(id);
+            var paciente = await pacienteRepository.GetById(id);
             return paciente.ToViewModel();
         }
 
         public async Task RemoveById(Guid id)
         {
-            await pacienteService.RemoveById(id);
+            await pacienteRepository.RemoveById(id);
             messagingService.Publish(new UserEvent(id, true));
             messagingService.Publish(new PacienteEvent(id, true));
         }
@@ -85,7 +85,7 @@ namespace Application.Services
                     pacienteViewModel.Email,
                     StringHelper.GetEventName(typeof(PacienteAtualizarViewModel).Name),
                     true));
-            pacienteService.Update(pacienteViewModel.ToEntity());
+            pacienteRepository.Update(pacienteViewModel.ToEntity());
             return new ResponseView(pacienteViewModel);
         }
     }

@@ -21,14 +21,6 @@ namespace ApplicationTest.ViewModel.Login
             };
         }
 
-        public static LoginNutricionistaViewModel GetEmailVazio()
-        {
-            return new LoginNutricionistaViewModel()
-            {
-                Senha = "senha"
-            };
-        }
-
         public static LoginNutricionistaViewModel GetEmailAbaixoDoPermitidoFake()
         {
             return new LoginNutricionistaViewModel()

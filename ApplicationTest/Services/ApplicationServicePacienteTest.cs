@@ -81,6 +81,23 @@ namespace ApplicationTest.Services
         }
 
         [TestMethod]
+        public async Task Remove()
+        {
+            var pacienteRepositoryMock = new Mock<IPacienteRepository>();
+            var messagingServiceMock = new Mock<IMessagingService>();
+
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                pacienteRepositoryMock.Object,
+                messagingServiceMock.Object,
+                new Mock<IUserRepository>().Object);
+
+            await applicationServicePaciente.RemoveById(Guid.NewGuid());
+            pacienteRepositoryMock.Verify(mock => mock.RemoveById(It.IsAny<Guid>()), Times.Once());
+            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<UserEvent>()), Times.Exactly(2));
+            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<PacienteEvent>()), Times.Once());
+        }
+
+        [TestMethod]
         public void Update_Invalido()
         {
             var retorno = applicationService.Update(PacienteAtualizarViewModelFake.GetNomeVazioFake());
