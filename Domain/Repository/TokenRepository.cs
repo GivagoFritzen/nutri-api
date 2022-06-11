@@ -15,7 +15,7 @@ namespace Domain.Repository
         {
             var queName = nameof(TokenEvent).Replace("Event", "");
             mongoCollection = mongoDbContext
-                .GetDatabase(queName)
+                .GetDatabase()
                 .GetCollection<TokenEvent>(queName);
         }
 

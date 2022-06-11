@@ -1,0 +1,1571 @@
+[{
+  "_id": {
+    "$oid": "629d53a19e16e14e97f80523"
+  },
+  "id": 1,
+  "description": "Arroz, integral, cozido",
+  "base_qty": 100,
+  "base_unit": "g",
+  "category_id": 1,
+  "attributes": {
+    "humidity": {
+      "qty": 70.1386666666667,
+      "unit": "percents"
+    },
+    "protein": {
+      "qty": 2.58825,
+      "unit": "g"
+    },
+    "lipid": {
+      "qty": 1.00033333333333,
+      "unit": "g"
+    },
+    "cholesterol": {
+      "qty": "NA",
+      "unit": "mg"
+    },
+    "carbohydrate": {
+      "qty": 25.80975,
+      "unit": "g"
+    },
+    "fiber": {
+      "qty": 2.74933333333333,
+      "unit": "g"
+    },
+    "ashes": {
+      "qty": 0.463,
+      "unit": "g"
+    },
+    "calcium": {
+      "qty": 5.204,
+      "unit": "mg"
+    },
+    "magnesium": {
+      "qty": 58.702,
+      "unit": "mg"
+    },
+    "phosphorus": {
+      "qty": 105.853,
+      "unit": "mg"
+    },
+    "iron": {
+      "qty": 0.262,
+      "unit": "mg"
+    },
+    "sodium": {
+      "qty": 1.24466666666667,
+      "unit": "mg"
+    },
+    "potassium": {
+      "qty": 75.1516666666667,
+      "unit": "mg"
+    },
+    "copper": {
+      "qty": 0.020333333333333,
+      "unit": "mg"
+    },
+    "zinc": {
+      "qty": 0.682666666666667,
+      "unit": "mg"
+    },
+    "retinol": {
+      "qty": "NA",
+      "unit": "mcg"
+    },
+    "thiamine": {
+      "qty": 0.08,
+      "unit": "mg"
+    },
+    "riboflavin": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "pyridoxine": {
+      "qty": 0.08,
+      "unit": "mg"
+    },
+    "niacin": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "energy": {
+      "kcal": 123.5348925,
+      "kj": 516.86999022
+    },
+    "fatty_acids": {
+      "saturated": {
+        "qty": 0.3,
+        "unit": "g"
+      },
+      "monounsaturated": {
+        "qty": 0.4,
+        "unit": "g"
+      },
+      "polyunsaturated": {
+        "qty": 0.3,
+        "unit": "g"
+      },
+      "14:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "16:0": {
+        "qty": 0.25,
+        "unit": "g"
+      },
+      "18:0": {
+        "qty": 0.02,
+        "unit": "g"
+      },
+      "20:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "22:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "24:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:1": {
+        "qty": 0.36,
+        "unit": "g"
+      },
+      "20:1": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:2 n-6": {
+        "qty": 0.31,
+        "unit": "g"
+      },
+      "18:3 n-3": {
+        "qty": 0.01,
+        "unit": "g"
+      },
+      "22:5": {
+        "qty": "Tr",
+        "unit": "g"
+      }
+    },
+    "manganese": {
+      "qty": 0.627333333333333,
+      "unit": "mg"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629d53a19e16e14e97f80524"
+  },
+  "id": 2,
+  "description": "Arroz, integral, cru",
+  "base_qty": 100,
+  "base_unit": "g",
+  "category_id": 1,
+  "attributes": {
+    "humidity": {
+      "qty": 12.1798333333333,
+      "unit": "percents"
+    },
+    "protein": {
+      "qty": 7.32328586956522,
+      "unit": "g"
+    },
+    "lipid": {
+      "qty": 1.86483333333333,
+      "unit": "g"
+    },
+    "cholesterol": {
+      "qty": "NA",
+      "unit": "mg"
+    },
+    "carbohydrate": {
+      "qty": 77.4507141304348,
+      "unit": "g"
+    },
+    "fiber": {
+      "qty": 4.81916666666667,
+      "unit": "g"
+    },
+    "ashes": {
+      "qty": 1.18133333333333,
+      "unit": "g"
+    },
+    "calcium": {
+      "qty": 7.818,
+      "unit": "mg"
+    },
+    "magnesium": {
+      "qty": 109.71,
+      "unit": "mg"
+    },
+    "phosphorus": {
+      "qty": 250.865,
+      "unit": "mg"
+    },
+    "iron": {
+      "qty": 0.948333333333333,
+      "unit": "mg"
+    },
+    "sodium": {
+      "qty": 1.64566666666667,
+      "unit": "mg"
+    },
+    "potassium": {
+      "qty": 173.34,
+      "unit": "mg"
+    },
+    "copper": {
+      "qty": 0.074833333333333,
+      "unit": "mg"
+    },
+    "zinc": {
+      "qty": 1.39516666666667,
+      "unit": "mg"
+    },
+    "retinol": {
+      "qty": "NA",
+      "unit": "mcg"
+    },
+    "thiamine": {
+      "qty": 0.261666666666667,
+      "unit": "mg"
+    },
+    "riboflavin": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "pyridoxine": {
+      "qty": 0.175,
+      "unit": "mg"
+    },
+    "niacin": {
+      "qty": 4.18333333333333,
+      "unit": "mg"
+    },
+    "energy": {
+      "kcal": 359.678002032609,
+      "kj": 1504.89276050444
+    },
+    "fatty_acids": {
+      "saturated": {
+        "qty": 0.3,
+        "unit": "g"
+      },
+      "monounsaturated": {
+        "qty": 0.5,
+        "unit": "g"
+      },
+      "polyunsaturated": {
+        "qty": 0.4,
+        "unit": "g"
+      },
+      "14:0": {
+        "qty": 0.01,
+        "unit": "g"
+      },
+      "16:0": {
+        "qty": 0.239333339293798,
+        "unit": "g"
+      },
+      "18:0": {
+        "qty": 0.02,
+        "unit": "g"
+      },
+      "20:0": {
+        "qty": 0.01,
+        "unit": "g"
+      },
+      "22:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "24:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "16:1": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:1": {
+        "qty": 0.45,
+        "unit": "g"
+      },
+      "20:1": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:2 n-6": {
+        "qty": 0.38,
+        "unit": "g"
+      },
+      "18:3 n-3": {
+        "qty": 0.02,
+        "unit": "g"
+      }
+    },
+    "manganese": {
+      "qty": 2.99333333333333,
+      "unit": "mg"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629d53a19e16e14e97f80525"
+  },
+  "id": 3,
+  "description": "Arroz, tipo 1, cozido",
+  "base_qty": 100,
+  "base_unit": "g",
+  "category_id": 1,
+  "attributes": {
+    "humidity": {
+      "qty": 69.1136666666667,
+      "unit": "percents"
+    },
+    "protein": {
+      "qty": 2.52081666666667,
+      "unit": "g"
+    },
+    "lipid": {
+      "qty": 0.227,
+      "unit": "g"
+    },
+    "cholesterol": {
+      "qty": "NA",
+      "unit": "mg"
+    },
+    "carbohydrate": {
+      "qty": 28.05985,
+      "unit": "g"
+    },
+    "fiber": {
+      "qty": 1.561,
+      "unit": "g"
+    },
+    "ashes": {
+      "qty": 0.078666666666667,
+      "unit": "g"
+    },
+    "calcium": {
+      "qty": 3.54433333333333,
+      "unit": "mg"
+    },
+    "magnesium": {
+      "qty": 2.25333333333333,
+      "unit": "mg"
+    },
+    "phosphorus": {
+      "qty": 17.945,
+      "unit": "mg"
+    },
+    "iron": {
+      "qty": 0.076666666666667,
+      "unit": "mg"
+    },
+    "sodium": {
+      "qty": 1.20066666666667,
+      "unit": "mg"
+    },
+    "potassium": {
+      "qty": 14.6736666666667,
+      "unit": "mg"
+    },
+    "copper": {
+      "qty": 0.015,
+      "unit": "mg"
+    },
+    "zinc": {
+      "qty": 0.491333333333333,
+      "unit": "mg"
+    },
+    "retinol": {
+      "qty": "NA",
+      "unit": "mcg"
+    },
+    "thiamine": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "riboflavin": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "pyridoxine": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "niacin": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "energy": {
+      "kcal": 128.258485666667,
+      "kj": 536.633504029333
+    },
+    "fatty_acids": {
+      "saturated": {
+        "qty": 0.2,
+        "unit": "g"
+      },
+      "monounsaturated": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "polyunsaturated": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "14:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "16:0": {
+        "qty": 0.16,
+        "unit": "g"
+      },
+      "18:0": {
+        "qty": 0.01,
+        "unit": "g"
+      },
+      "18:1": {
+        "qty": 0.04,
+        "unit": "g"
+      },
+      "18:2 n-6": {
+        "qty": 0.06,
+        "unit": "g"
+      }
+    },
+    "manganese": {
+      "qty": 0.296666666666667,
+      "unit": "mg"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629d53a19e16e14e97f80526"
+  },
+  "id": 4,
+  "description": "Arroz, tipo 1, cru",
+  "base_qty": 100,
+  "base_unit": "g",
+  "category_id": 1,
+  "attributes": {
+    "humidity": {
+      "qty": 13.2245,
+      "unit": "percents"
+    },
+    "protein": {
+      "qty": 7.15853985507246,
+      "unit": "g"
+    },
+    "lipid": {
+      "qty": 0.335,
+      "unit": "g"
+    },
+    "cholesterol": {
+      "qty": "NA",
+      "unit": "mg"
+    },
+    "carbohydrate": {
+      "qty": 78.7595434782609,
+      "unit": "g"
+    },
+    "fiber": {
+      "qty": 1.63916666666667,
+      "unit": "g"
+    },
+    "ashes": {
+      "qty": 0.522416666666667,
+      "unit": "g"
+    },
+    "calcium": {
+      "qty": 4.41433333333333,
+      "unit": "mg"
+    },
+    "magnesium": {
+      "qty": 30.3836666666667,
+      "unit": "mg"
+    },
+    "phosphorus": {
+      "qty": 104.207583333333,
+      "unit": "mg"
+    },
+    "iron": {
+      "qty": 0.6777475,
+      "unit": "mg"
+    },
+    "sodium": {
+      "qty": 1.01916666666667,
+      "unit": "mg"
+    },
+    "potassium": {
+      "qty": 62.4994166666667,
+      "unit": "mg"
+    },
+    "copper": {
+      "qty": 0.114833333333333,
+      "unit": "mg"
+    },
+    "zinc": {
+      "qty": 1.22483333333333,
+      "unit": "mg"
+    },
+    "retinol": {
+      "qty": "NA",
+      "unit": "mcg"
+    },
+    "thiamine": {
+      "qty": 0.163333333333333,
+      "unit": "mg"
+    },
+    "riboflavin": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "pyridoxine": {
+      "qty": 0.069166666666667,
+      "unit": "mg"
+    },
+    "niacin": {
+      "qty": 1.11666666666667,
+      "unit": "mg"
+    },
+    "energy": {
+      "kcal": 357.789273115942,
+      "kj": 1496.9903187171
+    },
+    "fatty_acids": {
+      "saturated": {
+        "qty": 0.1,
+        "unit": "g"
+      },
+      "monounsaturated": {
+        "qty": 0.1,
+        "unit": "g"
+      },
+      "polyunsaturated": {
+        "qty": 0.1,
+        "unit": "g"
+      },
+      "12:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "14:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "16:0": {
+        "qty": 0.06,
+        "unit": "g"
+      },
+      "18:0": {
+        "qty": 0.01,
+        "unit": "g"
+      },
+      "20:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "22:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "24:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:1": {
+        "qty": 0.06,
+        "unit": "g"
+      },
+      "18:2 n-6": {
+        "qty": 0.08,
+        "unit": "g"
+      },
+      "18:3 n-3": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:2t": {
+        "qty": "Tr",
+        "unit": "g"
+      }
+    },
+    "manganese": {
+      "qty": 1.03233333333333,
+      "unit": "mg"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629d53a19e16e14e97f80527"
+  },
+  "id": 5,
+  "description": "Arroz, tipo 2, cozido",
+  "base_qty": 100,
+  "base_unit": "g",
+  "category_id": 1,
+  "attributes": {
+    "humidity": {
+      "qty": 68.7276666666667,
+      "unit": "percents"
+    },
+    "protein": {
+      "qty": 2.56841666666667,
+      "unit": "g"
+    },
+    "lipid": {
+      "qty": 0.361666666666667,
+      "unit": "g"
+    },
+    "cholesterol": {
+      "qty": "NA",
+      "unit": "mg"
+    },
+    "carbohydrate": {
+      "qty": 28.1925833333333,
+      "unit": "g"
+    },
+    "fiber": {
+      "qty": 1.06966666666667,
+      "unit": "g"
+    },
+    "ashes": {
+      "qty": 0.149666666666667,
+      "unit": "g"
+    },
+    "calcium": {
+      "qty": 3.33366666666667,
+      "unit": "mg"
+    },
+    "magnesium": {
+      "qty": 6.05333333333333,
+      "unit": "mg"
+    },
+    "phosphorus": {
+      "qty": 21.5213333333333,
+      "unit": "mg"
+    },
+    "iron": {
+      "qty": 0.050333333333333,
+      "unit": "mg"
+    },
+    "sodium": {
+      "qty": 1.95966666666667,
+      "unit": "mg"
+    },
+    "potassium": {
+      "qty": 20.2033333333333,
+      "unit": "mg"
+    },
+    "copper": {
+      "qty": 0.041,
+      "unit": "mg"
+    },
+    "zinc": {
+      "qty": 0.549333333333333,
+      "unit": "mg"
+    },
+    "retinol": {
+      "qty": "NA",
+      "unit": "mcg"
+    },
+    "thiamine": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "riboflavin": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "pyridoxine": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "niacin": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "energy": {
+      "kcal": 130.119648333333,
+      "kj": 544.420608626667
+    },
+    "fatty_acids": {
+      "saturated": {
+        "qty": 0.1,
+        "unit": "g"
+      },
+      "monounsaturated": {
+        "qty": 0.1,
+        "unit": "g"
+      },
+      "polyunsaturated": {
+        "qty": 0.1,
+        "unit": "g"
+      },
+      "14:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "16:0": {
+        "qty": 0.12,
+        "unit": "g"
+      },
+      "18:0": {
+        "qty": 0.02,
+        "unit": "g"
+      },
+      "16:1": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:1": {
+        "qty": 0.12,
+        "unit": "g"
+      },
+      "20:1": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:2 n-6": {
+        "qty": 0.09,
+        "unit": "g"
+      },
+      "18:3 n-3": {
+        "qty": "Tr",
+        "unit": "g"
+      }
+    },
+    "manganese": {
+      "qty": 0.371,
+      "unit": "mg"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629d53a19e16e14e97f80528"
+  },
+  "id": 6,
+  "description": "Arroz, tipo 2, cru",
+  "base_qty": 100,
+  "base_unit": "g",
+  "category_id": 1,
+  "attributes": {
+    "humidity": {
+      "qty": 13.16475,
+      "unit": "percents"
+    },
+    "protein": {
+      "qty": 7.24188297101449,
+      "unit": "g"
+    },
+    "lipid": {
+      "qty": 0.2755,
+      "unit": "g"
+    },
+    "cholesterol": {
+      "qty": "NA",
+      "unit": "mg"
+    },
+    "carbohydrate": {
+      "qty": 78.8814503623188,
+      "unit": "g"
+    },
+    "fiber": {
+      "qty": 1.71983333333333,
+      "unit": "g"
+    },
+    "ashes": {
+      "qty": 0.436416666666667,
+      "unit": "g"
+    },
+    "calcium": {
+      "qty": 4.8335,
+      "unit": "mg"
+    },
+    "magnesium": {
+      "qty": 29.2390833333333,
+      "unit": "mg"
+    },
+    "phosphorus": {
+      "qty": 82.0439166666667,
+      "unit": "mg"
+    },
+    "iron": {
+      "qty": 0.597833333333333,
+      "unit": "mg"
+    },
+    "sodium": {
+      "qty": 0.568833333333333,
+      "unit": "mg"
+    },
+    "potassium": {
+      "qty": 57.2845833333333,
+      "unit": "mg"
+    },
+    "copper": {
+      "qty": 0.052,
+      "unit": "mg"
+    },
+    "zinc": {
+      "qty": 1.27208333333333,
+      "unit": "mg"
+    },
+    "retinol": {
+      "qty": "NA",
+      "unit": "mcg"
+    },
+    "thiamine": {
+      "qty": 0.163333333333333,
+      "unit": "mg"
+    },
+    "riboflavin": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "pyridoxine": {
+      "qty": 0.049166666666667,
+      "unit": "mg"
+    },
+    "niacin": {
+      "qty": 0.918333333333333,
+      "unit": "mg"
+    },
+    "energy": {
+      "kcal": 358.116761456522,
+      "kj": 1498.36052993409
+    },
+    "fatty_acids": {
+      "saturated": {
+        "qty": 0.1,
+        "unit": "g"
+      },
+      "monounsaturated": {
+        "qty": 0.1,
+        "unit": "g"
+      },
+      "polyunsaturated": {
+        "qty": 0.1,
+        "unit": "g"
+      },
+      "14:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "16:0": {
+        "qty": 0.06,
+        "unit": "g"
+      },
+      "18:0": {
+        "qty": 0.01,
+        "unit": "g"
+      },
+      "20:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "22:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "24:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:1": {
+        "qty": 0.09,
+        "unit": "g"
+      },
+      "20:1": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:2 n-6": {
+        "qty": 0.09,
+        "unit": "g"
+      },
+      "18:3 n-3": {
+        "qty": "Tr",
+        "unit": "g"
+      }
+    },
+    "manganese": {
+      "qty": 0.828,
+      "unit": "mg"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629d53a19e16e14e97f80529"
+  },
+  "id": 7,
+  "description": "Aveia, flocos, crua",
+  "vitaminC": {
+    "qty": 1.35,
+    "unit": "mg"
+  },
+  "base_qty": 100,
+  "base_unit": "g",
+  "category_id": 1,
+  "attributes": {
+    "humidity": {
+      "qty": 9.13333333333333,
+      "unit": "percents"
+    },
+    "protein": {
+      "qty": 13.9210260869565,
+      "unit": "g"
+    },
+    "lipid": {
+      "qty": 8.49666666666667,
+      "unit": "g"
+    },
+    "cholesterol": {
+      "qty": "NA",
+      "unit": "mg"
+    },
+    "carbohydrate": {
+      "qty": 66.6356405797102,
+      "unit": "g"
+    },
+    "fiber": {
+      "qty": 9.13,
+      "unit": "g"
+    },
+    "ashes": {
+      "qty": 1.81333333333333,
+      "unit": "g"
+    },
+    "calcium": {
+      "qty": 47.89,
+      "unit": "mg"
+    },
+    "magnesium": {
+      "qty": 118.762333333333,
+      "unit": "mg"
+    },
+    "phosphorus": {
+      "qty": 153.396666666667,
+      "unit": "mg"
+    },
+    "iron": {
+      "qty": 4.44666666666667,
+      "unit": "mg"
+    },
+    "sodium": {
+      "qty": 4.62666666666667,
+      "unit": "mg"
+    },
+    "potassium": {
+      "qty": 336.333333333333,
+      "unit": "mg"
+    },
+    "copper": {
+      "qty": 0.44,
+      "unit": "mg"
+    },
+    "zinc": {
+      "qty": 2.63,
+      "unit": "mg"
+    },
+    "retinol": {
+      "qty": "NA",
+      "unit": "mcg"
+    },
+    "thiamine": {
+      "qty": 0.553333333333333,
+      "unit": "mg"
+    },
+    "riboflavin": {
+      "qty": 0.03,
+      "unit": "mg"
+    },
+    "pyridoxine": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "niacin": {
+      "qty": 4.47,
+      "unit": "mg"
+    },
+    "energy": {
+      "kcal": 393.822689449275,
+      "kj": 1647.75413265577
+    },
+    "fatty_acids": {
+      "saturated": {
+        "qty": 1.54,
+        "unit": "g"
+      },
+      "monounsaturated": {
+        "qty": 3.15566666666667,
+        "unit": "g"
+      },
+      "polyunsaturated": {
+        "qty": 3.01633333333333,
+        "unit": "g"
+      },
+      "14:0": {
+        "qty": 0.015333333333333,
+        "unit": "g"
+      },
+      "16:0": {
+        "qty": 1.37033333333333,
+        "unit": "g"
+      },
+      "18:0": {
+        "qty": 0.139,
+        "unit": "g"
+      },
+      "20:0": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "24:0": {
+        "qty": 0.015333333333333,
+        "unit": "g"
+      },
+      "16:1": {
+        "qty": "Tr",
+        "unit": "g"
+      },
+      "18:1": {
+        "qty": 3.10133333333333,
+        "unit": "g"
+      },
+      "20:1": {
+        "qty": 0.054333333333333,
+        "unit": "g"
+      },
+      "18:2 n-6": {
+        "qty": 2.95433333333333,
+        "unit": "g"
+      },
+      "18:3 n-3": {
+        "qty": 0.062,
+        "unit": "g"
+      }
+    },
+    "manganese": {
+      "qty": 1.89466666666667,
+      "unit": "mg"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629d53a19e16e14e97f8052a"
+  },
+  "id": 8,
+  "description": "Biscoito, doce, maisena",
+  "vitaminC": {
+    "qty": 6.21666666666667,
+    "unit": "mg"
+  },
+  "base_qty": 100,
+  "base_unit": "g",
+  "category_id": 1,
+  "attributes": {
+    "humidity": {
+      "qty": 3.21666666666667,
+      "unit": "percents"
+    },
+    "protein": {
+      "qty": 8.07252173913043,
+      "unit": "g"
+    },
+    "lipid": {
+      "qty": 11.9666666666667,
+      "unit": "g"
+    },
+    "cholesterol": {
+      "qty": "NA",
+      "unit": "mg"
+    },
+    "carbohydrate": {
+      "qty": 75.2341449275362,
+      "unit": "g"
+    },
+    "fiber": {
+      "qty": 2.1,
+      "unit": "g"
+    },
+    "ashes": {
+      "qty": 1.51,
+      "unit": "g"
+    },
+    "calcium": {
+      "qty": 54.45,
+      "unit": "mg"
+    },
+    "magnesium": {
+      "qty": 37.1433333333333,
+      "unit": "mg"
+    },
+    "phosphorus": {
+      "qty": 166.103333333333,
+      "unit": "mg"
+    },
+    "iron": {
+      "qty": 1.76,
+      "unit": "mg"
+    },
+    "sodium": {
+      "qty": 352.026666666667,
+      "unit": "mg"
+    },
+    "potassium": {
+      "qty": 141.64,
+      "unit": "mg"
+    },
+    "copper": {
+      "qty": 0.17,
+      "unit": "mg"
+    },
+    "zinc": {
+      "qty": 1.03,
+      "unit": "mg"
+    },
+    "retinol": {
+      "qty": "NA",
+      "unit": "mcg"
+    },
+    "thiamine": {
+      "qty": 1.01,
+      "unit": "mg"
+    },
+    "riboflavin": {
+      "qty": 0.416666666666667,
+      "unit": "mg"
+    },
+    "pyridoxine": {
+      "qty": 0.23,
+      "unit": "mg"
+    },
+    "niacin": {
+      "qty": 3.90666666666667,
+      "unit": "mg"
+    },
+    "energy": {
+      "kcal": 442.819390144928,
+      "kj": 1852.75632836638
+    },
+    "fatty_acids": {
+      "saturated": {
+        "qty": 3.9,
+        "unit": "g"
+      },
+      "monounsaturated": {
+        "qty": 3.7,
+        "unit": "g"
+      },
+      "polyunsaturated": {
+        "qty": 2.2,
+        "unit": "g"
+      },
+      "12:0": {
+        "qty": 0.03,
+        "unit": "g"
+      },
+      "14:0": {
+        "qty": 0.07,
+        "unit": "g"
+      },
+      "16:0": {
+        "qty": 2.76,
+        "unit": "g"
+      },
+      "18:0": {
+        "qty": 0.94,
+        "unit": "g"
+      },
+      "20:0": {
+        "qty": 0.03,
+        "unit": "g"
+      },
+      "22:0": {
+        "qty": 0.02,
+        "unit": "g"
+      },
+      "24:0": {
+        "qty": 0.01,
+        "unit": "g"
+      },
+      "16:1": {
+        "qty": 0.02,
+        "unit": "g"
+      },
+      "18:1": {
+        "qty": 3.7,
+        "unit": "g"
+      },
+      "20:1": {
+        "qty": 0.02,
+        "unit": "g"
+      },
+      "18:2 n-6": {
+        "qty": 2.13,
+        "unit": "g"
+      },
+      "18:3 n-3": {
+        "qty": 0.1,
+        "unit": "g"
+      },
+      "18:1t": {
+        "qty": 1.36,
+        "unit": "g"
+      },
+      "18:2t": {
+        "qty": 0.22,
+        "unit": "g"
+      }
+    },
+    "manganese": {
+      "qty": 0.778333333333333,
+      "unit": "mg"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629d53a19e16e14e97f8052b"
+  },
+  "id": 9,
+  "description": "Biscoito, doce, recheado com chocolate",
+  "vitaminC": {
+    "qty": 3.52666666666667,
+    "unit": "mg"
+  },
+  "base_qty": 100,
+  "base_unit": "g",
+  "category_id": 1,
+  "attributes": {
+    "humidity": {
+      "qty": 2.18333333333333,
+      "unit": "percents"
+    },
+    "protein": {
+      "qty": 6.39721739130435,
+      "unit": "g"
+    },
+    "lipid": {
+      "qty": 19.5833333333333,
+      "unit": "g"
+    },
+    "cholesterol": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "carbohydrate": {
+      "qty": 70.5494492753623,
+      "unit": "g"
+    },
+    "fiber": {
+      "qty": 2.95666666666667,
+      "unit": "g"
+    },
+    "ashes": {
+      "qty": 1.28666666666667,
+      "unit": "g"
+    },
+    "calcium": {
+      "qty": 27.23,
+      "unit": "mg"
+    },
+    "magnesium": {
+      "qty": 47.9766666666667,
+      "unit": "mg"
+    },
+    "phosphorus": {
+      "qty": 139.45,
+      "unit": "mg"
+    },
+    "iron": {
+      "qty": 2.27,
+      "unit": "mg"
+    },
+    "sodium": {
+      "qty": 239.2,
+      "unit": "mg"
+    },
+    "potassium": {
+      "qty": 232.4,
+      "unit": "mg"
+    },
+    "copper": {
+      "qty": 0.273333333333333,
+      "unit": "mg"
+    },
+    "zinc": {
+      "qty": 0.993333333333333,
+      "unit": "mg"
+    },
+    "retinol": {
+      "qty": "Tr",
+      "unit": "mcg"
+    },
+    "thiamine": {
+      "qty": 0.316666666666667,
+      "unit": "mg"
+    },
+    "riboflavin": {
+      "qty": 0.393333333333333,
+      "unit": "mg"
+    },
+    "pyridoxine": {
+      "qty": 0.456666666666667,
+      "unit": "mg"
+    },
+    "niacin": {
+      "qty": 2.52333333333333,
+      "unit": "mg"
+    },
+    "energy": {
+      "kcal": 471.824779710145,
+      "kj": 1974.11487830725
+    },
+    "fatty_acids": {
+      "saturated": {
+        "qty": 6.2,
+        "unit": "g"
+      },
+      "monounsaturated": {
+        "qty": 6.6,
+        "unit": "g"
+      },
+      "polyunsaturated": {
+        "qty": 1.7,
+        "unit": "g"
+      },
+      "12:0": {
+        "qty": 0.19,
+        "unit": "g"
+      },
+      "14:0": {
+        "qty": 0.13,
+        "unit": "g"
+      },
+      "16:0": {
+        "qty": 3.11,
+        "unit": "g"
+      },
+      "18:0": {
+        "qty": 2.55,
+        "unit": "g"
+      },
+      "20:0": {
+        "qty": 0.07,
+        "unit": "g"
+      },
+      "22:0": {
+        "qty": 0.07,
+        "unit": "g"
+      },
+      "24:0": {
+        "qty": 0.02,
+        "unit": "g"
+      },
+      "16:1": {
+        "qty": 0.02,
+        "unit": "g"
+      },
+      "18:1": {
+        "qty": 6.55,
+        "unit": "g"
+      },
+      "20:1": {
+        "qty": 0.04,
+        "unit": "g"
+      },
+      "18:2 n-6": {
+        "qty": 1.68,
+        "unit": "g"
+      },
+      "18:3 n-3": {
+        "qty": 0.06,
+        "unit": "g"
+      },
+      "18:1t": {
+        "qty": 3.84,
+        "unit": "g"
+      },
+      "18:2t": {
+        "qty": 0.37,
+        "unit": "g"
+      }
+    },
+    "manganese": {
+      "qty": 0.588,
+      "unit": "mg"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629d53a19e16e14e97f8052c"
+  },
+  "id": 10,
+  "description": "Biscoito, doce, recheado com morango",
+  "vitaminC": {
+    "qty": "Tr",
+    "unit": "mg"
+  },
+  "base_qty": 100,
+  "base_unit": "g",
+  "category_id": 1,
+  "attributes": {
+    "humidity": {
+      "qty": 2.73333333333333,
+      "unit": "percents"
+    },
+    "protein": {
+      "qty": 5.71982608695652,
+      "unit": "g"
+    },
+    "lipid": {
+      "qty": 19.5733333333333,
+      "unit": "g"
+    },
+    "cholesterol": {
+      "qty": "Tr",
+      "unit": "mg"
+    },
+    "carbohydrate": {
+      "qty": 71.0135072463768,
+      "unit": "g"
+    },
+    "fiber": {
+      "qty": 1.53333333333333,
+      "unit": "g"
+    },
+    "ashes": {
+      "qty": 0.96,
+      "unit": "g"
+    },
+    "calcium": {
+      "qty": 35.78,
+      "unit": "mg"
+    },
+    "magnesium": {
+      "qty": 27.1,
+      "unit": "mg"
+    },
+    "phosphorus": {
+      "qty": 137.743333333333,
+      "unit": "mg"
+    },
+    "iron": {
+      "qty": 1.48,
+      "unit": "mg"
+    },
+    "sodium": {
+      "qty": 229.816666666667,
+      "unit": "mg"
+    },
+    "potassium": {
+      "qty": 113.013333333333,
+      "unit": "mg"
+    },
+    "copper": {
+      "qty": 0.126666666666667,
+      "unit": "mg"
+    },
+    "zinc": {
+      "qty": 0.726666666666667,
+      "unit": "mg"
+    },
+    "retinol": {
+      "qty": "Tr",
+      "unit": "mcg"
+    },
+    "thiamine": {
+      "qty": 0.896666666666667,
+      "unit": "mg"
+    },
+    "riboflavin": {
+      "qty": 0.42,
+      "unit": "mg"
+    },
+    "pyridoxine": {
+      "qty": 0.21,
+      "unit": "mg"
+    },
+    "niacin": {
+      "qty": 1.49666666666667,
+      "unit": "mg"
+    },
+    "energy": {
+      "kcal": 471.174736231884,
+      "kj": 1971.3950963942
+    },
+    "fatty_acids": {
+      "saturated": {
+        "qty": 6.1,
+        "unit": "g"
+      },
+      "monounsaturated": {
+        "qty": 6.5,
+        "unit": "g"
+      },
+      "polyunsaturated": {
+        "qty": 1.7,
+        "unit": "g"
+      },
+      "12:0": {
+        "qty": 0.07,
+        "unit": "g"
+      },
+      "14:0": {
+        "qty": 0.07,
+        "unit": "g"
+      },
+      "16:0": {
+        "qty": 3.35,
+        "unit": "g"
+      },
+      "18:0": {
+        "qty": 2.41,
+        "unit": "g"
+      },
+      "20:0": {
+        "qty": 0.06,
+        "unit": "g"
+      },
+      "16:1": {
+        "qty": 0.04,
+        "unit": "g"
+      },
+      "18:1": {
+        "qty": 6.4,
+        "unit": "g"
+      },
+      "20:1": {
+        "qty": 0.02,
+        "unit": "g"
+      },
+      "18:2 n-6": {
+        "qty": 1.61,
+        "unit": "g"
+      },
+      "18:3 n-3": {
+        "qty": 0.06,
+        "unit": "g"
+      },
+      "18:1t": {
+        "qty": 4.21,
+        "unit": "g"
+      },
+      "18:2t": {
+        "qty": 0.32,
+        "unit": "g"
+      }
+    },
+    "manganese": {
+      "qty": 0.659,
+      "unit": "mg"
+    }
+  }
+}]

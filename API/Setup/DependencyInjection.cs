@@ -62,6 +62,10 @@ namespace API.Setup
             services.AddScoped<IApplicationServiceLogin, ApplicationServiceLogin>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ITokenRepository, TokenRepository>();
+
+            // Taco
+            services.AddScoped<IApplicationServiceTaco, ApplicationServiceTaco>();
+            services.AddScoped<ITacoRepository, TacoRepository>();
         }
     }
 }

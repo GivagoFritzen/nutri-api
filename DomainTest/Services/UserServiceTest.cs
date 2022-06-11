@@ -24,7 +24,7 @@ namespace Domain.ServicesTest
             var mongoDatabase = new Mock<IMongoDatabase>();
             var mongoCollection = new Mock<IMongoCollection<UserEvent>>();
 
-            mongoDbContext.Setup(x => x.GetDatabase(It.IsAny<string>())).Returns(mongoDatabase.Object);
+            mongoDbContext.Setup(x => x.GetDatabase()).Returns(mongoDatabase.Object);
             mongoDatabase.Setup(x => x.GetCollection<UserEvent>(It.IsAny<string>(), It.IsAny<MongoCollectionSettings>())).Returns(mongoCollection.Object);
 
             mongoCollection.Setup(x => x.FindAsync(

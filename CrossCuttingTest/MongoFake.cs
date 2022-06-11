@@ -1,6 +1,6 @@
 using CrossCutting.Helpers;
 using CrossCuttingTest.Interfaces;
-using Domain.Interface;
+using Domain.Interface.Event;
 using Mongo2Go;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
@@ -13,6 +13,8 @@ namespace CrossCuttingTest
 {
     public class MongoFake<TEvent> : IMongoFake<TEvent> where TEvent : IEvent
     {
+        protected const string DATABASE_NAME = "Nutrição";
+
         private MongoDbRunner runner;
 
         public MongoFake()
@@ -28,13 +30,13 @@ namespace CrossCuttingTest
         public IMongoDatabase GetDatabase()
         {
             var client = new MongoClient(runner.ConnectionString);
-            return client.GetDatabase(StringHelper.GetEventName(typeof(TEvent).Name));
+            return client.GetDatabase(DATABASE_NAME);
         }
 
         public async Task<IMongoCollection<TEvent>> GetCollection()
         {
             var client = new MongoClient(runner.ConnectionString);
-            var database = client.GetDatabase(StringHelper.GetEventName(typeof(TEvent).Name));
+            var database = client.GetDatabase(DATABASE_NAME);
             var collection = database.GetCollection<TEvent>(StringHelper.GetEventName(typeof(TEvent).Name));
             await collection.InsertManyAsync(ReadFiles());
 

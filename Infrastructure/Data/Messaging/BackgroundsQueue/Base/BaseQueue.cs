@@ -37,7 +37,7 @@ namespace Infrastructure.Data.Messaging.BackgroundsQueue.Base
 
             queName = StringHelper.GetEventName(typeof(TEvent).Name);
             mongoCollection = mongoDbContext
-                    .GetDatabase(queName)
+                    .GetDatabase()
                     .GetCollection<TEvent>(queName);
         }
 

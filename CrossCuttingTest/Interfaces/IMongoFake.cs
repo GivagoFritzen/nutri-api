@@ -1,4 +1,4 @@
-﻿using Domain.Interface;
+﻿using Domain.Interface.Event;
 using MongoDB.Driver;
 using System.Threading.Tasks;
 

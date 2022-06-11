@@ -1,5 +1,5 @@
 ﻿using CrossCutting.Helpers;
-using Domain.Interface;
+using Domain.Interface.Event;
 using Domain.Interface.RabbitMQ;
 using Domain.Interface.Repository.RabbitMQ;
 using Newtonsoft.Json;

@@ -1,4 +1,4 @@
-﻿using Domain.Interface;
+﻿using Domain.Interface.Event;
 using System;
 
 namespace Domain.Event

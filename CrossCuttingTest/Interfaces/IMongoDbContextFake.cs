@@ -1,4 +1,4 @@
-﻿using Domain.Interface;
+﻿using Domain.Interface.Event;
 using Domain.Interface.Repository.Mongo;
 using Moq;
 using System.Threading.Tasks;

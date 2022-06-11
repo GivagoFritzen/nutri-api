@@ -17,7 +17,7 @@ namespace Domain.Repository
         {
             var queName = nameof(UserEvent).Replace("Event", "");
             mongoCollection = mongoDbContext
-                .GetDatabase(queName)
+                .GetDatabase()
                 .GetCollection<UserEvent>(queName);
         }
 

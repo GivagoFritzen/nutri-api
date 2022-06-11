@@ -10,7 +10,7 @@ namespace Domain.Interface.Repository.Mongo
 
         void AddCommand(Func<Task> func);
         void Dispose();
-        IMongoDatabase GetDatabase(string name);
+        IMongoDatabase GetDatabase();
         IMongoCollection<T> GetCollection<T>(string name);
         Task<int> SaveChanges();
     }

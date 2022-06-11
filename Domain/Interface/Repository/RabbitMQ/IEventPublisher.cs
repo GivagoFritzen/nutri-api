@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Interface.Event;
+using System;
 
 namespace Domain.Interface.Repository.RabbitMQ
 {

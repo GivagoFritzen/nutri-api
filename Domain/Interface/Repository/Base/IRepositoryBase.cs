@@ -1,4 +1,5 @@
 ﻿using Domain.Entity;
+using Domain.Interface.Event;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;

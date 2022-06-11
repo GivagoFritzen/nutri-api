@@ -15,6 +15,8 @@ namespace Infrastructure.Data.Repositories.Mongo
 {
     public class MongoDbContext : IMongoDbContext
     {
+        protected const string DATABASE_NAME = "Nutrição";
+
         public IClientSessionHandle Session { get; set; }
 
         private MongoClient mongoClient { get; set; }
@@ -50,9 +52,9 @@ namespace Infrastructure.Data.Repositories.Mongo
             return _commands.Count;
         }
 
-        public IMongoDatabase GetDatabase(string name)
+        public IMongoDatabase GetDatabase()
         {
-            return mongoClient.GetDatabase(name);
+            return mongoClient.GetDatabase(DATABASE_NAME);
         }
 
         public IMongoCollection<T> GetCollection<T>(string name)
