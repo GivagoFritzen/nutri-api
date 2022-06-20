@@ -11,6 +11,7 @@ namespace Domain.Entity
         public string Telefone { get; set; }
         public bool Sexo { get; set; }
         public List<MedidaEntity> Medidas { get; set; }
+        public List<PlanoAlimentarEntity> PlanosAlimentares { get; set; }
 
         public PacienteEntity()
         {

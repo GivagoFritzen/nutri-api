@@ -70,7 +70,7 @@ namespace ApplicationTest.Services
 
             await application.RemoveById(Guid.NewGuid());
             nutricionistaRepositoryMock.Verify(mock => mock.RemoveById(It.IsAny<Guid>()), Times.Once());
-            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<UserEvent>()), Times.Exactly(2));
+            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<UserEvent>()), Times.Once());
             messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<NutricionistaEvent>()), Times.Once());
         }
 
@@ -283,7 +283,7 @@ namespace ApplicationTest.Services
             var mongoFake = new MongoFake<PacienteEvent>();
             var mongoDbContextoMock = await new MongoDbContextFake<PacienteEvent>().GetMongoDbContext(mongoFake);
             var pacienteRepository = new PacienteRepository(null, mongoDbContextoMock.Object);
-            return new ApplicationServicePaciente(pacienteRepository, null, null);
+            return new ApplicationServicePaciente(new Mock<IPlanoAlimentarRepository>().Object, pacienteRepository, null, null);
         }
 
         private ITokenService GetTokenServiceMock()

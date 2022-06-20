@@ -23,32 +23,15 @@ namespace ApplicationTest.Mapper
             model.ToEntity()
                 .Should()
                 .BeEquivalentTo(expected,
-                options => options.Excluding(_ => _.Id));
+                options => options
+                .Excluding(_ => _.Id)
+                .Excluding(_ => _.PlanosAlimentares));
         }
 
         [TestMethod]
         public void Adicionar_Model_To_Entity_Null()
         {
             PacienteAdicionarViewModel model = null;
-            model.ToEntity().Should().BeNull();
-        }
-
-        [TestMethod]
-        public void Model_To_Entity()
-        {
-            var model = PacienteViewModelFake.GetFake();
-            var expected = PacienteEntityFake.GetPacienteEntityFake();
-
-            model.ToEntity()
-                .Should()
-                .BeEquivalentTo(expected,
-                options => options.Excluding(_ => _.Id));
-        }
-
-        [TestMethod]
-        public void Model_To_Entity_Null()
-        {
-            PacienteViewModel model = null;
             model.ToEntity().Should().BeNull();
         }
 
@@ -155,7 +138,9 @@ namespace ApplicationTest.Mapper
         [TestMethod]
         public void Model_To_Event_Update()
         {
-            var model = PacienteAtualizarViewModelFake.GetFake();
+            var model = PacienteAtualizarViewModelFake
+                .GetFake()
+                .ToEntity();
             var expected = PacienteEventFake.GetPacienteEventUpdateFake(model.Id);
 
             model.ToPacienteEventUpdate()

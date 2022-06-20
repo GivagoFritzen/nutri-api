@@ -13,7 +13,7 @@ namespace Domain.Repository.Base
 {
     public class RepositoryBase<TEntity, TEvent> : IRepositoryBase<TEntity, TEvent>
         where TEntity : BaseEntity
-        where TEvent : UserEvent
+        where TEvent : GenericEvent
     {
         protected IRepositorySQL<TEntity> repositorySQL;
         protected readonly IMongoCollection<TEvent> mongoCollection;

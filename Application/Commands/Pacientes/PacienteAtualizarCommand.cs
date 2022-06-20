@@ -1,9 +1,8 @@
-﻿using Application.Commands;
-using Application.Validation.Pacientes;
+﻿using Application.Validation.Pacientes;
 using Application.ViewModel.Pacientes;
 using Domain.Interface.Repository;
 
-namespace Application.Pacientes.Commands
+namespace Application.Commands.Pacientes
 {
     public class PacienteAtualizarCommand : Command
     {

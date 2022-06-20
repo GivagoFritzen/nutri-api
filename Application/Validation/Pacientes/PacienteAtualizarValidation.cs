@@ -1,4 +1,4 @@
-﻿using Application.Pacientes.Commands;
+﻿using Application.Commands.Pacientes;
 using CrossCutting.Message.Validation;
 using Domain.Interface.Repository;
 using FluentValidation;

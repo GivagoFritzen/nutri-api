@@ -9,13 +9,10 @@ namespace Application.Interfaces
     public interface IApplicationServicePaciente
     {
         Task<ResponseView> Add(PacienteAdicionarViewModel pacienteViewModel);
-
-        ResponseView Update(PacienteAtualizarViewModel pacienteViewModel);
-
+        Task<ResponseView> Update(PacienteAtualizarViewModel pacienteViewModel);
         Task RemoveById(Guid id);
-
         Task<IEnumerable<PacienteSimplificadoViewModel>> GetAll(List<Guid> pacientesIds);
-
         Task<PacienteViewModel> GetById(Guid id);
+        Task<ResponseView> AdicionarPlanoAlimentar(PacientePlanoAlimentarViewModel pacientePlanoAlimentarViewModel);
     }
 }

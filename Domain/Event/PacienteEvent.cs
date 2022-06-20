@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Event
 {
-    public class PacienteEvent : UserEvent
+    public class PacienteEvent : GenericEvent
     {
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
@@ -12,6 +12,7 @@ namespace Domain.Event
         public string Telefone { get; set; }
         public bool Sexo { get; set; }
         public List<MedidaEntity> Medidas { get; set; }
+        public List<PlanoAlimentarEntity> PlanoAlimentares { get; set; }
 
         public PacienteEvent() { }
 

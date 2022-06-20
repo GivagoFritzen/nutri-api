@@ -132,10 +132,16 @@
   <data name="EmailInvalido" xml:space="preserve">
     <value>Email Invalido</value>
   </data>
+  <data name="NaoEncontrado" xml:space="preserve">
+    <value>{0}  não encontrado.</value>
+  </data>
   <data name="RequisitosEmail" xml:space="preserve">
     <value>Os requisitos de Email não foram atendidos.</value>
   </data>
   <data name="SenhaNaoPodeSerIgual" xml:space="preserve">
     <value>Nova senha não pode ser igual a anterior.</value>
+  </data>
+  <data name="ValorMinimo" xml:space="preserve">
+    <value>Valor mínimo é {0}</value>
   </data>
 </root>

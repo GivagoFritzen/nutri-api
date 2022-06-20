@@ -44,9 +44,16 @@ namespace API.Controllers
 
         [HttpPut]
         [AllowAnonymous]
-        public ActionResult Update([FromBody] PacienteAtualizarViewModel pacienteViewModel)
+        public async Task<ActionResult> Update([FromBody] PacienteAtualizarViewModel pacienteViewModel)
         {
-            return CustomResponse(applicationServicePaciente.Update(pacienteViewModel));
+            return CustomResponse(await applicationServicePaciente.Update(pacienteViewModel));
+        }
+
+        [HttpPatch("AdicionarPlanoAlimentar")]
+        [AllowAnonymous]
+        public async Task<ActionResult> AdicionarPlanoAlimentar([FromBody] PacientePlanoAlimentarViewModel pacienteViewModel)
+        {
+            return CustomResponse(await applicationServicePaciente.AdicionarPlanoAlimentar(pacienteViewModel));
         }
     }
 }

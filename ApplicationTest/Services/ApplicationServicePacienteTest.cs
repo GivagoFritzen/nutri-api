@@ -2,11 +2,13 @@
 using Application.ViewModel.Pacientes;
 using ApplicationTest.ViewModel.Paciente;
 using CrossCuttingTest;
+using Domain.Entity;
 using Domain.Event;
 using Domain.Interface.Repository;
 using Domain.Interface.Services;
 using Domain.Repository;
 using DomainTest.Entity;
+using DomainTest.Event;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -24,6 +26,7 @@ namespace ApplicationTest.Services
         public void Initialize()
         {
             applicationService = new ApplicationServicePaciente(
+                new Mock<IPlanoAlimentarRepository>().Object,
                 new Mock<IPacienteRepository>().Object,
                 new Mock<IMessagingService>().Object,
                 new Mock<IUserRepository>().Object);
@@ -55,6 +58,7 @@ namespace ApplicationTest.Services
             var pacienteRepository = new PacienteRepository(null, mongoDbContextoMock.Object);
 
             var applicationServicePaciente = new ApplicationServicePaciente(
+                new Mock<IPlanoAlimentarRepository>().Object,
                 pacienteRepository,
                 new Mock<IMessagingService>().Object,
                 new Mock<IUserRepository>().Object);
@@ -72,6 +76,7 @@ namespace ApplicationTest.Services
             var pacienteRepository = new PacienteRepository(null, mongoDbContextoMock.Object);
 
             var applicationServicePaciente = new ApplicationServicePaciente(
+                new Mock<IPlanoAlimentarRepository>().Object,
                 pacienteRepository,
                 new Mock<IMessagingService>().Object,
                 new Mock<IUserRepository>().Object);
@@ -87,33 +92,64 @@ namespace ApplicationTest.Services
             var messagingServiceMock = new Mock<IMessagingService>();
 
             var applicationServicePaciente = new ApplicationServicePaciente(
+                new Mock<IPlanoAlimentarRepository>().Object,
                 pacienteRepositoryMock.Object,
                 messagingServiceMock.Object,
                 new Mock<IUserRepository>().Object);
 
             await applicationServicePaciente.RemoveById(Guid.NewGuid());
             pacienteRepositoryMock.Verify(mock => mock.RemoveById(It.IsAny<Guid>()), Times.Once());
-            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<UserEvent>()), Times.Exactly(2));
+            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<UserEvent>()), Times.Once());
             messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<PacienteEvent>()), Times.Once());
         }
 
         [TestMethod]
-        public void Update_Invalido()
+        public async Task Update_Invalido()
         {
-            var retorno = applicationService.Update(PacienteAtualizarViewModelFake.GetNomeVazioFake());
+            var retorno = await applicationService.Update(PacienteAtualizarViewModelFake.GetNomeVazioFake());
             retorno.Errors.Should().NotBeNullOrEmpty();
         }
 
         [TestMethod]
-        public void Update_Valido()
+        public async Task Update_Valido()
         {
             var model = PacienteAtualizarViewModelFake.GetFake();
-            var retorno = applicationService.Update(model).Body as PacienteAtualizarViewModel;
+            var retorno = (await applicationService.Update(model)).Body as PacienteAtualizarViewModel;
 
             retorno.Should()
                 .BeEquivalentTo(model, options =>
                     options.Excluding(_ => _.Id)
                 );
+        }
+
+        [TestMethod]
+        public async Task Adicionar_Plano_Alimentar_Invalido()
+        {
+            var retorno = await applicationService.AdicionarPlanoAlimentar(PacientePlanoAlimentarViewModelFake.GetFakeRefeicaoNull());
+            retorno.Errors.Should().NotBeNullOrEmpty();
+        }
+
+        [TestMethod]
+        public async Task Adicionar_Plano_Alimentar_Valido()
+        {
+            var messagingServiceMock = new Mock<IMessagingService>();
+            var pacienteRepositoryMock = new Mock<IPacienteRepository>();
+            pacienteRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(PacienteEventFake.GetPacienteEventFake()));
+
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                new Mock<IPlanoAlimentarRepository>().Object,
+                pacienteRepositoryMock.Object,
+                messagingServiceMock.Object,
+                new Mock<IUserRepository>().Object);
+
+            var model = PacientePlanoAlimentarViewModelFake.GetFake();
+            var retorno = (await applicationServicePaciente.AdicionarPlanoAlimentar(model)).Body as PacientePlanoAlimentarViewModel;
+
+            retorno.Should().BeEquivalentTo(model);
+
+            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<PacienteEvent>()), Times.Once());
+            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<UserEvent>()), Times.Once());
+            pacienteRepositoryMock.Verify(mock => mock.Update(It.IsAny<PacienteEntity>()), Times.Once());
         }
     }
 }

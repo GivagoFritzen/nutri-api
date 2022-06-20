@@ -2,8 +2,10 @@
 
 namespace Domain.Entity
 {
-    public class NutricionistaEntity : UserEntity
+    public class NutricionistaEntity : BaseEntity
     {
+        public string Email { get; set; }
+        public string Senha { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public string Cidade { get; set; }

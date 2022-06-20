@@ -17,5 +17,6 @@ namespace Application.ViewModel.Pacientes
         public string Telefone { get; set; }
         public bool Sexo { get; set; }
         public List<MedidaViewModel> Medidas { get; set; }
+        public IEnumerable<PlanoAlimentarViewModel> PlanoAlimentares { get; set; }
     }
 }

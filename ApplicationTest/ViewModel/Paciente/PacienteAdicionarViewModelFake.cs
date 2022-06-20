@@ -14,7 +14,7 @@ namespace ApplicationTest.ViewModel.Paciente
                 Cidade = "cidade",
                 Telefone = "99999999",
                 Sexo = true,
-                Medida = null,
+                Medida = null
             };
         }
 

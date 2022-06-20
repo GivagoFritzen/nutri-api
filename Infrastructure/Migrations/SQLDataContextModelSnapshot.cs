@@ -19,6 +19,31 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Domain.Entity.AlimentoEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Medida")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("RefeicaoEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RefeicaoEntityId");
+
+                    b.ToTable("AlimentoEntity");
+                });
+
             modelBuilder.Entity("Domain.Entity.MedidaEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -192,6 +217,54 @@ namespace Infrastructure.Migrations
                     b.ToTable("Pacientes");
                 });
 
+            modelBuilder.Entity("Domain.Entity.PlanoAlimentarEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("PacienteEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PacienteEntityId");
+
+                    b.ToTable("PlanoAlimentarEntity");
+                });
+
+            modelBuilder.Entity("Domain.Entity.RefeicaoEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Horario")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("PlanoAlimentarEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanoAlimentarEntityId");
+
+                    b.ToTable("RefeicaoEntity");
+                });
+
+            modelBuilder.Entity("Domain.Entity.AlimentoEntity", b =>
+                {
+                    b.HasOne("Domain.Entity.RefeicaoEntity", null)
+                        .WithMany("Alimentos")
+                        .HasForeignKey("RefeicaoEntityId");
+                });
+
             modelBuilder.Entity("Domain.Entity.MedidaEntity", b =>
                 {
                     b.HasOne("Domain.Entity.Medidas.CircunferenciaEntity", "Circunferencia")
@@ -212,6 +285,20 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("NutricionistaEntityId");
                 });
 
+            modelBuilder.Entity("Domain.Entity.PlanoAlimentarEntity", b =>
+                {
+                    b.HasOne("Domain.Entity.PacienteEntity", null)
+                        .WithMany("PlanosAlimentares")
+                        .HasForeignKey("PacienteEntityId");
+                });
+
+            modelBuilder.Entity("Domain.Entity.RefeicaoEntity", b =>
+                {
+                    b.HasOne("Domain.Entity.PlanoAlimentarEntity", null)
+                        .WithMany("Refeicoes")
+                        .HasForeignKey("PlanoAlimentarEntityId");
+                });
+
             modelBuilder.Entity("Domain.Entity.NutricionistaEntity", b =>
                 {
                     b.Navigation("Pacientes");
@@ -220,6 +307,18 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entity.PacienteEntity", b =>
                 {
                     b.Navigation("Medidas");
+
+                    b.Navigation("PlanosAlimentares");
+                });
+
+            modelBuilder.Entity("Domain.Entity.PlanoAlimentarEntity", b =>
+                {
+                    b.Navigation("Refeicoes");
+                });
+
+            modelBuilder.Entity("Domain.Entity.RefeicaoEntity", b =>
+                {
+                    b.Navigation("Alimentos");
                 });
 #pragma warning restore 612, 618
         }

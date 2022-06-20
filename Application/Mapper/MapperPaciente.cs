@@ -20,7 +20,8 @@ namespace Application.Mapper
                 Cidade = pacienteViewModel.Cidade,
                 Telefone = pacienteViewModel.Telefone,
                 Sexo = pacienteViewModel.Sexo,
-                Medidas = pacienteViewModel.Medida.ToEntity()
+                Medidas = pacienteViewModel.Medida.ToEntity(),
+                PlanosAlimentares = new List<PlanoAlimentarEntity>()
             };
         }
 
@@ -39,21 +40,6 @@ namespace Application.Mapper
             };
         }
 
-        public static PacienteEntity ToEntity(this PacienteViewModel pacienteViewModel)
-        {
-            return pacienteViewModel == null ? null : new PacienteEntity()
-            {
-                Id = pacienteViewModel.Id,
-                Nome = pacienteViewModel.Nome,
-                Sobrenome = pacienteViewModel.Sobrenome,
-                Email = pacienteViewModel.Email,
-                Cidade = pacienteViewModel.Cidade,
-                Telefone = pacienteViewModel.Telefone,
-                Sexo = pacienteViewModel.Sexo,
-                Medidas = pacienteViewModel.Medidas.ToEntity()
-            };
-        }
-
         public static PacienteEntity ToEntity(this PacienteEvent pacienteEvent)
         {
             return pacienteEvent == null ? null : new PacienteEntity()
@@ -65,7 +51,8 @@ namespace Application.Mapper
                 Cidade = pacienteEvent.Cidade,
                 Telefone = pacienteEvent.Telefone,
                 Sexo = pacienteEvent.Sexo,
-                Medidas = pacienteEvent.Medidas
+                Medidas = pacienteEvent.Medidas,
+                PlanosAlimentares = pacienteEvent.PlanoAlimentares
             };
         }
 
@@ -80,7 +67,8 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medidas = paciente.Medidas.ToViewModel()
+                Medidas = paciente.Medidas.ToViewModel(),
+                PlanoAlimentares = paciente.PlanosAlimentares.ToListPlanoAlimentarViewModel()
             };
         }
 
@@ -95,7 +83,8 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medidas = paciente.Medidas.ToViewModel()
+                Medidas = paciente.Medidas.ToViewModel(),
+                PlanoAlimentares = paciente.PlanoAlimentares.ToListPlanoAlimentarViewModel()
             };
         }
 
@@ -110,7 +99,8 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medidas = paciente.Medidas.ToViewModel()
+                Medidas = paciente.Medidas.ToViewModel(),
+                PlanoAlimentares = paciente.PlanoAlimentares.ToListPlanoAlimentarViewModel()
             });
         }
 
@@ -142,15 +132,14 @@ namespace Application.Mapper
                 Cidade = paciente.Cidade,
                 Telefone = paciente.Telefone,
                 Sexo = paciente.Sexo,
-                Medidas = paciente.Medidas
+                Medidas = paciente.Medidas,
+                PlanoAlimentares = paciente.PlanosAlimentares
             };
         }
 
-        public static PacienteEvent ToPacienteEventUpdate(this PacienteAtualizarViewModel paciente)
+        public static PacienteEvent ToPacienteEventUpdate(this PacienteEntity paciente)
         {
-            var pacienteEvent = paciente
-                                .ToEntity()
-                                .ToEvent();
+            var pacienteEvent = paciente.ToEvent();
             pacienteEvent.Update = true;
             return pacienteEvent;
         }

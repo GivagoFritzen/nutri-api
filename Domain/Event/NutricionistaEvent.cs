@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Domain.Event
 {
-    public class NutricionistaEvent : UserEvent
+    public class NutricionistaEvent : GenericEvent
     {
         public string Senha { get; set; }
         public string Nome { get; set; }

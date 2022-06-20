@@ -106,6 +106,15 @@ namespace CrossCutting.Message.Validation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}  não encontrado..
+        /// </summary>
+        public static string NaoEncontrado {
+            get {
+                return ResourceManager.GetString("NaoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Os requisitos de Email não foram atendidos..
         /// </summary>
         public static string RequisitosEmail {
@@ -120,6 +129,15 @@ namespace CrossCutting.Message.Validation {
         public static string SenhaNaoPodeSerIgual {
             get {
                 return ResourceManager.GetString("SenhaNaoPodeSerIgual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valor mínimo é {0}.
+        /// </summary>
+        public static string ValorMinimo {
+            get {
+                return ResourceManager.GetString("ValorMinimo", resourceCulture);
             }
         }
     }

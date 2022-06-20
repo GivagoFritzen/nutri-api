@@ -1,4 +1,4 @@
-﻿using Application.Pacientes.Commands;
+﻿using Application.Commands.Pacientes;
 using ApplicationTest.ViewModel.Paciente;
 using Domain.Interface.Repository;
 using Moq;

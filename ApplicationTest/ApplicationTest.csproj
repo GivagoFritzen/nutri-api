@@ -21,4 +21,8 @@
     <ProjectReference Include="..\DomainTest\DomainTest.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Validation\Taco\" />
+  </ItemGroup>
+
 </Project>

@@ -1,30 +1,35 @@
-﻿using Application.Interfaces;
+﻿using Application.Commands.Pacientes;
+using Application.Interfaces;
 using Application.Mapper;
-using Application.Pacientes.Commands;
 using Application.ViewModel;
 using Application.ViewModel.Pacientes;
 using CrossCutting.Helpers;
+using Domain.Entity;
 using Domain.Event;
 using Domain.Interface.Repository;
 using Domain.Interface.Services;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Services
 {
     public class ApplicationServicePaciente : IApplicationServicePaciente
     {
+        private readonly IPlanoAlimentarRepository planoAlimentarRepository;
         private readonly IPacienteRepository pacienteRepository;
         private readonly IMessagingService messagingService;
         private readonly IUserRepository userRepository;
 
         public ApplicationServicePaciente(
+            IPlanoAlimentarRepository planoAlimentarRepository,
             IPacienteRepository pacienteRepository,
             IMessagingService messagingService,
             IUserRepository userRepository)
         {
+            this.planoAlimentarRepository = planoAlimentarRepository;
             this.pacienteRepository = pacienteRepository;
             this.messagingService = messagingService;
             this.userRepository = userRepository;
@@ -38,11 +43,7 @@ namespace Application.Services
 
             var paciente = pacienteViewModel.ToEntity();
             await pacienteRepository.AddAsync(paciente);
-            messagingService.Publish(paciente.ToEvent());
-            messagingService.Publish(new UserEvent(
-                paciente.Id,
-                paciente.Email,
-                StringHelper.GetEventName(typeof(PacienteViewModel).Name)));
+            SendMessageService(paciente.ToEvent());
 
             return new ResponseView(paciente.ToViewModel());
         }
@@ -72,21 +73,75 @@ namespace Application.Services
             messagingService.Publish(new PacienteEvent(id, true));
         }
 
-        public ResponseView Update(PacienteAtualizarViewModel pacienteViewModel)
+        public async Task<ResponseView> Update(PacienteAtualizarViewModel pacienteViewModel)
         {
             var command = new PacienteAtualizarCommand(pacienteViewModel, userRepository);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
-            messagingService.Publish(pacienteViewModel.ToPacienteEventUpdate());
-            messagingService.Publish(
-                new UserEvent(
-                    pacienteViewModel.Id,
-                    pacienteViewModel.Email,
-                    StringHelper.GetEventName(typeof(PacienteAtualizarViewModel).Name),
-                    true));
-            pacienteRepository.Update(pacienteViewModel.ToEntity());
+            var entity = pacienteViewModel.ToEntity();
+            var planosAlimentares = await pacienteRepository.GetPlanosByPacienteId(pacienteViewModel.Id);
+            entity.PlanosAlimentares = planosAlimentares.ToList();
+
+            SendMessageService(entity.ToPacienteEventUpdate(), true);
+            pacienteRepository.Update(entity);
+
             return new ResponseView(pacienteViewModel);
+        }
+
+        public async Task<ResponseView> AdicionarPlanoAlimentar(PacientePlanoAlimentarViewModel pacientePlanoAlimentarViewModel)
+        {
+            var command = new PacientePlanoAlimentarCommand(pacientePlanoAlimentarViewModel, pacienteRepository);
+            if (!command.EhValido())
+                return new ResponseView(command.ValidationResult);
+
+            var paciente = await pacienteRepository.GetById(pacientePlanoAlimentarViewModel.PacienteId);
+
+            var refeicoes = pacientePlanoAlimentarViewModel.Refeicoes.ToEntity();
+
+            if (paciente.PlanoAlimentares is null)
+                paciente.PlanoAlimentares = new List<PlanoAlimentarEntity>();
+
+            paciente.Update = true;
+            paciente.PlanoAlimentares.Add(
+                new PlanoAlimentarEntity()
+                {
+                    Data = DateTime.UtcNow,
+                    Refeicoes = refeicoes.ToList()
+                });
+
+            SendMessageService(paciente, true);
+            pacienteRepository.Update(paciente.ToEntity());
+
+            return new ResponseView(pacientePlanoAlimentarViewModel);
+        }
+
+        public async Task<ResponseView> AtualizarPlanoAlimentar(PacienteAtualizarPlanoAlimentarViewModel pacienteAtualizarPlanoAlimentarViewModel)
+        {
+            var command = new PacienteAtualizarPlanoAlimentarCommand(pacienteAtualizarPlanoAlimentarViewModel, planoAlimentarRepository);
+            if (!command.EhValido())
+                return new ResponseView(command.ValidationResult);
+
+            var planoAlimentar = await planoAlimentarRepository.GetById(pacienteAtualizarPlanoAlimentarViewModel.PlanoAlimentarId);
+
+
+            var paciente = await pacienteRepository.GetById(planoAlimentar.PacienteId);
+            //pacienteRepository.Update(pacienteAtualizarPlanoAlimentarViewModel.ToEntity());
+
+            //Message
+
+            return new ResponseView(pacienteAtualizarPlanoAlimentarViewModel);
+        }
+
+        private void SendMessageService(PacienteEvent pacienteEvent, bool update = false)
+        {
+            messagingService.Publish(pacienteEvent);
+            messagingService.Publish(
+               new UserEvent(
+                    pacienteEvent.Id,
+                    pacienteEvent.Email,
+                    StringHelper.GetEventName(typeof(PacienteAtualizarViewModel).Name),
+                    update));
         }
     }
 }
