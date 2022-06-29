@@ -6,47 +6,30 @@ namespace Application.Mapper
 {
     public static class MapperMedida
     {
-        public static List<MedidaEntity> ToEntity(this MedidaAdicionarViewModel medidaViewModel)
+        public static MedidaEntity ToEntity(this MedidaViewModel medidaViewModel)
         {
-            var entities = new List<MedidaEntity>();
-
-            if (medidaViewModel is not null)
+            return medidaViewModel == null ? null : new MedidaEntity()
             {
-                entities.Add(new MedidaEntity()
-                {
-                    Descricao = medidaViewModel.Descricao,
-                    Data = medidaViewModel.Data,
-                    PesoAtual = medidaViewModel.PesoAtual,
-                    PesoIdeal = medidaViewModel.PesoIdeal,
-                    Altura = medidaViewModel.Altura,
-                    Circunferencia = medidaViewModel.Circunferencia.ToEntity()
-                });
-            }
-
-            return entities;
+                Descricao = medidaViewModel.Descricao,
+                Data = medidaViewModel.Data,
+                PesoAtual = medidaViewModel.PesoAtual,
+                PesoIdeal = medidaViewModel.PesoIdeal,
+                Altura = medidaViewModel.Altura,
+                Circunferencia = medidaViewModel.Circunferencia.ToEntity()
+            };
         }
 
-        public static List<MedidaEntity> ToEntity(this List<MedidaViewModel> medidaViewModel)
+        public static void Update(this MedidaEntity medidaEntity, MedidaAtualizarViewModel medidaViewModel)
         {
-            var entities = new List<MedidaEntity>();
-
-            if (medidaViewModel is not null && medidaViewModel.Count > 0)
+            if (medidaEntity != null && medidaViewModel != null)
             {
-                foreach (var item in medidaViewModel)
-                {
-                    entities.Add(new MedidaEntity()
-                    {
-                        Descricao = item.Descricao,
-                        Data = item.Data,
-                        PesoAtual = item.PesoAtual,
-                        PesoIdeal = item.PesoIdeal,
-                        Altura = item.Altura,
-                        Circunferencia = item.Circunferencia.ToEntity()
-                    });
-                }
-            }
-
-            return entities;
+                medidaEntity.Descricao = medidaViewModel.Medida.Descricao;
+                medidaEntity.Data = medidaViewModel.Medida.Data;
+                medidaEntity.PesoAtual = medidaViewModel.Medida.PesoAtual;
+                medidaEntity.PesoIdeal = medidaViewModel.Medida.PesoIdeal;
+                medidaEntity.Altura = medidaViewModel.Medida.Altura;
+                medidaEntity.Circunferencia.Update(medidaViewModel.Medida.Circunferencia);
+            };
         }
 
         public static List<MedidaViewModel> ToViewModel(this List<MedidaEntity> medidas)

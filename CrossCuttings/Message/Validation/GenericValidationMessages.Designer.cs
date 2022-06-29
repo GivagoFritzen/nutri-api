@@ -133,7 +133,7 @@ namespace CrossCutting.Message.Validation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valor mínimo é {0}.
+        ///   Looks up a localized string similar to Valor deve ser maior que {0}.
         /// </summary>
         public static string ValorMinimo {
             get {

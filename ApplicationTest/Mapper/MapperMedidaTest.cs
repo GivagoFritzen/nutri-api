@@ -6,7 +6,6 @@ using DomainTest.Entity;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ApplicationTest.Mapper
 {
@@ -14,33 +13,12 @@ namespace ApplicationTest.Mapper
     public class MapperMedidaTest
     {
         [TestMethod]
-        public void Adicionar_Model_To_Entity()
-        {
-            var model = MedidaAdicionarViewModelFake.GetFake();
-            var expected = MedidaEntityFake.GetFake();
-
-            model.ToEntity()
-                .FirstOrDefault()
-                .Should()
-                .BeEquivalentTo(expected,
-                options => options.Excluding(_ => _.Id).Excluding(_ => _.Data));
-        }
-
-        [TestMethod]
-        public void Adicionar_Model_To_Entity_Null()
-        {
-            MedidaAdicionarViewModel model = null;
-            model.ToEntity().Should().BeEmpty();
-        }
-
-        [TestMethod]
         public void Model_To_Entity()
         {
-            var model = new List<MedidaViewModel>() { MedidaViewModelFake.GetFake() };
+            var model = MedidaViewModelFake.GetFake();
             var expected = MedidaEntityFake.GetFake();
 
             model.ToEntity()
-                .FirstOrDefault()
                 .Should()
                 .BeEquivalentTo(expected,
                 options => options.Excluding(_ => _.Id).Excluding(_ => _.Data));
@@ -49,8 +27,8 @@ namespace ApplicationTest.Mapper
         [TestMethod]
         public void Model_To_Entity_Null()
         {
-            List<MedidaViewModel> models = null;
-            models.ToEntity().Should().BeEmpty();
+            MedidaViewModel model = null;
+            model.ToEntity().Should().BeNull();
         }
 
         [TestMethod]

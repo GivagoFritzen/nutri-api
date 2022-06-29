@@ -145,7 +145,8 @@ namespace ApplicationTest.Mapper
 
             model.ToPacienteEventUpdate()
                 .Should()
-                .BeEquivalentTo(expected);
+                .BeEquivalentTo(expected, opt =>
+                opt.Excluding(x => x.Medidas));
         }
     }
 }

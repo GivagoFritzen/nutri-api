@@ -54,6 +54,10 @@ namespace API.Setup
             services.AddScoped<IPacienteRepository, PacienteRepository>();
             services.AddTransient<IRepositorySQL<PacienteEntity>, RepositorySQLBase<PacienteEntity>>();
 
+            //Medidas
+            services.AddScoped<IMedidaRepository, MedidaRepository>();
+            services.AddTransient<IRepositorySQL<MedidaEntity>, RepositorySQLBase<MedidaEntity>>();
+
             // Plano Alimentar
             services.AddScoped<IPlanoAlimentarRepository, PlanoAlimentarRepository>();
             services.AddTransient<IRepositorySQL<PlanoAlimentarEntity>, RepositorySQLBase<PlanoAlimentarEntity>>();

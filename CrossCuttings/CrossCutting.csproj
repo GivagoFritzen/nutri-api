@@ -16,6 +16,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ExceptionsMessages.resx</DependentUpon>
     </Compile>
+    <Compile Update="Message\Validation\GenericValidationMessages - Copy.Designer.cs">
+      <DependentUpon>GenericValidationMessages.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Message\Validation\GenericValidationMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

@@ -7,12 +7,12 @@ namespace Application.Mapper
 {
     public static class MapperPlanoAlimentar
     {
-        public static PlanoAlimentarEntity ToEntity(this PlanoAlimentarViewModel planoAlimentarViewModel)
+        public static PlanoAlimentarEntity ToEntity(this PacienteAtualizarPlanoAlimentarViewModel viewModel)
         {
-            return planoAlimentarViewModel == null ? null : new PlanoAlimentarEntity
+            return viewModel == null ? null : new PlanoAlimentarEntity
             {
-                Data = planoAlimentarViewModel.Data,
-                Refeicoes = planoAlimentarViewModel.Refeicoes.ToEntity()
+                Data = viewModel.PlanoAlimentar.Data,
+                Refeicoes = viewModel.PlanoAlimentar.Refeicoes.ToEntity()
             };
         }
 

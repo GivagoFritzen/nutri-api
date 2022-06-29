@@ -283,7 +283,7 @@ namespace ApplicationTest.Services
             var mongoFake = new MongoFake<PacienteEvent>();
             var mongoDbContextoMock = await new MongoDbContextFake<PacienteEvent>().GetMongoDbContext(mongoFake);
             var pacienteRepository = new PacienteRepository(null, mongoDbContextoMock.Object);
-            return new ApplicationServicePaciente(new Mock<IPlanoAlimentarRepository>().Object, pacienteRepository, null, null);
+            return new ApplicationServicePaciente(new Mock<IPlanoAlimentarRepository>().Object, pacienteRepository, null, null, null);
         }
 
         private ITokenService GetTokenServiceMock()

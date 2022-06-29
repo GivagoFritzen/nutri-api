@@ -15,6 +15,11 @@ namespace Domain.Repository
             this.repositoryPlanoAlimentar = repositoryPlanoAlimentar;
         }
 
+        public async Task AddAsync(PlanoAlimentarEntity planoAlimentar)
+        {
+            await repositoryPlanoAlimentar.AddAsync(planoAlimentar);
+        }
+
         public async Task<PlanoAlimentarEntity> GetById(Guid id)
         {
             return await repositoryPlanoAlimentar.GetById(id);

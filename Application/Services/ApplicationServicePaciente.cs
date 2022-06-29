@@ -1,7 +1,9 @@
-﻿using Application.Commands.Pacientes;
+﻿using Application.Commands.Medidas;
+using Application.Commands.Pacientes;
 using Application.Interfaces;
 using Application.Mapper;
 using Application.ViewModel;
+using Application.ViewModel.Medidas;
 using Application.ViewModel.Pacientes;
 using CrossCutting.Helpers;
 using Domain.Entity;
@@ -20,17 +22,20 @@ namespace Application.Services
     {
         private readonly IPlanoAlimentarRepository planoAlimentarRepository;
         private readonly IPacienteRepository pacienteRepository;
+        private readonly IMedidaRepository medidaRepository;
         private readonly IMessagingService messagingService;
         private readonly IUserRepository userRepository;
 
         public ApplicationServicePaciente(
             IPlanoAlimentarRepository planoAlimentarRepository,
             IPacienteRepository pacienteRepository,
+            IMedidaRepository medidaRepository,
             IMessagingService messagingService,
             IUserRepository userRepository)
         {
             this.planoAlimentarRepository = planoAlimentarRepository;
             this.pacienteRepository = pacienteRepository;
+            this.medidaRepository = medidaRepository;
             this.messagingService = messagingService;
             this.userRepository = userRepository;
         }
@@ -81,12 +86,52 @@ namespace Application.Services
 
             var entity = pacienteViewModel.ToEntity();
             var planosAlimentares = await pacienteRepository.GetPlanosByPacienteId(pacienteViewModel.Id);
+            var medidas = await pacienteRepository.GetMedidasByPacienteId(pacienteViewModel.Id);
+
             entity.PlanosAlimentares = planosAlimentares.ToList();
+            entity.Medidas = medidas.ToList();
 
             SendMessageService(entity.ToPacienteEventUpdate(), true);
             pacienteRepository.Update(entity);
 
             return new ResponseView(pacienteViewModel);
+        }
+
+        public async Task<ResponseView> AdicionarMedidas(MedidaAdicionarViewModel medidaViewModel)
+        {
+            var command = new MedidaAdicionarCommand(medidaViewModel, pacienteRepository);
+            if (!command.EhValido())
+                return new ResponseView(command.ValidationResult);
+
+            var paciente = (await pacienteRepository.GetById(medidaViewModel.PacienteId)).ToEntity();
+
+            if (paciente.Medidas is null)
+                paciente.Medidas = new List<MedidaEntity>();
+
+            var medida = medidaViewModel.Medida.ToEntity();
+            paciente.Medidas.Add(medida);
+
+            pacienteRepository.Update(paciente);
+            messagingService.Publish(paciente.ToPacienteEventUpdate());
+
+            return new ResponseView(medidaViewModel);
+        }
+
+        public async Task<ResponseView> AtualizarMedidas(MedidaAtualizarViewModel medidaViewModel)
+        {
+            var command = new MedidaAtualizarCommand(medidaViewModel, medidaRepository, pacienteRepository);
+            if (!command.EhValido())
+                return new ResponseView(command.ValidationResult);
+
+            var medida = await medidaRepository.GetById(medidaViewModel.MedidaId);
+            medida.Update(medidaViewModel);
+            medidaRepository.Update(medida);
+
+            var pacienteEvent = await pacienteRepository.GetById(medidaViewModel.PacienteId);
+            pacienteEvent.Update = true;
+            messagingService.Publish(pacienteEvent);
+
+            return new ResponseView(medidaViewModel);
         }
 
         public async Task<ResponseView> AdicionarPlanoAlimentar(PacientePlanoAlimentarViewModel pacientePlanoAlimentarViewModel)
@@ -96,19 +141,19 @@ namespace Application.Services
                 return new ResponseView(command.ValidationResult);
 
             var paciente = await pacienteRepository.GetById(pacientePlanoAlimentarViewModel.PacienteId);
+            var planoAlimentar = new PlanoAlimentarEntity()
+            {
+                Data = DateTime.UtcNow,
+                Refeicoes = pacientePlanoAlimentarViewModel.Refeicoes.ToEntity().ToList()
+            };
 
-            var refeicoes = pacientePlanoAlimentarViewModel.Refeicoes.ToEntity();
+            await planoAlimentarRepository.AddAsync(planoAlimentar);
 
             if (paciente.PlanoAlimentares is null)
                 paciente.PlanoAlimentares = new List<PlanoAlimentarEntity>();
 
             paciente.Update = true;
-            paciente.PlanoAlimentares.Add(
-                new PlanoAlimentarEntity()
-                {
-                    Data = DateTime.UtcNow,
-                    Refeicoes = refeicoes.ToList()
-                });
+            paciente.PlanoAlimentares.Add(planoAlimentar);
 
             SendMessageService(paciente, true);
             pacienteRepository.Update(paciente.ToEntity());
@@ -116,19 +161,15 @@ namespace Application.Services
             return new ResponseView(pacientePlanoAlimentarViewModel);
         }
 
-        public async Task<ResponseView> AtualizarPlanoAlimentar(PacienteAtualizarPlanoAlimentarViewModel pacienteAtualizarPlanoAlimentarViewModel)
+        public ResponseView AtualizarPlanoAlimentar(PacienteAtualizarPlanoAlimentarViewModel pacienteAtualizarPlanoAlimentarViewModel)
         {
             var command = new PacienteAtualizarPlanoAlimentarCommand(pacienteAtualizarPlanoAlimentarViewModel, planoAlimentarRepository);
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
-            var planoAlimentar = await planoAlimentarRepository.GetById(pacienteAtualizarPlanoAlimentarViewModel.PlanoAlimentarId);
-
-
-            var paciente = await pacienteRepository.GetById(planoAlimentar.PacienteId);
-            //pacienteRepository.Update(pacienteAtualizarPlanoAlimentarViewModel.ToEntity());
-
-            //Message
+            var planoAlimentar = pacienteAtualizarPlanoAlimentarViewModel.ToEntity();
+            planoAlimentar.Id = pacienteAtualizarPlanoAlimentarViewModel.PlanoAlimentarId;
+            planoAlimentarRepository.Update(planoAlimentar);
 
             return new ResponseView(pacienteAtualizarPlanoAlimentarViewModel);
         }

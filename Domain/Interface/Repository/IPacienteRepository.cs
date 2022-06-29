@@ -10,5 +10,6 @@ namespace Domain.Interface.Repository
     public interface IPacienteRepository : IRepositoryBase<PacienteEntity, PacienteEvent>
     {
         Task<IEnumerable<PlanoAlimentarEntity>> GetPlanosByPacienteId(Guid pacienteId);
+        Task<IEnumerable<MedidaEntity>> GetMedidasByPacienteId(Guid pacienteId);
     }
 }

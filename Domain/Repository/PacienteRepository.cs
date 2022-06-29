@@ -23,5 +23,11 @@ namespace Domain.Repository
             var paciente = await repositorySQL.GetById(pacienteId);
             return paciente.PlanosAlimentares;
         }
+
+        public async Task<IEnumerable<MedidaEntity>> GetMedidasByPacienteId(Guid pacienteId)
+        {
+            var paciente = await repositorySQL.GetById(pacienteId);
+            return paciente.Medidas;
+        }
     }
 }

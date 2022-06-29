@@ -13,8 +13,7 @@ namespace ApplicationTest.ViewModel.Paciente
                 Email = "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                Medida = null
+                Sexo = true
             };
         }
 
@@ -27,8 +26,7 @@ namespace ApplicationTest.ViewModel.Paciente
                 Email = "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                Medida = null,
+                Sexo = true
             };
         }
 
@@ -41,8 +39,7 @@ namespace ApplicationTest.ViewModel.Paciente
                 Email = "1",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                Medida = null,
+                Sexo = true
             };
         }
 
@@ -55,8 +52,7 @@ namespace ApplicationTest.ViewModel.Paciente
                 Email = new string('t', 254) + "teste@provedor.com",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                Medida = null,
+                Sexo = true
             };
         }
 
@@ -69,8 +65,7 @@ namespace ApplicationTest.ViewModel.Paciente
                 Email = "teste",
                 Cidade = "cidade",
                 Telefone = "99999999",
-                Sexo = true,
-                Medida = null,
+                Sexo = true
             };
         }
     }

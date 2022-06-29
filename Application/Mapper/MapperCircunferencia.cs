@@ -32,6 +32,33 @@ namespace Application.Mapper
             };
         }
 
+        public static void Update(this CircunferenciaEntity entity, CircunferenciaViewModel model)
+        {
+            if (entity != null && model != null)
+            {
+                entity.BracoRelaxadoDireito = model.BracoRelaxadoDireito;
+                entity.BracoRelaxadoEsquerdo = model.BracoRelaxadoEsquerdo;
+                entity.BracoContraidoDireito = model.BracoContraidoDireito;
+                entity.BracoContraidoEsquerdo = model.BracoContraidoEsquerdo;
+                entity.AntebracoDireito = model.AntebracoDireito;
+                entity.AntebracoEsquerdo = model.AntebracoEsquerdo;
+                entity.PunhoDireito = model.PunhoDireito;
+                entity.PunhoEsquerdo = model.PunhoEsquerdo;
+                entity.Pescoco = model.Pescoco;
+                entity.Ombro = model.Ombro;
+                entity.Peitoral = model.Peitoral;
+                entity.Cintura = model.Cintura;
+                entity.Abdomen = model.Abdomen;
+                entity.Quadril = model.Quadril;
+                entity.PanturrilhaDireita = model.PanturrilhaDireita;
+                entity.PanturrilhaEsquerda = model.PanturrilhaEsquerda;
+                entity.CoxaDireita = model.CoxaDireita;
+                entity.CoxaEsquerda = model.CoxaEsquerda;
+                entity.CoxaProximalDireita = model.CoxaProximalDireita;
+                entity.CoxaProximalEsquerda = model.CoxaProximalEsquerda;
+            };
+        }
+
         public static CircunferenciaViewModel ToViewModel(this CircunferenciaEntity entity)
         {
             return entity == null ? null : new CircunferenciaViewModel()

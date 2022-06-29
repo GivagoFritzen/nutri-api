@@ -142,6 +142,6 @@
     <value>Nova senha não pode ser igual a anterior.</value>
   </data>
   <data name="ValorMinimo" xml:space="preserve">
-    <value>Valor mínimo é {0}</value>
+    <value>Valor deve ser maior que {0}</value>
   </data>
 </root>

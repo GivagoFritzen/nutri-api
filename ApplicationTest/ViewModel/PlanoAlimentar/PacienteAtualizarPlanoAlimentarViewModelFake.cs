@@ -1,8 +1,7 @@
 ﻿using Application.ViewModel.Pacientes;
-using ApplicationTest.ViewModel.PlanoAlimentar;
 using System;
 
-namespace ApplicationTest.ViewModel.Paciente
+namespace ApplicationTest.ViewModel.PlanoAlimentar
 {
     public static class PacienteAtualizarPlanoAlimentarViewModelFake
     {

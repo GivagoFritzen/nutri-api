@@ -16,23 +16,23 @@ namespace ApplicationTest.Mapper
         [TestMethod]
         public void Model_To_Entity()
         {
-            var model = PlanoAlimentarViewModelFake.GetFake();
+            var model = PacienteAtualizarPlanoAlimentarViewModelFake.GetFake();
             var expected = PlanoAlimentarEntityFake.GetFake();
 
-            model.Refeicoes.Should()
+            model.PlanoAlimentar.Refeicoes.Should()
                 .BeEquivalentTo(expected.Refeicoes,
                 options => options
                 .Excluding(x => x.Id)
                 .Excluding(x => x.Horario)
                 .Excluding(x => x.Alimentos));
 
-            CheckRefeicoes(expected.Refeicoes, model.Refeicoes).Should().BeTrue();
+            CheckRefeicoes(expected.Refeicoes, model.PlanoAlimentar.Refeicoes).Should().BeTrue();
         }
 
         [TestMethod]
         public void Model_To_Entity_Null()
         {
-            PlanoAlimentarViewModel model = null;
+            PacienteAtualizarPlanoAlimentarViewModel model = null;
             model.ToEntity().Should().BeNull();
         }
 

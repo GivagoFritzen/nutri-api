@@ -1,6 +1,7 @@
 ﻿using API.Controllers.Base;
 using Application.Interfaces;
 using Application.ViewModel;
+using Application.ViewModel.Medidas;
 using Application.ViewModel.Pacientes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -49,11 +50,32 @@ namespace API.Controllers
             return CustomResponse(await applicationServicePaciente.Update(pacienteViewModel));
         }
 
-        [HttpPatch("AdicionarPlanoAlimentar")]
+        [HttpPost("AdicionarMedida")]
+        [AllowAnonymous]
+        public async Task<ActionResult> AdicionarMedida([FromBody] MedidaAdicionarViewModel adicionarViewModel)
+        {
+            return CustomResponse(await applicationServicePaciente.AdicionarMedidas(adicionarViewModel));
+        }
+
+        [HttpPut("AtualizarMedida")]
+        [AllowAnonymous]
+        public async Task<ActionResult> AtualizarMedida([FromBody] MedidaAtualizarViewModel atualizarViewModel)
+        {
+            return CustomResponse(await applicationServicePaciente.AtualizarMedidas(atualizarViewModel));
+        }
+
+        [HttpPost("AdicionarPlanoAlimentar")]
         [AllowAnonymous]
         public async Task<ActionResult> AdicionarPlanoAlimentar([FromBody] PacientePlanoAlimentarViewModel pacienteViewModel)
         {
             return CustomResponse(await applicationServicePaciente.AdicionarPlanoAlimentar(pacienteViewModel));
+        }
+
+        [HttpPatch("AtualizarPlanoAlimentar")]
+        [AllowAnonymous]
+        public ActionResult AtualizarPlanoAlimentar([FromBody] PacienteAtualizarPlanoAlimentarViewModel pacienteViewModel)
+        {
+            return CustomResponse(applicationServicePaciente.AtualizarPlanoAlimentar(pacienteViewModel));
         }
     }
 }

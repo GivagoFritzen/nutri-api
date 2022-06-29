@@ -20,7 +20,7 @@ namespace Application.Mapper
                 Cidade = pacienteViewModel.Cidade,
                 Telefone = pacienteViewModel.Telefone,
                 Sexo = pacienteViewModel.Sexo,
-                Medidas = pacienteViewModel.Medida.ToEntity(),
+                Medidas = new List<MedidaEntity>(),
                 PlanosAlimentares = new List<PlanoAlimentarEntity>()
             };
         }
@@ -36,7 +36,7 @@ namespace Application.Mapper
                 Cidade = pacienteViewModel.Cidade,
                 Telefone = pacienteViewModel.Telefone,
                 Sexo = pacienteViewModel.Sexo,
-                Medidas = pacienteViewModel.Medida.ToEntity()
+                //Medidas = pacienteViewModel.Medida.ToEntity()
             };
         }
 
