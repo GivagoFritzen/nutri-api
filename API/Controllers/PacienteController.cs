@@ -1,8 +1,10 @@
-﻿using API.Controllers.Base;
+﻿using API.Attributes;
+using API.Controllers.Base;
 using Application.Interfaces;
 using Application.ViewModel;
 using Application.ViewModel.Medidas;
 using Application.ViewModel.Pacientes;
+using CrossCutting.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,21 +24,21 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
         public async Task<IActionResult> GetById(Guid id)
         {
             return CustomResponse(await applicationServicePaciente.GetById(id));
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
         public async Task<ActionResult<ResponseView>> Add([FromBody] PacienteAdicionarViewModel pacienteViewModel)
         {
             return CustomResponse(await applicationServicePaciente.Add(pacienteViewModel));
         }
 
         [HttpDelete("{id}")]
-        [AllowAnonymous]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
         public async Task<ActionResult> Remove(Guid id)
         {
             await applicationServicePaciente.RemoveById(id);
@@ -44,35 +46,35 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        [AllowAnonymous]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
         public async Task<ActionResult> Update([FromBody] PacienteAtualizarViewModel pacienteViewModel)
         {
             return CustomResponse(await applicationServicePaciente.Update(pacienteViewModel));
         }
 
         [HttpPost("AdicionarMedida")]
-        [AllowAnonymous]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
         public async Task<ActionResult> AdicionarMedida([FromBody] MedidaAdicionarViewModel adicionarViewModel)
         {
             return CustomResponse(await applicationServicePaciente.AdicionarMedidas(adicionarViewModel));
         }
 
         [HttpPut("AtualizarMedida")]
-        [AllowAnonymous]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
         public async Task<ActionResult> AtualizarMedida([FromBody] MedidaAtualizarViewModel atualizarViewModel)
         {
             return CustomResponse(await applicationServicePaciente.AtualizarMedidas(atualizarViewModel));
         }
 
         [HttpPost("AdicionarPlanoAlimentar")]
-        [AllowAnonymous]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
         public async Task<ActionResult> AdicionarPlanoAlimentar([FromBody] PacientePlanoAlimentarViewModel pacienteViewModel)
         {
             return CustomResponse(await applicationServicePaciente.AdicionarPlanoAlimentar(pacienteViewModel));
         }
 
         [HttpPatch("AtualizarPlanoAlimentar")]
-        [AllowAnonymous]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
         public ActionResult AtualizarPlanoAlimentar([FromBody] PacienteAtualizarPlanoAlimentarViewModel pacienteViewModel)
         {
             return CustomResponse(applicationServicePaciente.AtualizarPlanoAlimentar(pacienteViewModel));
