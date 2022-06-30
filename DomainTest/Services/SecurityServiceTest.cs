@@ -1,7 +1,6 @@
 ﻿using Domain.Interface.Services;
 using Domain.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace Domain.ServicesTest
 {
@@ -69,12 +68,6 @@ namespace Domain.ServicesTest
             var actual = securityService.EncryptPassword(password);
 
             Assert.AreNotEqual(password, actual);
-        }
-
-        [TestMethod]
-        public void Encrypt_Password_Invalid()
-        {
-            Assert.ThrowsException<FormatException>(() => securityService.EncryptPassword(null));
         }
     }
 }

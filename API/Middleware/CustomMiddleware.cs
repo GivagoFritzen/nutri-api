@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -34,13 +36,25 @@ namespace API.Middleware
 
         private Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            var code = HttpStatusCode.InternalServerError;
-
             var result = JsonConvert.SerializeObject(new { error = ex.Message });
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)code;
+            context.Response.StatusCode = GetStatusCode(ex);
 
             return context.Response.WriteAsync(result);
+        }
+
+        private int GetStatusCode(Exception ex)
+        {
+            switch (ex)
+            {
+                case SecurityTokenException:
+                case UnauthorizedAccessException:
+                    return 401;
+                case KeyNotFoundException:
+                    return 404;
+                default:
+                    return (int)HttpStatusCode.InternalServerError;
+            }
         }
     }
 }

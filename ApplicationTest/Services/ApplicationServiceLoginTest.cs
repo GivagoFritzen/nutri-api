@@ -35,19 +35,11 @@ namespace ApplicationTest.Services
         }
 
         [TestMethod]
-        public async Task Email_Inexistente()
-        {
-            await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
-                applicationService.Login(LoginNutricionistaViewModelFake.GetFake())
-            );
-        }
-
-        [TestMethod]
         public async Task Senha_Divergentes()
         {
             nutricionistaRepositoryMock.Setup(x => x.GetByEmail(It.IsAny<string>())).Returns(Task.FromResult(NutricionistaEventFake.GetFake()));
 
-            await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
+            await Assert.ThrowsExceptionAsync<UnauthorizedAccessException>(() =>
                 applicationService.Login(LoginNutricionistaViewModelFake.GetFake())
             );
         }

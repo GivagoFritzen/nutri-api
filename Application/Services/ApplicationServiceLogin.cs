@@ -4,7 +4,6 @@ using Application.Mapper;
 using Application.ViewModel;
 using Application.ViewModel.Login;
 using CrossCutting.Message.Exceptions;
-using Domain.Event;
 using Domain.Interface.Repository;
 using Domain.Interface.Services;
 using System;
@@ -38,18 +37,9 @@ namespace Application.Services
             if (!command.EhValido())
                 return new ResponseView(command.ValidationResult);
 
-            NutricionistaEvent nutricionista = null;
-            try
-            {
-                nutricionista = await nutricionistaRepository.GetByEmail(loginViewModel.Email);
-
-                if (!securityService.VerifyPassword(loginViewModel.Senha, nutricionista.Senha))
-                    ExceptionUsuarioOuSenhaInvalido();
-            }
-            catch
-            {
-                ExceptionUsuarioOuSenhaInvalido();
-            }
+            var nutricionista = await nutricionistaRepository.GetByEmail(loginViewModel.Email);
+            if (!securityService.VerifyPassword(loginViewModel.Senha, nutricionista.Senha))
+                throw new UnauthorizedAccessException($"{ExceptionsMessages.UsuarioOuSenhaInvalido}");
 
             var claims = new List<Claim>() {
                 new Claim(ClaimTypes.Name, nutricionista.Nome),
@@ -74,11 +64,6 @@ namespace Application.Services
 
             tokenRepository.UpdateRefreshToken(tokenDTO.ToEvent(), loginTokenViewModel.RefreshToken);
             return new ResponseView(tokenDTO.ToViewModel());
-        }
-
-        private void ExceptionUsuarioOuSenhaInvalido()
-        {
-            throw new InvalidOperationException($"{ExceptionsMessages.UsuarioOuSenhaInvalido}");
         }
     }
 }

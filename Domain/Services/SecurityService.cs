@@ -27,9 +27,6 @@ namespace Domain.Services
 
         public string EncryptPassword(string password)
         {
-            if (string.IsNullOrEmpty(password))
-                throw new FormatException();
-
             return BCrypt.Net.BCrypt.HashPassword(password);
         }
     }

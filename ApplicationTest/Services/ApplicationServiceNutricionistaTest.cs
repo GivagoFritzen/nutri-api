@@ -83,7 +83,7 @@ namespace ApplicationTest.Services
 
             var applicationServiceNutricionista = GetApplicationServiceNutricionistaFake(nutricionistaRepository);
 
-            await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
+            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(() =>
                 applicationServiceNutricionista.GetById(Guid.NewGuid())
             );
         }

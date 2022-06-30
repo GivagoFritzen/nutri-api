@@ -59,7 +59,7 @@ namespace Domain.Repository.Base
             var @event = await mongoCollection.Find(filter).FirstOrDefaultAsync();
 
             if (@event == null)
-                throw new InvalidOperationException($"{ExceptionsMessages.UsuarioNaoEncontrado}");
+                throw new KeyNotFoundException($"{ExceptionsMessages.UsuarioNaoEncontrado}");
 
             return @event;
         }
@@ -70,7 +70,7 @@ namespace Domain.Repository.Base
             var @event = await mongoCollection.Find(filter).FirstOrDefaultAsync();
 
             if (@event == null)
-                throw new InvalidOperationException($"{ExceptionsMessages.UsuarioNaoEncontrado}");
+                throw new KeyNotFoundException($"{ExceptionsMessages.UsuarioNaoEncontrado}");
 
             return @event;
         }

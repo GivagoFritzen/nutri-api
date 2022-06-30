@@ -13,6 +13,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ApplicationTest.Services
@@ -63,7 +64,7 @@ namespace ApplicationTest.Services
                 new Mock<IMessagingService>().Object,
                 new Mock<IUserRepository>().Object);
 
-            await Assert.ThrowsExceptionAsync<InvalidOperationException>(() =>
+            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(() =>
                 applicationServicePaciente.GetById(Guid.NewGuid())
             );
         }
