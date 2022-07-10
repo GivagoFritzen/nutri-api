@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.ViewModel.Nutricionistas
 {
-    public class NutricionistaAtualizarViewModel
+    public class NutricionistaAtualizarViewModel : BaseViewModel
     {
         [Required]
         public Guid Id { get; set; }

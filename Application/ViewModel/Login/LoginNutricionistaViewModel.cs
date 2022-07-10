@@ -2,7 +2,7 @@
 
 namespace Application.ViewModel.Login
 {
-    public class LoginNutricionistaViewModel
+    public class LoginNutricionistaViewModel : BaseViewModel
     {
         public string Email { get; set; }
         public string Senha { get; set; }

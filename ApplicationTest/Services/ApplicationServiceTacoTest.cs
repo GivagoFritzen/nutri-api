@@ -1,5 +1,4 @@
 ﻿using Application.Services;
-using Application.ViewModel.Taco;
 using CrossCuttingTest;
 using Domain.Event.Taco;
 using Domain.Repository;
@@ -26,19 +25,11 @@ namespace ApplicationTest.Services
             applicationService = new ApplicationServiceTaco(tacoRepository);
         }
 
-        [TestMethod]
-        public async Task Get_Taco_By_Pagination_Valores_Vazios()
-        {
-            var retorno = await applicationService.GetTacoByPagination(null, -1, -1);
-            retorno.Errors.Should().BeNullOrEmpty();
-        }
-
         [DataTestMethod]
         [DynamicData(nameof(GetTamanhoPaginas), DynamicDataSourceType.Method)]
         public async Task Get_Taco_By_Pagination_Valores_Limite_Pagina(int tamanhoPagina)
         {
-            var retorno = await applicationService.GetTacoByPagination(null, -1, tamanhoPagina);
-            var pagination = retorno.Body as TacoPaginationViewModel;
+            var pagination = await applicationService.GetTacoByPagination(null, -1, tamanhoPagina);
             pagination.Data.Count.Should().Be(tamanhoPagina);
         }
 
@@ -46,10 +37,10 @@ namespace ApplicationTest.Services
         public async Task Get_Taco_By_Pagination_Paginas_Diferentes()
         {
             var primeiraPagina = await applicationService.GetTacoByPagination(null, 1, 1);
-            var primeiroItem = (primeiraPagina.Body as TacoPaginationViewModel).Data.FirstOrDefault();
+            var primeiroItem = primeiraPagina.Data.FirstOrDefault();
 
             var segundaPagina = await applicationService.GetTacoByPagination(null, 2, 1);
-            var segundaItem = (segundaPagina.Body as TacoPaginationViewModel).Data.FirstOrDefault();
+            var segundaItem = segundaPagina.Data.FirstOrDefault();
 
             primeiroItem.Id.Should().NotBe(segundaItem.Id);
         }
@@ -58,8 +49,7 @@ namespace ApplicationTest.Services
         [DynamicData(nameof(GetDescricao), DynamicDataSourceType.Method)]
         public async Task Get_Taco_By_Pagination_Por_Descricao(string descricao, int total)
         {
-            var retorno = await applicationService.GetTacoByPagination(descricao, 1, 10);
-            var pagination = retorno.Body as TacoPaginationViewModel;
+            var pagination = await applicationService.GetTacoByPagination(descricao, 1, 10);
 
             pagination.Data.Should().HaveCount(total);
         }

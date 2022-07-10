@@ -40,17 +40,17 @@ namespace Application.Services
             this.userRepository = userRepository;
         }
 
-        public async Task<ResponseView> Add(PacienteAdicionarViewModel pacienteViewModel)
+        public async Task<BaseViewModel> Add(PacienteAdicionarViewModel pacienteViewModel)
         {
             var command = new PacienteAdicionarCommand(pacienteViewModel, userRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var paciente = pacienteViewModel.ToEntity();
             await pacienteRepository.AddAsync(paciente);
             SendMessageService(paciente.ToEvent());
 
-            return new ResponseView(paciente.ToViewModel());
+            return paciente.ToViewModel();
         }
 
         public async Task<IEnumerable<PacienteSimplificadoViewModel>> GetAll(List<Guid> pacientesIds)
@@ -78,11 +78,11 @@ namespace Application.Services
             messagingService.Publish(new PacienteEvent(id, true));
         }
 
-        public async Task<ResponseView> Update(PacienteAtualizarViewModel pacienteViewModel)
+        public async Task<BaseViewModel> Update(PacienteAtualizarViewModel pacienteViewModel)
         {
             var command = new PacienteAtualizarCommand(pacienteViewModel, userRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var entity = pacienteViewModel.ToEntity();
             var planosAlimentares = await pacienteRepository.GetPlanosByPacienteId(pacienteViewModel.Id);
@@ -94,14 +94,14 @@ namespace Application.Services
             SendMessageService(entity.ToPacienteEventUpdate(), true);
             pacienteRepository.Update(entity);
 
-            return new ResponseView(pacienteViewModel);
+            return pacienteViewModel;
         }
 
-        public async Task<ResponseView> AdicionarMedidas(MedidaAdicionarViewModel medidaViewModel)
+        public async Task<BaseViewModel> AdicionarMedidas(MedidaAdicionarViewModel medidaViewModel)
         {
             var command = new MedidaAdicionarCommand(medidaViewModel, pacienteRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var paciente = (await pacienteRepository.GetById(medidaViewModel.PacienteId)).ToEntity();
 
@@ -114,14 +114,14 @@ namespace Application.Services
             pacienteRepository.Update(paciente);
             messagingService.Publish(paciente.ToPacienteEventUpdate());
 
-            return new ResponseView(medidaViewModel);
+            return medidaViewModel;
         }
 
-        public async Task<ResponseView> AtualizarMedidas(MedidaAtualizarViewModel medidaViewModel)
+        public async Task<BaseViewModel> AtualizarMedidas(MedidaAtualizarViewModel medidaViewModel)
         {
             var command = new MedidaAtualizarCommand(medidaViewModel, medidaRepository, pacienteRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var medida = await medidaRepository.GetById(medidaViewModel.MedidaId);
             medida.Update(medidaViewModel);
@@ -131,14 +131,14 @@ namespace Application.Services
             pacienteEvent.Update = true;
             messagingService.Publish(pacienteEvent);
 
-            return new ResponseView(medidaViewModel);
+            return medidaViewModel;
         }
 
-        public async Task<ResponseView> AdicionarPlanoAlimentar(PacientePlanoAlimentarViewModel pacientePlanoAlimentarViewModel)
+        public async Task<BaseViewModel> AdicionarPlanoAlimentar(PacientePlanoAlimentarViewModel pacientePlanoAlimentarViewModel)
         {
             var command = new PacientePlanoAlimentarCommand(pacientePlanoAlimentarViewModel, pacienteRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var paciente = await pacienteRepository.GetById(pacientePlanoAlimentarViewModel.PacienteId);
             var planoAlimentar = new PlanoAlimentarEntity()
@@ -158,20 +158,20 @@ namespace Application.Services
             SendMessageService(paciente, true);
             pacienteRepository.Update(paciente.ToEntity());
 
-            return new ResponseView(pacientePlanoAlimentarViewModel);
+            return pacientePlanoAlimentarViewModel;
         }
 
-        public ResponseView AtualizarPlanoAlimentar(PacienteAtualizarPlanoAlimentarViewModel pacienteAtualizarPlanoAlimentarViewModel)
+        public BaseViewModel AtualizarPlanoAlimentar(PacienteAtualizarPlanoAlimentarViewModel pacienteAtualizarPlanoAlimentarViewModel)
         {
             var command = new PacienteAtualizarPlanoAlimentarCommand(pacienteAtualizarPlanoAlimentarViewModel, planoAlimentarRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var planoAlimentar = pacienteAtualizarPlanoAlimentarViewModel.ToEntity();
             planoAlimentar.Id = pacienteAtualizarPlanoAlimentarViewModel.PlanoAlimentarId;
             planoAlimentarRepository.Update(planoAlimentar);
 
-            return new ResponseView(pacienteAtualizarPlanoAlimentarViewModel);
+            return pacienteAtualizarPlanoAlimentarViewModel;
         }
 
         private void SendMessageService(PacienteEvent pacienteEvent, bool update = false)

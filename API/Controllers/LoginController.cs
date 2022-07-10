@@ -27,7 +27,7 @@ namespace API.Controllers
 
         [HttpPatch]
         [AllowAnonymous]
-        public ActionResult Refresh([FromBody] LoginTokenViewModel loginTokenViewModel)
+        public ActionResult<LoginTokenViewModel> Refresh([FromBody] LoginTokenViewModel loginTokenViewModel)
         {
             return CustomResponse(applicationServiceLogin.Refresh(loginTokenViewModel));
         }

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.ViewModel.Pacientes
 {
-    public class PacienteViewModel
+    public class PacienteViewModel : BaseViewModel
     {
         public Guid Id { get; set; }
         [Required]

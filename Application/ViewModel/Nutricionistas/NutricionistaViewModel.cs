@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.ViewModel.Nutricionistas
 {
-    public class NutricionistaViewModel
+    public class NutricionistaViewModel : BaseViewModel
     {
         [Required]
         public string Nome { get; set; }

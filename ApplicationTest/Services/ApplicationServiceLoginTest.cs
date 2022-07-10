@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Application.ViewModel;
 using Application.ViewModel.Login;
 using ApplicationTest.ViewModel.Login;
 using CrossCutting.Message.Exceptions;
@@ -47,7 +48,7 @@ namespace ApplicationTest.Services
         [TestMethod]
         public async Task Login_Invalido()
         {
-            var retorno = await applicationService.Login(LoginNutricionistaViewModelFake.GetSenhaInvalido());
+            var retorno = await applicationService.Login(LoginNutricionistaViewModelFake.GetSenhaInvalido()) as ErrorViewModel;
             retorno.Errors.Should().NotBeNullOrEmpty();
         }
 
@@ -61,13 +62,13 @@ namespace ApplicationTest.Services
             nutricionistaRepositoryMock.Setup(x => x.GetByEmail(It.IsAny<string>())).Returns(Task.FromResult(nutricionista));
 
             var retorno = await applicationService.Login(LoginNutricionistaViewModelFake.GetFake());
-            retorno.Errors.Should().BeNull();
+            retorno.Should().BeOfType<LoginTokenViewModel>();
         }
 
         [TestMethod]
         public void Refresh_Invalido()
         {
-            var result = applicationService.Refresh(new LoginTokenViewModel());
+            var result = applicationService.Refresh(new LoginTokenViewModel()) as ErrorViewModel;
             result.Errors.Should().Contain(ExceptionsMessages.RefreshTokenInvalido);
         }
 
@@ -88,7 +89,7 @@ namespace ApplicationTest.Services
                 tokenRepositoryMock.Object,
                 nutricionistaRepositoryMock.Object);
 
-            var result = (LoginTokenViewModel)applicationServiceLogin.Refresh(new LoginTokenViewModel()).Body;
+            var result = applicationServiceLogin.Refresh(new LoginTokenViewModel()) as LoginTokenViewModel;
 
             result.Token.Should().Be(loginTokenDTO.Token);
             result.RefreshToken.Should().Be(loginTokenDTO.RefreshToken);

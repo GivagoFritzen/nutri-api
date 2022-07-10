@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.Services;
+using Application.ViewModel;
 using Application.ViewModel.Nutricionistas;
 using ApplicationTest.ViewModel.Login;
 using ApplicationTest.ViewModel.Nutricionista;
@@ -44,15 +45,17 @@ namespace ApplicationTest.Services
         [TestMethod]
         public async Task Add_Invalido()
         {
-            var retorno = await applicationService.Add(NutricionistaAdicionarViewModelFake.GetNomeVazioFake());
-            retorno.Errors.Should().NotBeNullOrEmpty();
+            var viewModel = NutricionistaAdicionarViewModelFake.GetNomeVazioFake();
+            var retorno = await applicationService.Add(viewModel);
+
+            retorno.Should().BeOfType<ErrorViewModel>();
         }
 
         [TestMethod]
         public async Task Add_Valido()
         {
             var model = NutricionistaAdicionarViewModelFake.GetFake();
-            var retorno = (await applicationService.Add(model)).Body as NutricionistaViewModel;
+            var retorno = await applicationService.Add(model) as NutricionistaViewModel;
 
             retorno.Should()
                 .BeEquivalentTo(model,
@@ -143,14 +146,14 @@ namespace ApplicationTest.Services
         public void Update_Invalido()
         {
             var retorno = applicationService.Update(NutricionistaAtualizarViewModelFake.GetNomeVazioFake());
-            retorno.Errors.Should().NotBeNullOrEmpty();
+            retorno.Should().BeOfType<ErrorViewModel>();
         }
 
         [TestMethod]
         public void Update_Valido()
         {
             var model = NutricionistaAtualizarViewModelFake.GetFake();
-            var retorno = applicationService.Update(model).Body as NutricionistaAtualizarViewModel;
+            var retorno = applicationService.Update(model);
 
             retorno.Should()
                 .BeEquivalentTo(model, options =>
@@ -163,10 +166,8 @@ namespace ApplicationTest.Services
         [TestMethod]
         public async Task VincularPaciente_Invalido()
         {
-            var model = NutricionistaDesvincularOuVincularViewModelFake.GetFake();
-
-            var retorno = await applicationService.VincularPaciente(model);
-            retorno.Errors.Should().NotBeNullOrEmpty();
+            var retorno = await applicationService.VincularPaciente(NutricionistaDesvincularOuVincularViewModelFake.GetFake());
+            retorno.Should().BeOfType<ErrorViewModel>();
         }
 
         [TestMethod]
@@ -227,7 +228,7 @@ namespace ApplicationTest.Services
         {
             var model = NutricionistaDesvincularOuVincularViewModelFake.GetFake();
             var retorno = await applicationService.DesvincularPaciente(model.PacienteEmail, TokenFake.TokenGeneric);
-            retorno.Errors.Should().NotBeNullOrEmpty();
+            retorno.Should().BeOfType<ErrorViewModel>();
         }
 
         [TestMethod]

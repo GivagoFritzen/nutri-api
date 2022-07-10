@@ -46,11 +46,11 @@ namespace Application.Services
             this.tokenService = tokenService;
         }
 
-        public async Task<ResponseView> Add(NutricionistaAdicionarViewModel nutricionistaViewModel)
+        public async Task<BaseViewModel> Add(NutricionistaAdicionarViewModel nutricionistaViewModel)
         {
             var command = new NutricionistaAdicionarCommand(nutricionistaViewModel, userRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var nutricionista = nutricionistaViewModel.ToEntity();
             nutricionista.Senha = securityService.EncryptPassword(nutricionista.Senha);
@@ -59,7 +59,7 @@ namespace Application.Services
             messagingService.Publish(nutricionista.ToNutricionistaEvent());
             messagingService.Publish(new UserEvent(nutricionista.Id, nutricionista.Email, StringHelper.GetEventName(typeof(NutricionistaViewModel).Name)));
 
-            return new ResponseView(nutricionista.ToViewModel());
+            return nutricionista.ToViewModel();
         }
 
         public async Task RemoveById(Guid id)
@@ -94,11 +94,11 @@ namespace Application.Services
             return pacientes;
         }
 
-        public ResponseView Update(NutricionistaAtualizarViewModel nutricionistaViewModel)
+        public BaseViewModel Update(NutricionistaAtualizarViewModel nutricionistaViewModel)
         {
             var command = new NutricionistaAtualizarCommand(securityService, nutricionistaViewModel, userRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             nutricionistaViewModel.NovaSenha = securityService.EncryptPassword(nutricionistaViewModel.NovaSenha);
             UpdateRepositories(nutricionistaViewModel.ToNutricionistaEventUpdate(), nutricionistaViewModel.ToEntity());
@@ -110,14 +110,14 @@ namespace Application.Services
                     StringHelper.GetEventName(typeof(NutricionistaAtualizarViewModel).Name),
                 true));
 
-            return new ResponseView(nutricionistaViewModel);
+            return nutricionistaViewModel;
         }
 
-        public async Task<ResponseView> VincularPaciente(NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
+        public async Task<BaseViewModel> VincularPaciente(NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
         {
             var command = new NutricionistaDesvincularOuVincularCommand(nutricionistaViewModel, userRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var nutricionistaEvent = await nutricionistaRepository.GetById(nutricionistaViewModel.Id);
             if (nutricionistaEvent.PacientesIds == null)
@@ -139,10 +139,10 @@ namespace Application.Services
 
             UpdateRepositories(nutricionistaEvent, entity);
 
-            return new ResponseView(nutricionistaViewModel);
+            return nutricionistaViewModel;
         }
 
-        public async Task<ResponseView> DesvincularPaciente(string emailDoPaciente, StringValues token)
+        public async Task<BaseViewModel> DesvincularPaciente(string emailDoPaciente, StringValues token)
         {
             var nutricionistaViewModel = new NutricionistaDesvincularOuVincularViewModel()
             {
@@ -152,7 +152,7 @@ namespace Application.Services
 
             var command = new NutricionistaDesvincularOuVincularCommand(nutricionistaViewModel, userRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var nutricionistaEvent = await nutricionistaRepository.GetById(nutricionistaViewModel.Id);
 
@@ -160,7 +160,7 @@ namespace Application.Services
             nutricionistaEvent.PacientesIds.Remove(pacienteEvent.Id);
 
             UpdateRepositories(nutricionistaEvent, nutricionistaEvent.ToEntity());
-            return new ResponseView(nutricionistaViewModel);
+            return nutricionistaViewModel;
         }
 
         private void UpdateRepositories(NutricionistaEvent nutricionistaEvent, NutricionistaEntity entity)

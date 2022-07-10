@@ -2,7 +2,7 @@
 
 namespace Application.ViewModel.Pacientes
 {
-    public class PacienteAdicionarViewModel
+    public class PacienteAdicionarViewModel : BaseViewModel
     {
         [Required]
         public string Nome { get; set; }

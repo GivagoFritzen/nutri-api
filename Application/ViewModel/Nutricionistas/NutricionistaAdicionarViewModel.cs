@@ -2,7 +2,7 @@
 
 namespace Application.ViewModel.Nutricionistas
 {
-    public class NutricionistaAdicionarViewModel
+    public class NutricionistaAdicionarViewModel : BaseViewModel
     {
         [Required]
         public string Senha { get; set; }

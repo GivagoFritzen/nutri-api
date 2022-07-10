@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Application.ViewModel;
 using Application.ViewModel.Pacientes;
 using ApplicationTest.ViewModel.Paciente;
 using CrossCuttingTest;
@@ -38,14 +39,14 @@ namespace ApplicationTest.Services
         public async Task Add_Invalido()
         {
             var retorno = await applicationService.Add(PacienteAdicionarViewModelFake.GetNomeVazioFake());
-            retorno.Errors.Should().NotBeNullOrEmpty();
+            retorno.Should().BeOfType<ErrorViewModel>();
         }
 
         [TestMethod]
         public async Task Add_Valido()
         {
             var model = PacienteAdicionarViewModelFake.GetFake();
-            var retorno = (await applicationService.Add(model)).Body as PacienteViewModel;
+            var retorno = (await applicationService.Add(model)) as PacienteViewModel;
 
             retorno.Should().BeEquivalentTo(model);
         }
@@ -110,14 +111,14 @@ namespace ApplicationTest.Services
         public async Task Update_Invalido()
         {
             var retorno = await applicationService.Update(PacienteAtualizarViewModelFake.GetNomeVazioFake());
-            retorno.Errors.Should().NotBeNullOrEmpty();
+            retorno.Should().BeOfType<ErrorViewModel>();
         }
 
         [TestMethod]
         public async Task Update_Valido()
         {
             var model = PacienteAtualizarViewModelFake.GetFake();
-            var retorno = (await applicationService.Update(model)).Body as PacienteAtualizarViewModel;
+            var retorno = await applicationService.Update(model);
 
             retorno.Should()
                 .BeEquivalentTo(model, options =>
@@ -129,7 +130,7 @@ namespace ApplicationTest.Services
         public async Task Adicionar_Plano_Alimentar_Invalido()
         {
             var retorno = await applicationService.AdicionarPlanoAlimentar(PacientePlanoAlimentarViewModelFake.GetFakeRefeicaoNull());
-            retorno.Errors.Should().NotBeNullOrEmpty();
+            retorno.Should().BeOfType<ErrorViewModel>();
         }
 
         [TestMethod]
@@ -147,7 +148,7 @@ namespace ApplicationTest.Services
                 new Mock<IUserRepository>().Object);
 
             var model = PacientePlanoAlimentarViewModelFake.GetFake();
-            var retorno = (await applicationServicePaciente.AdicionarPlanoAlimentar(model)).Body as PacientePlanoAlimentarViewModel;
+            var retorno = await applicationServicePaciente.AdicionarPlanoAlimentar(model);
 
             retorno.Should().BeEquivalentTo(model);
 
@@ -160,7 +161,7 @@ namespace ApplicationTest.Services
         public void Atualizar_Plano_Alimentar_Invalido()
         {
             var retorno = applicationService.AtualizarPlanoAlimentar(PacienteAtualizarPlanoAlimentarViewModelFake.GetFake());
-            retorno.Errors.Should().NotBeNullOrEmpty();
+            retorno.Should().BeOfType<ErrorViewModel>();
         }
 
         [TestMethod]

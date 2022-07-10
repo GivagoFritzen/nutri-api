@@ -35,8 +35,7 @@ namespace Application.Mapper
                 Email = pacienteViewModel.Email,
                 Cidade = pacienteViewModel.Cidade,
                 Telefone = pacienteViewModel.Telefone,
-                Sexo = pacienteViewModel.Sexo,
-                //Medidas = pacienteViewModel.Medida.ToEntity()
+                Sexo = pacienteViewModel.Sexo
             };
         }
 

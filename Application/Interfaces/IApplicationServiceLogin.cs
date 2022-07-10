@@ -6,7 +6,7 @@ namespace Application.Interfaces
 {
     public interface IApplicationServiceLogin
     {
-        Task<ResponseView> Login(LoginNutricionistaViewModel user);
-        ResponseView Refresh(LoginTokenViewModel loginTokenViewModel);
+        Task<BaseViewModel> Login(LoginNutricionistaViewModel user);
+        BaseViewModel Refresh(LoginTokenViewModel loginTokenViewModel);
     }
 }

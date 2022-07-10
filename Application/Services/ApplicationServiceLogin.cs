@@ -31,11 +31,11 @@ namespace Application.Services
             this.tokenRepository = tokenRepository;
         }
 
-        public async Task<ResponseView> Login(LoginNutricionistaViewModel loginViewModel)
+        public async Task<BaseViewModel> Login(LoginNutricionistaViewModel loginViewModel)
         {
             var command = new LoginNutricionistaCommand(loginViewModel);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var nutricionista = await nutricionistaRepository.GetByEmail(loginViewModel.Email);
             if (!securityService.VerifyPassword(loginViewModel.Senha, nutricionista.Senha))
@@ -50,20 +50,20 @@ namespace Application.Services
 
             var tokenDTO = tokenService.GetLoginToken(claims);
             tokenRepository.AddRefreshToken(tokenDTO.ToEvent());
-            return new ResponseView(tokenDTO.ToViewModel());
+            return tokenDTO.ToViewModel();
         }
 
-        public ResponseView Refresh(LoginTokenViewModel loginTokenViewModel)
+        public BaseViewModel Refresh(LoginTokenViewModel loginTokenViewModel)
         {
             var command = new RefreshTokenCommand(loginTokenViewModel, tokenRepository);
             if (!command.EhValido())
-                return new ResponseView(command.ValidationResult);
+                return new ErrorViewModel(command.ValidationResult);
 
             var principal = tokenService.GetPrincipalFromToken(loginTokenViewModel.Token);
             var tokenDTO = tokenService.GetLoginToken(principal.Claims);
 
             tokenRepository.UpdateRefreshToken(tokenDTO.ToEvent(), loginTokenViewModel.RefreshToken);
-            return new ResponseView(tokenDTO.ToViewModel());
+            return tokenDTO.ToViewModel();
         }
     }
 }

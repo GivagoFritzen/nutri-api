@@ -10,11 +10,11 @@ namespace Application.Interfaces
 {
     public interface IApplicationServiceNutricionista
     {
-        Task<ResponseView> Add(NutricionistaAdicionarViewModel nutricionistaViewModel);
+        Task<BaseViewModel> Add(NutricionistaAdicionarViewModel nutricionistaViewModel);
         Task RemoveById(Guid id);
-        ResponseView Update(NutricionistaAtualizarViewModel nutricionistaViewModel);
-        Task<ResponseView> VincularPaciente(NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel);
-        Task<ResponseView> DesvincularPaciente(string emailDoPaciente, StringValues token);
+        BaseViewModel Update(NutricionistaAtualizarViewModel nutricionistaViewModel);
+        Task<BaseViewModel> VincularPaciente(NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel);
+        Task<BaseViewModel> DesvincularPaciente(string emailDoPaciente, StringValues token);
         Task<NutricionistaViewModel> GetById(Guid id);
         Task<IEnumerable<NutricionistaViewModel>> GetAll();
         Task<IEnumerable<PacienteSimplificadoViewModel>> GetPacientes(Guid id);
