@@ -1,4 +1,5 @@
-﻿using Domain.Entity;
+﻿using Domain.DTO.Paciente;
+using Domain.Entity;
 using Domain.Event;
 using Domain.Interface.Repository.Base;
 using System;
@@ -9,6 +10,7 @@ namespace Domain.Interface.Repository
 {
     public interface IPacienteRepository : IRepositoryBase<PacienteEntity, PacienteEvent>
     {
+        Task<PacientePaginationDTO> GetAll(string email, int paginaAtual);
         Task<IEnumerable<PlanoAlimentarEntity>> GetPlanosByPacienteId(Guid pacienteId);
         Task<IEnumerable<MedidaEntity>> GetMedidasByPacienteId(Guid pacienteId);
     }

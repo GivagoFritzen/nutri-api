@@ -5,6 +5,7 @@ using Domain.Entity;
 using DomainTest.Entity;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace ApplicationTest.Mapper
@@ -48,6 +49,52 @@ namespace ApplicationTest.Mapper
         {
             List<MedidaEntity> entities = null;
             entities.ToViewModel().Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void Update()
+        {
+            var entity = MedidaEntityFake.GetFake();
+            var viewModel = new MedidaAtualizarViewModel()
+            {
+                PacienteId = Guid.NewGuid(),
+                MedidaId = Guid.NewGuid(),
+                Medida = new MedidaViewModel()
+                {
+                    Descricao = "descricao",
+                    Data = DateTime.Now,
+                    PesoAtual = 999999,
+                    PesoIdeal = 999999,
+                    Altura = 999999,
+                    Circunferencia = null
+                }
+            };
+
+            entity.Update(viewModel);
+            entity.Should().BeEquivalentTo(viewModel.Medida);
+        }
+
+        [TestMethod]
+        public void Update_Null()
+        {
+            MedidaEntity entity = null;
+            var viewModel = new MedidaAtualizarViewModel()
+            {
+                PacienteId = Guid.NewGuid(),
+                MedidaId = Guid.NewGuid(),
+                Medida = new MedidaViewModel()
+                {
+                    Descricao = "descricao",
+                    Data = DateTime.Now,
+                    PesoAtual = 999999,
+                    PesoIdeal = 999999,
+                    Altura = 999999,
+                    Circunferencia = null
+                }
+            };
+
+            entity.Update(viewModel);
+            entity.Should().BeNull();
         }
     }
 }

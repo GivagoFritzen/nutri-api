@@ -1,8 +1,15 @@
-﻿using Application.Services;
+﻿using Application.Interfaces;
+using Application.Services;
 using Application.ViewModel;
+using Application.ViewModel.Medidas;
+using Application.ViewModel.Nutricionistas;
 using Application.ViewModel.Pacientes;
+using ApplicationTest.ViewModel.Medida;
+using ApplicationTest.ViewModel.Nutricionista;
 using ApplicationTest.ViewModel.Paciente;
+using CrossCutting.Message.Validation;
 using CrossCuttingTest;
+using Domain.DTO.Token;
 using Domain.Entity;
 using Domain.Event;
 using Domain.Interface.Repository;
@@ -11,6 +18,7 @@ using Domain.Repository;
 using DomainTest.Entity;
 using DomainTest.Event;
 using FluentAssertions;
+using Microsoft.Extensions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -28,11 +36,13 @@ namespace ApplicationTest.Services
         public void Initialize()
         {
             applicationService = new ApplicationServicePaciente(
+                new Mock<IApplicationServiceNutricionista>().Object,
                 new Mock<IPlanoAlimentarRepository>().Object,
                 new Mock<IPacienteRepository>().Object,
                 null,
                 new Mock<IMessagingService>().Object,
-                new Mock<IUserRepository>().Object);
+                new Mock<IUserRepository>().Object,
+                GetTokenServiceMock());
         }
 
         [TestMethod]
@@ -59,11 +69,8 @@ namespace ApplicationTest.Services
             var pacienteRepository = new PacienteRepository(null, mongoDbContextoMock.Object);
 
             var applicationServicePaciente = new ApplicationServicePaciente(
-                new Mock<IPlanoAlimentarRepository>().Object,
-                pacienteRepository,
-                null,
-                new Mock<IMessagingService>().Object,
-                new Mock<IUserRepository>().Object);
+                null, new Mock<IPlanoAlimentarRepository>().Object, pacienteRepository, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
 
             await Assert.ThrowsExceptionAsync<KeyNotFoundException>(() =>
                 applicationServicePaciente.GetById(Guid.NewGuid())
@@ -78,11 +85,8 @@ namespace ApplicationTest.Services
             var pacienteRepository = new PacienteRepository(null, mongoDbContextoMock.Object);
 
             var applicationServicePaciente = new ApplicationServicePaciente(
-                new Mock<IPlanoAlimentarRepository>().Object,
-                pacienteRepository,
-                null,
-                new Mock<IMessagingService>().Object,
-                new Mock<IUserRepository>().Object);
+                null, new Mock<IPlanoAlimentarRepository>().Object, pacienteRepository, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
 
             var retorno = await applicationServicePaciente.GetById(PacienteEntityFake.Id);
             retorno.Should().NotBeNull();
@@ -93,13 +97,12 @@ namespace ApplicationTest.Services
         {
             var pacienteRepositoryMock = new Mock<IPacienteRepository>();
             var messagingServiceMock = new Mock<IMessagingService>();
+            var applicationServiceNutricionista = new Mock<IApplicationServiceNutricionista>();
+            applicationServiceNutricionista.Setup(x => x.RemoveById(It.IsAny<Guid>()));
 
             var applicationServicePaciente = new ApplicationServicePaciente(
-                new Mock<IPlanoAlimentarRepository>().Object,
-                pacienteRepositoryMock.Object,
-                null,
-                messagingServiceMock.Object,
-                new Mock<IUserRepository>().Object);
+                applicationServiceNutricionista.Object, new Mock<IPlanoAlimentarRepository>().Object, pacienteRepositoryMock.Object,
+                null, messagingServiceMock.Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
 
             await applicationServicePaciente.RemoveById(Guid.NewGuid());
             pacienteRepositoryMock.Verify(mock => mock.RemoveById(It.IsAny<Guid>()), Times.Once());
@@ -141,11 +144,8 @@ namespace ApplicationTest.Services
             pacienteRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(PacienteEventFake.GetPacienteEventFake()));
 
             var applicationServicePaciente = new ApplicationServicePaciente(
-                new Mock<IPlanoAlimentarRepository>().Object,
-                pacienteRepositoryMock.Object,
-                null,
-                messagingServiceMock.Object,
-                new Mock<IUserRepository>().Object);
+                null, new Mock<IPlanoAlimentarRepository>().Object, pacienteRepositoryMock.Object,
+                null, messagingServiceMock.Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
 
             var model = PacientePlanoAlimentarViewModelFake.GetFake();
             var retorno = await applicationServicePaciente.AdicionarPlanoAlimentar(model);
@@ -173,15 +173,211 @@ namespace ApplicationTest.Services
             planoAlimentarRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(PlanoAlimentarEntityFake.GetFake()));
 
             var applicationServicePaciente = new ApplicationServicePaciente(
-                planoAlimentarRepositoryMock.Object,
-                new Mock<IPacienteRepository>().Object,
-                null,
-                new Mock<IMessagingService>().Object,
-                new Mock<IUserRepository>().Object);
+                null, planoAlimentarRepositoryMock.Object, new Mock<IPacienteRepository>().Object, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
 
             var retorno = applicationServicePaciente.AtualizarPlanoAlimentar(viewModel);
 
             planoAlimentarRepositoryMock.Verify(mock => mock.Update(It.IsAny<PlanoAlimentarEntity>()), Times.Once());
+        }
+
+        [DataTestMethod]
+        [DynamicData(nameof(GetVerificacoesInvalidosPacientes), DynamicDataSourceType.Method)]
+        public async Task Get_Nutri_Sem_Pacientes(NutricionistaViewModel nutricionista)
+        {
+            var applicationServiceNutricionista = new Mock<IApplicationServiceNutricionista>();
+            applicationServiceNutricionista.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(nutricionista));
+
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                applicationServiceNutricionista.Object, new Mock<IPlanoAlimentarRepository>().Object, null, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            var result = await applicationServicePaciente.GetPacientes(StringValues.Empty);
+            result.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public async Task Get_Nutri_Com_Pacientes()
+        {
+            var applicationServiceNutricionistaMock = new Mock<IApplicationServiceNutricionista>();
+            applicationServiceNutricionistaMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(NutricionistaViewModelFake.GetFakeComPacientes()));
+
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                applicationServiceNutricionistaMock.Object, new Mock<IPlanoAlimentarRepository>().Object, GetPacienteRepository().Result, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            var result = await applicationServicePaciente.GetPacientes(StringValues.Empty);
+            result.Should().NotBeEmpty();
+        }
+
+        [TestMethod]
+        public async Task Adicionar_Medidas_Usuario_Nao_Encontrado()
+        {
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                null, new Mock<IPlanoAlimentarRepository>().Object, GetPacienteRepository().Result, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(() =>
+                applicationServicePaciente.AdicionarMedidas(MedidaAdicionarViewModelFake.GetFake())
+            );
+        }
+
+        [TestMethod]
+        public async Task Adicionar_Medidas_Invalidas()
+        {
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                null, new Mock<IPlanoAlimentarRepository>().Object, new Mock<IPacienteRepository>().Object, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            var result = await applicationServicePaciente.AdicionarMedidas(new MedidaAdicionarViewModel()
+            {
+                PacienteId = PacienteEventFake.Id,
+                Medida = new MedidaViewModel()
+            }) as ErrorViewModel;
+
+            result.Errors.Should().Contain(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Descricao"));
+            result.Errors.Should().Contain("PesoAtual - " + string.Format(GenericValidationMessages.ValorMinimo, "0"));
+            result.Errors.Should().Contain("PesoIdeal - " + string.Format(GenericValidationMessages.ValorMinimo, "0"));
+            result.Errors.Should().Contain("Altura - " + string.Format(GenericValidationMessages.ValorMinimo, "0"));
+        }
+
+        [TestMethod]
+        public async Task Adicionar_Medidas()
+        {
+            var paciente = PacienteEventFake.GetPacienteEventFake();
+            paciente.Medidas = null;
+
+            var pacienteRepositoryMock = new Mock<IPacienteRepository>();
+            pacienteRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(paciente));
+
+            var messagingServiceMock = new Mock<IMessagingService>();
+
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                null, new Mock<IPlanoAlimentarRepository>().Object, pacienteRepositoryMock.Object, null,
+                messagingServiceMock.Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            var result = await applicationServicePaciente.AdicionarMedidas(new MedidaAdicionarViewModel()
+            {
+                PacienteId = PacienteEventFake.Id,
+                Medida = MedidaViewModelFake.GetFake()
+            }) as MedidaAdicionarViewModel;
+
+            result.Should().BeEquivalentTo(MedidaAdicionarViewModelFake.GetFake(),
+                options => options.Excluding(_ => _.PacienteId)
+                .Excluding(_ => _.Medida.Data));
+
+            pacienteRepositoryMock.Verify(mock => mock.Update(It.IsAny<PacienteEntity>()), Times.Once());
+            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<PacienteEvent>()), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task Atualizar_Medidas_Usuario_Nao_Encontrado()
+        {
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                null, new Mock<IPlanoAlimentarRepository>().Object, GetPacienteRepository().Result, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(() =>
+                applicationServicePaciente.AtualizarMedidas(MedidaAtualizarViewModelFake.GetFake())
+            );
+        }
+
+        [TestMethod]
+        public async Task Atualizar_Medidas_Inexistente()
+        {
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                null, new Mock<IPlanoAlimentarRepository>().Object, new Mock<IPacienteRepository>().Object, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            await Assert.ThrowsExceptionAsync<NullReferenceException>(() =>
+                applicationServicePaciente.AtualizarMedidas(new MedidaAtualizarViewModel()
+                {
+                    PacienteId = PacienteEventFake.Id,
+                    MedidaId = Guid.NewGuid(),
+                    Medida = new MedidaViewModel()
+                })
+            );
+        }
+
+        [TestMethod]
+        public async Task Atualizar_Medidas_Invalidas()
+        {
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                null, new Mock<IPlanoAlimentarRepository>().Object, new Mock<IPacienteRepository>().Object, new Mock<IMedidaRepository>().Object,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            var result = await applicationServicePaciente.AtualizarMedidas(new MedidaAtualizarViewModel()
+            {
+                PacienteId = PacienteEventFake.Id,
+                MedidaId = Guid.NewGuid(),
+                Medida = new MedidaViewModel()
+            }) as ErrorViewModel;
+
+            result.Errors.Should().Contain(string.Format(GenericValidationMessages.CampoNaoPodeSerVazio, "Descricao"));
+            result.Errors.Should().Contain("PesoAtual - " + string.Format(GenericValidationMessages.ValorMinimo, "0"));
+            result.Errors.Should().Contain("PesoIdeal - " + string.Format(GenericValidationMessages.ValorMinimo, "0"));
+            result.Errors.Should().Contain("Altura - " + string.Format(GenericValidationMessages.ValorMinimo, "0"));
+        }
+
+        [TestMethod]
+        public async Task Atualizar_Medidas()
+        {
+            var paciente = PacienteEventFake.GetPacienteEventFake();
+            paciente.Medidas = null;
+
+            var pacienteRepositoryMock = new Mock<IPacienteRepository>();
+            pacienteRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(paciente));
+
+            var medidaRepositoryMock = new Mock<IMedidaRepository>();
+            medidaRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(MedidaEntityFake.GetFake()));
+
+            var messagingServiceMock = new Mock<IMessagingService>();
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                null, new Mock<IPlanoAlimentarRepository>().Object, pacienteRepositoryMock.Object, medidaRepositoryMock.Object,
+                messagingServiceMock.Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            var medida = new MedidaAtualizarViewModel()
+            {
+                PacienteId = PacienteEventFake.Id,
+                MedidaId = Guid.NewGuid(),
+                Medida = MedidaViewModelFake.GetFake()
+            };
+
+            var result = (await applicationServicePaciente.AtualizarMedidas(medida)) as MedidaAtualizarViewModel;
+
+            result.Should().BeEquivalentTo(medida);
+
+            messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<PacienteEvent>()), Times.Once());
+            pacienteRepositoryMock.Verify(mock => mock.GetById(It.IsAny<Guid>()), Times.Exactly(2));
+            medidaRepositoryMock.Verify(mock => mock.GetById(It.IsAny<Guid>()), Times.Exactly(2));
+            medidaRepositoryMock.Verify(mock => mock.Update(It.IsAny<MedidaEntity>()), Times.Once());
+        }
+
+        private static IEnumerable<object[]> GetVerificacoesInvalidosPacientes()
+        {
+            yield return new object[] { NutricionistaViewModelFake.GetFakePacientesNull() };
+            yield return new object[] { NutricionistaViewModelFake.GetFakeNull() };
+            yield return new object[] { NutricionistaViewModelFake.GetFake() };
+        }
+
+        private ITokenService GetTokenServiceMock()
+        {
+            var tokenServiceMock = new Mock<ITokenService>();
+
+            var tokenDTO = new TokenDTO()
+            {
+                Id = NutricionistaEntityFake.Id
+            };
+
+            tokenServiceMock.Setup(x => x.GetInformacoesDoToken(It.IsAny<string>())).Returns(tokenDTO);
+            return tokenServiceMock.Object;
+        }
+
+        private async Task<PacienteRepository> GetPacienteRepository()
+        {
+            var mongoFake = new MongoFake<PacienteEvent>();
+            var mongoDbContextoMock = await new MongoDbContextFake<PacienteEvent>().GetMongoDbContext(mongoFake);
+            return new PacienteRepository(null, mongoDbContextoMock.Object);
         }
     }
 }

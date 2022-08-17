@@ -1,12 +1,15 @@
 ﻿using Application.Mapper;
 using Application.ViewModel.Pacientes;
 using ApplicationTest.ViewModel.Paciente;
+using Domain.DTO.Paciente;
 using Domain.Entity;
 using Domain.Event;
+using DomainTest.DTO;
 using DomainTest.Entity;
 using DomainTest.Event;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace ApplicationTest.Mapper
@@ -147,6 +150,26 @@ namespace ApplicationTest.Mapper
                 .Should()
                 .BeEquivalentTo(expected, opt =>
                 opt.Excluding(x => x.Medidas));
+        }
+
+        [TestMethod]
+        public void DTO_To_ViewModel()
+        {
+            var id = Guid.NewGuid();
+
+            var dto = PacientePaginationDTOFake.GetFake(id);
+            var expected = PacientePaginationViewModelFake.GetFake(id);
+
+            dto.ToViewModel()
+                .Should()
+                .BeEquivalentTo(expected);
+        }
+
+        [TestMethod]
+        public void DTO_To_ViewModel_Null()
+        {
+            PacientePaginationDTO viewModel = null;
+            viewModel.ToViewModel().Should().BeNull();
         }
     }
 }

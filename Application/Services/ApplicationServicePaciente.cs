@@ -10,6 +10,7 @@ using Domain.Entity;
 using Domain.Event;
 using Domain.Interface.Repository;
 using Domain.Interface.Services;
+using Microsoft.Extensions.Primitives;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -20,24 +21,30 @@ namespace Application.Services
 {
     public class ApplicationServicePaciente : IApplicationServicePaciente
     {
+        private readonly IApplicationServiceNutricionista applicationServiceNutricionista;
         private readonly IPlanoAlimentarRepository planoAlimentarRepository;
         private readonly IPacienteRepository pacienteRepository;
         private readonly IMedidaRepository medidaRepository;
         private readonly IMessagingService messagingService;
         private readonly IUserRepository userRepository;
+        private readonly ITokenService tokenService;
 
         public ApplicationServicePaciente(
+            IApplicationServiceNutricionista applicationServiceNutricionista,
             IPlanoAlimentarRepository planoAlimentarRepository,
             IPacienteRepository pacienteRepository,
             IMedidaRepository medidaRepository,
             IMessagingService messagingService,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ITokenService tokenService)
         {
+            this.applicationServiceNutricionista = applicationServiceNutricionista;
             this.planoAlimentarRepository = planoAlimentarRepository;
             this.pacienteRepository = pacienteRepository;
             this.medidaRepository = medidaRepository;
             this.messagingService = messagingService;
             this.userRepository = userRepository;
+            this.tokenService = tokenService;
         }
 
         public async Task<BaseViewModel> Add(PacienteAdicionarViewModel pacienteViewModel)
@@ -71,8 +78,37 @@ namespace Application.Services
             return paciente.ToViewModel();
         }
 
+        public async Task<PacientePaginationViewModel> GetAll(string email, int paginaAtual)
+        {
+            var fields = Builders<PacienteEvent>.Projection
+                .Exclude(e => e.Cidade)
+                .Exclude(e => e.Sexo)
+                .Exclude(e => e.Medidas);
+
+            var pacientes = await pacienteRepository.GetAll(
+                email == null ? "" : email,
+                paginaAtual > 1 ? paginaAtual : 1);
+
+            return pacientes.ToViewModel();
+        }
+
+        public async Task<IEnumerable<PacienteSimplificadoViewModel>> GetPacientes(StringValues token)
+        {
+            var id = tokenService.GetInformacoesDoToken(token.ToString()).Id;
+            var nutricionista = await applicationServiceNutricionista.GetById(id);
+
+            IEnumerable<PacienteSimplificadoViewModel> pacientes = new List<PacienteSimplificadoViewModel>();
+            if (nutricionista != null &&
+                nutricionista.PacientesIds != null &&
+                nutricionista.PacientesIds.Count() > 0)
+                pacientes = await GetAll(nutricionista.PacientesIds);
+
+            return pacientes;
+        }
+
         public async Task RemoveById(Guid id)
         {
+            await applicationServiceNutricionista.RemoverPacienteExcluido(id);
             await pacienteRepository.RemoveById(id);
             messagingService.Publish(new UserEvent(id, true));
             messagingService.Publish(new PacienteEvent(id, true));
@@ -181,7 +217,7 @@ namespace Application.Services
                new UserEvent(
                     pacienteEvent.Id,
                     pacienteEvent.Email,
-                    StringHelper.GetEventName(typeof(PacienteAtualizarViewModel).Name),
+                    StringHelper.GetEventName(typeof(PacienteEvent).Name),
                     update));
         }
     }

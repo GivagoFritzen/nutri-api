@@ -1,4 +1,5 @@
 ﻿using Application.ViewModel.Pacientes;
+using Domain.DTO.Paciente;
 using Domain.Entity;
 using Domain.Event;
 using System;
@@ -141,6 +142,15 @@ namespace Application.Mapper
             var pacienteEvent = paciente.ToEvent();
             pacienteEvent.Update = true;
             return pacienteEvent;
+        }
+
+        public static PacientePaginationViewModel ToViewModel(this PacientePaginationDTO dto)
+        {
+            return dto == null ? null : new PacientePaginationViewModel()
+            {
+                Data = dto.Data,
+                Total = dto.Total
+            };
         }
     }
 }

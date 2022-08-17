@@ -16,10 +16,14 @@ namespace API.Controllers
     public class NutricionistaController : MainController
     {
         private readonly IApplicationServiceNutricionista applicationServiceNutricionista;
+        private readonly IApplicationServicePaciente applicationServicePaciente;
 
-        public NutricionistaController(IApplicationServiceNutricionista applicationServiceNutricionista)
+        public NutricionistaController(
+            IApplicationServiceNutricionista applicationServiceNutricionista,
+            IApplicationServicePaciente applicationServicePaciente)
         {
             this.applicationServiceNutricionista = applicationServiceNutricionista;
+            this.applicationServicePaciente = applicationServicePaciente;
         }
 
         [HttpGet("{id}")]
@@ -38,9 +42,9 @@ namespace API.Controllers
 
         [HttpGet("GetPacientes")]
         [AuthorizeRoles(Permissoes.Nutricionista)]
-        public async Task<ActionResult<IEnumerable<PacienteSimplificadoViewModel>>> GetPacientes(Guid id)
+        public async Task<ActionResult<IEnumerable<PacienteSimplificadoViewModel>>> GetPacientes()
         {
-            return CustomResponse(await applicationServiceNutricionista.GetPacientes(id));
+            return CustomResponse(await applicationServicePaciente.GetPacientes(HttpContext.Request.Headers["Authorization"]));
         }
 
         [HttpPost]
@@ -67,9 +71,11 @@ namespace API.Controllers
 
         [HttpPatch("VincularPaciente")]
         [AuthorizeRoles(Permissoes.Nutricionista)]
-        public async Task<ActionResult<NutricionistaDesvincularOuVincularViewModel>> VincularPaciente([FromBody] NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
+        public async Task<ActionResult<NutricionistaDesvincularOuVincularViewModel>> VincularPaciente(string PacienteEmail)
         {
-            return CustomResponse(await applicationServiceNutricionista.VincularPaciente(nutricionistaViewModel));
+            return CustomResponse(await applicationServiceNutricionista.VincularPaciente(
+                PacienteEmail,
+                HttpContext.Request.Headers["Authorization"]));
         }
 
         [HttpPatch("DesvincularPaciente")]

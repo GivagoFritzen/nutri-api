@@ -1,5 +1,4 @@
 ﻿using Domain.Event;
-using DomainTest.Entity;
 using System;
 using System.Collections.Generic;
 
@@ -20,29 +19,6 @@ namespace DomainTest.Event
                 Sexo = true,
                 PacientesIds = new List<Guid>()
             };
-        }
-
-        public static NutricionistaEvent GetFakeNull()
-        {
-            NutricionistaEvent nutricionista = null;
-            return nutricionista;
-        }
-
-        public static NutricionistaEvent GetFakePacientesNull()
-        {
-            var nutricionista = GetFake();
-            nutricionista.PacientesIds = null;
-            return nutricionista;
-        }
-
-        public static NutricionistaEvent GetFakeComPacientes()
-        {
-            var nutricionista = GetFake();
-            nutricionista.PacientesIds = new List<Guid>()
-            {
-                PacienteEntityFake.Id
-            };
-            return nutricionista;
         }
 
         public static NutricionistaEvent GetUpdateFake()

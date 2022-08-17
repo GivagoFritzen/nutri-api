@@ -3,7 +3,6 @@ using Application.Interfaces;
 using Application.Mapper;
 using Application.ViewModel;
 using Application.ViewModel.Nutricionistas;
-using Application.ViewModel.Pacientes;
 using CrossCutting.Helpers;
 using Domain.Entity;
 using Domain.Event;
@@ -25,7 +24,6 @@ namespace Application.Services
         private readonly ISecurityService securityService;
         private readonly IUserRepository userRepository;
         private readonly IPacienteRepository pacienteService;
-        private readonly IApplicationServicePaciente applicationServicePaciente;
         private readonly ITokenService tokenService;
 
         public ApplicationServiceNutricionista(
@@ -34,7 +32,6 @@ namespace Application.Services
             ISecurityService securityService,
             IUserRepository userRepository,
             IPacienteRepository pacienteService,
-            IApplicationServicePaciente applicationServicePaciente,
             ITokenService tokenService)
         {
             this.nutricionistaRepository = nutricionistaRepository;
@@ -42,7 +39,6 @@ namespace Application.Services
             this.securityService = securityService;
             this.userRepository = userRepository;
             this.pacienteService = pacienteService;
-            this.applicationServicePaciente = applicationServicePaciente;
             this.tokenService = tokenService;
         }
 
@@ -81,19 +77,6 @@ namespace Application.Services
             return nutricionistas.ToViewModel();
         }
 
-        public async Task<IEnumerable<PacienteSimplificadoViewModel>> GetPacientes(Guid id)
-        {
-            var nutricionista = await nutricionistaRepository.GetById(id);
-
-            IEnumerable<PacienteSimplificadoViewModel> pacientes = null;
-            if (nutricionista != null &&
-                nutricionista.PacientesIds != null &&
-                nutricionista.PacientesIds.Count() > 0)
-                pacientes = await applicationServicePaciente.GetAll(nutricionista.PacientesIds);
-
-            return pacientes;
-        }
-
         public BaseViewModel Update(NutricionistaAtualizarViewModel nutricionistaViewModel)
         {
             var command = new NutricionistaAtualizarCommand(securityService, nutricionistaViewModel, userRepository);
@@ -107,14 +90,20 @@ namespace Application.Services
                 new UserEvent(
                     nutricionistaViewModel.Id,
                     nutricionistaViewModel.Email,
-                    StringHelper.GetEventName(typeof(NutricionistaAtualizarViewModel).Name),
+                    StringHelper.GetEventName(typeof(NutricionistaEvent).Name),
                 true));
 
             return nutricionistaViewModel;
         }
 
-        public async Task<BaseViewModel> VincularPaciente(NutricionistaDesvincularOuVincularViewModel nutricionistaViewModel)
+        public async Task<BaseViewModel> VincularPaciente(string PacienteEmail, StringValues token)
         {
+            var nutricionistaViewModel = new NutricionistaDesvincularOuVincularViewModel()
+            {
+                Id = tokenService.GetInformacoesDoToken(token.ToString()).Id,
+                PacienteEmail = PacienteEmail
+            };
+
             var command = new NutricionistaDesvincularOuVincularCommand(nutricionistaViewModel, userRepository);
             if (!command.EhValido())
                 return new ErrorViewModel(command.ValidationResult);
@@ -124,7 +113,6 @@ namespace Application.Services
                 nutricionistaEvent.PacientesIds = new List<Guid>();
 
             var pacienteEvent = await pacienteService.GetByEmail(nutricionistaViewModel.PacienteEmail);
-            nutricionistaEvent.PacientesIds.Remove(pacienteEvent.Id);
 
             var pacientes = (await pacienteService.GetAll())
                 .Where(x => nutricionistaEvent.PacientesIds.Contains(x.Id))
@@ -132,6 +120,7 @@ namespace Application.Services
 
             nutricionistaEvent.PacientesIds.Add(pacienteEvent.Id);
             nutricionistaEvent.PacientesIds.AddRange(pacientes.Select(x => x.Id));
+            nutricionistaEvent.PacientesIds = nutricionistaEvent.PacientesIds.Distinct().ToList();
 
             var entity = nutricionistaEvent.ToEntity();
             entity.Pacientes.Add(pacienteEvent.ToEntity());
@@ -161,6 +150,20 @@ namespace Application.Services
 
             UpdateRepositories(nutricionistaEvent, nutricionistaEvent.ToEntity());
             return nutricionistaViewModel;
+        }
+
+        public async Task RemoverPacienteExcluido(Guid pacienteId)
+        {
+            var filter = Builders<NutricionistaEvent>.Filter.In("PacientesIds", new List<Guid>() { pacienteId });
+            var fields = Builders<NutricionistaEvent>.Projection.Include(x => x.PacientesIds);
+
+            var nutricionistas = await nutricionistaRepository.GetAll(filter, fields);
+
+            foreach (var nutricionista in nutricionistas)
+            {
+                nutricionista.PacientesIds.Remove(pacienteId);
+                UpdateRepositories(nutricionista, nutricionista.ToEntity());
+            }
         }
 
         private void UpdateRepositories(NutricionistaEvent nutricionistaEvent, NutricionistaEntity entity)

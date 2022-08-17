@@ -47,5 +47,32 @@ namespace ApplicationTest.Mapper
             CircunferenciaEntity entity = null;
             entity.ToViewModel().Should().BeNull();
         }
+
+        [TestMethod]
+        public void Update()
+        {
+            var entity = CircunferenciaEntityFake.GetFake();
+            var viewModel = new CircunferenciaViewModel()
+            {
+                BracoRelaxadoDireito = 1,
+                BracoRelaxadoEsquerdo = 2,
+                BracoContraidoDireito = 3,
+                BracoContraidoEsquerdo = 4,
+                AntebracoDireito = 5
+            };
+
+            entity.Update(viewModel);
+            entity.Should().BeEquivalentTo(viewModel);
+        }
+
+        [TestMethod]
+        public void Update_Null()
+        {
+            CircunferenciaEntity entity = null;
+            var viewModel = new CircunferenciaViewModel();
+
+            entity.Update(viewModel);
+            entity.Should().BeNull();
+        }
     }
 }

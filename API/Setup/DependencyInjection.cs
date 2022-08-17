@@ -45,7 +45,7 @@ namespace API.Setup
             services.AddScoped<IEventPublisher, RabbitMQPublisher>();
 
             //  Nutricionista
-            services.AddScoped<IApplicationServiceNutricionista, ApplicationServiceNutricionista>();
+            services.AddSingleton<IApplicationServiceNutricionista, ApplicationServiceNutricionista>();
             services.AddScoped<INutricionistaRepository, NutricionistaRepository>();
             services.AddTransient<IRepositorySQL<NutricionistaEntity>, RepositorySQLBase<NutricionistaEntity>>();
 

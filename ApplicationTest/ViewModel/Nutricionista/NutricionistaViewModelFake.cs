@@ -1,4 +1,5 @@
 ﻿using Application.ViewModel.Nutricionistas;
+using DomainTest.Entity;
 using System;
 using System.Collections.Generic;
 
@@ -26,6 +27,29 @@ namespace ApplicationTest.ViewModel.Nutricionista
             {
                 GetFake()
             };
+        }
+
+        public static NutricionistaViewModel GetFakeNull()
+        {
+            NutricionistaViewModel nutricionista = null;
+            return nutricionista;
+        }
+
+        public static NutricionistaViewModel GetFakePacientesNull()
+        {
+            var nutricionista = GetFake();
+            nutricionista.PacientesIds = null;
+            return nutricionista;
+        }
+
+        public static NutricionistaViewModel GetFakeComPacientes()
+        {
+            var nutricionista = GetFake();
+            nutricionista.PacientesIds = new List<Guid>()
+            {
+                PacienteEntityFake.Id
+            };
+            return nutricionista;
         }
     }
 }

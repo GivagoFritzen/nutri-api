@@ -28,6 +28,13 @@ namespace API.Controllers
             return CustomResponse(await applicationServicePaciente.GetById(id));
         }
 
+        [HttpGet("GetAll")]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
+        public async Task<ActionResult<PacientePaginationViewModel>> GetAll(string email, int paginaAtual)
+        {
+            return CustomResponse(await applicationServicePaciente.GetAll(email, paginaAtual));
+        }
+
         [HttpPost]
         [AuthorizeRoles(Permissoes.Nutricionista)]
         public async Task<IActionResult> Add([FromBody] PacienteAdicionarViewModel pacienteViewModel)
