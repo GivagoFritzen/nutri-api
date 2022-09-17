@@ -1,6 +1,7 @@
 ﻿using Application.Commands.Pacientes;
 using Application.Validation.Pacientes;
 using Application.ViewModel.Pacientes;
+using Application.ViewModel.Refeicao;
 using ApplicationTest.Command.Pacientes;
 using ApplicationTest.ViewModel.Refeicao;
 using CrossCutting.Message.Validation;

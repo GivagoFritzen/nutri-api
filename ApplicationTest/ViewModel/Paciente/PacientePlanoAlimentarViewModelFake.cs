@@ -1,4 +1,5 @@
 ﻿using Application.ViewModel.Pacientes;
+using Application.ViewModel.Refeicao;
 using ApplicationTest.ViewModel.Refeicao;
 using System;
 using System.Collections.Generic;

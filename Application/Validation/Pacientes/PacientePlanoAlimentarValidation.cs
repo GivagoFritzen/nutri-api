@@ -1,5 +1,6 @@
 ﻿using Application.Commands.Pacientes;
 using Application.ViewModel.Pacientes;
+using Application.ViewModel.Refeicao;
 using CrossCutting.Message.Validation;
 using Domain.Interface.Repository;
 using FluentValidation;

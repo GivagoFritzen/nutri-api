@@ -5,6 +5,7 @@ using Application.Mapper;
 using Application.ViewModel;
 using Application.ViewModel.Medidas;
 using Application.ViewModel.Pacientes;
+using Application.ViewModel.PlanosAlimentares;
 using CrossCutting.Helpers;
 using Domain.Entity;
 using Domain.Event;
@@ -47,13 +48,15 @@ namespace Application.Services
             this.tokenService = tokenService;
         }
 
-        public async Task<BaseViewModel> Add(PacienteAdicionarViewModel pacienteViewModel)
+        public async Task<BaseViewModel> Add(PacienteAdicionarViewModel pacienteViewModel, StringValues token)
         {
             var command = new PacienteAdicionarCommand(pacienteViewModel, userRepository);
             if (!command.EhValido())
                 return new ErrorViewModel(command.ValidationResult);
 
             var paciente = pacienteViewModel.ToEntity();
+            paciente.NutricionistaEntityId = tokenService.GetInformacoesDoToken(token.ToString()).Id;
+
             await pacienteRepository.AddAsync(paciente);
             SendMessageService(paciente.ToEvent());
 
@@ -114,23 +117,42 @@ namespace Application.Services
             messagingService.Publish(new PacienteEvent(id, true));
         }
 
-        public async Task<BaseViewModel> Update(PacienteAtualizarViewModel pacienteViewModel)
+        public async Task<BaseViewModel> Update(PacienteAtualizarViewModel pacienteViewModel, StringValues token)
         {
             var command = new PacienteAtualizarCommand(pacienteViewModel, userRepository);
             if (!command.EhValido())
                 return new ErrorViewModel(command.ValidationResult);
 
             var entity = pacienteViewModel.ToEntity();
+            entity.NutricionistaEntityId = tokenService.GetInformacoesDoToken(token.ToString()).Id;
+
             var planosAlimentares = await pacienteRepository.GetPlanosByPacienteId(pacienteViewModel.Id);
             var medidas = await pacienteRepository.GetMedidasByPacienteId(pacienteViewModel.Id);
 
-            entity.PlanosAlimentares = planosAlimentares.ToList();
-            entity.Medidas = medidas.ToList();
+            entity.PlanosAlimentares = planosAlimentares is null ? new List<PlanoAlimentarEntity>() : planosAlimentares.ToList();
+            entity.Medidas = medidas is null ? new List<MedidaEntity>() : medidas.ToList();
 
             SendMessageService(entity.ToPacienteEventUpdate(), true);
             pacienteRepository.Update(entity);
 
             return pacienteViewModel;
+        }
+
+        public async Task<List<MedidaViewModel>> GetAllMedidas(Guid pacienteId)
+        {
+            var fields = Builders<PacienteEvent>.Projection
+                .Include(e => e.Medidas);
+
+            var paciente = (await pacienteRepository.GetAll(fields))
+                .Where(x => x.Id == pacienteId)
+                .FirstOrDefault();
+
+            var medidas = new List<MedidaViewModel>();
+
+            if (paciente != null)
+                medidas = paciente.Medidas.ToViewModel();
+
+            return medidas;
         }
 
         public async Task<BaseViewModel> AdicionarMedidas(MedidaAdicionarViewModel medidaViewModel)
@@ -139,15 +161,15 @@ namespace Application.Services
             if (!command.EhValido())
                 return new ErrorViewModel(command.ValidationResult);
 
-            var paciente = (await pacienteRepository.GetById(medidaViewModel.PacienteId)).ToEntity();
+            var medida = medidaViewModel.Medida.ToEntity();
+            medida.PacienteEntityId = medidaViewModel.PacienteId;
+            await medidaRepository.AddAsync(medida);
 
+            var paciente = (await pacienteRepository.GetById(medidaViewModel.PacienteId)).ToEntity();
             if (paciente.Medidas is null)
                 paciente.Medidas = new List<MedidaEntity>();
 
-            var medida = medidaViewModel.Medida.ToEntity();
             paciente.Medidas.Add(medida);
-
-            pacienteRepository.Update(paciente);
             messagingService.Publish(paciente.ToPacienteEventUpdate());
 
             return medidaViewModel;
@@ -159,15 +181,36 @@ namespace Application.Services
             if (!command.EhValido())
                 return new ErrorViewModel(command.ValidationResult);
 
-            var medida = await medidaRepository.GetById(medidaViewModel.MedidaId);
+            var medida = await medidaRepository.GetWithCircunferencia(medidaViewModel.MedidaId);
+
             medida.Update(medidaViewModel);
             medidaRepository.Update(medida);
 
             var pacienteEvent = await pacienteRepository.GetById(medidaViewModel.PacienteId);
             pacienteEvent.Update = true;
+            pacienteEvent.Medidas.RemoveAll(x => x.Id == medida.Id);
+            pacienteEvent.Medidas.Add(medida);
+
             messagingService.Publish(pacienteEvent);
 
             return medidaViewModel;
+        }
+
+        public async Task<IEnumerable<PlanoAlimentarViewModel>> GetAllPlanosAlimenares(Guid pacienteId)
+        {
+            var fields = Builders<PacienteEvent>.Projection
+                .Include(e => e.PlanoAlimentares);
+
+            var paciente = (await pacienteRepository.GetAll(fields))
+                .Where(x => x.Id == pacienteId)
+                .FirstOrDefault();
+
+            IEnumerable<PlanoAlimentarViewModel> planosAlimentares = new List<PlanoAlimentarViewModel>();
+
+            if (paciente != null && paciente.PlanoAlimentares != null)
+                planosAlimentares = paciente.PlanoAlimentares.ToListPlanoAlimentarViewModel();
+
+            return planosAlimentares;
         }
 
         public async Task<BaseViewModel> AdicionarPlanoAlimentar(PacientePlanoAlimentarViewModel pacientePlanoAlimentarViewModel)

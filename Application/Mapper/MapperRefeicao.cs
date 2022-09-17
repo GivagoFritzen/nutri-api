@@ -1,4 +1,4 @@
-﻿using Application.ViewModel.Pacientes;
+﻿using Application.ViewModel.Refeicao;
 using Domain.Entity;
 using System.Collections.Generic;
 using System.Linq;

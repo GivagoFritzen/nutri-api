@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Application.ViewModel.Pacientes;
+using System;
 using System.Collections.Generic;
 
-namespace Application.ViewModel.Pacientes
+namespace Application.ViewModel.Refeicao
 {
     public class RefeicaoViewModel
     {

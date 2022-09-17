@@ -15,9 +15,11 @@ namespace Domain.Repository
 {
     public class PacienteRepository : RepositoryBase<PacienteEntity, PacienteEvent>, IPacienteRepository
     {
-        private const int tamanhoPagina = 10;
+        private const int TAMANHOPAGINA = 10;
 
-        public PacienteRepository(IRepositorySQL<PacienteEntity> repositoryPaciente, IMongoDbContext mongoDbContext)
+        public PacienteRepository(
+            IRepositorySQL<PacienteEntity> repositoryPaciente,
+            IMongoDbContext mongoDbContext)
             : base(repositoryPaciente, mongoDbContext)
         {
             repositorySQL = repositoryPaciente;
@@ -30,8 +32,8 @@ namespace Domain.Repository
                  new BsonRegularExpression(email));
 
             var data = await mongoCollection.Aggregate()
-                .Skip((paginaAtual - 1) * tamanhoPagina)
-                .Limit(tamanhoPagina)
+                .Skip((paginaAtual - 1) * TAMANHOPAGINA)
+                .Limit(TAMANHOPAGINA)
                 .ToListAsync();
 
             var totalItens = await mongoCollection.CountDocumentsAsync(filter);

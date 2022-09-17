@@ -10,6 +10,7 @@ namespace Application.Mapper
         {
             return medidaViewModel == null ? null : new MedidaEntity()
             {
+                Id = medidaViewModel.Id,
                 Descricao = medidaViewModel.Descricao,
                 Data = medidaViewModel.Data,
                 PesoAtual = medidaViewModel.PesoAtual,
@@ -42,6 +43,7 @@ namespace Application.Mapper
                 {
                     models.Add(new MedidaViewModel()
                     {
+                        Id = item.Id,
                         Descricao = item.Descricao,
                         Data = item.Data,
                         PesoAtual = item.PesoAtual,

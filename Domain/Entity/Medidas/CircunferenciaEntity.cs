@@ -1,7 +1,14 @@
-﻿namespace Domain.Entity.Medidas
+﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+
+namespace Domain.Entity.Medidas
 {
     public class CircunferenciaEntity : BaseEntity
     {
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public virtual MedidaEntity Medida { get; set; }
+
         //  Membros Superiores
         public float BracoRelaxadoDireito { get; set; }
         public float BracoRelaxadoEsquerdo { get; set; }

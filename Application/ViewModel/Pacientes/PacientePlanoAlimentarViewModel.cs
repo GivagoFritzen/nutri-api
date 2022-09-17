@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.ViewModel.Refeicao;
+using System;
 using System.Collections.Generic;
 
 namespace Application.ViewModel.Pacientes

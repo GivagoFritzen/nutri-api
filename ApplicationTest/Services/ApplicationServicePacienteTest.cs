@@ -48,7 +48,7 @@ namespace ApplicationTest.Services
         [TestMethod]
         public async Task Add_Invalido()
         {
-            var retorno = await applicationService.Add(PacienteAdicionarViewModelFake.GetNomeVazioFake());
+            var retorno = await applicationService.Add(PacienteAdicionarViewModelFake.GetNomeVazioFake(), StringValues.Empty);
             retorno.Should().BeOfType<ErrorViewModel>();
         }
 
@@ -56,7 +56,7 @@ namespace ApplicationTest.Services
         public async Task Add_Valido()
         {
             var model = PacienteAdicionarViewModelFake.GetFake();
-            var retorno = (await applicationService.Add(model)) as PacienteViewModel;
+            var retorno = (await applicationService.Add(model, StringValues.Empty)) as PacienteViewModel;
 
             retorno.Should().BeEquivalentTo(model);
         }
@@ -113,7 +113,7 @@ namespace ApplicationTest.Services
         [TestMethod]
         public async Task Update_Invalido()
         {
-            var retorno = await applicationService.Update(PacienteAtualizarViewModelFake.GetNomeVazioFake());
+            var retorno = await applicationService.Update(PacienteAtualizarViewModelFake.GetNomeVazioFake(), StringValues.Empty);
             retorno.Should().BeOfType<ErrorViewModel>();
         }
 
@@ -121,12 +121,40 @@ namespace ApplicationTest.Services
         public async Task Update_Valido()
         {
             var model = PacienteAtualizarViewModelFake.GetFake();
-            var retorno = await applicationService.Update(model);
+            var retorno = await applicationService.Update(model, StringValues.Empty);
 
             retorno.Should()
                 .BeEquivalentTo(model, options =>
                     options.Excluding(_ => _.Id)
                 );
+        }
+
+        [TestMethod]
+        public async Task Get_All_Planos_Alimentares_Vazio()
+        {
+            var applicationServiceNutricionistaMock = new Mock<IApplicationServiceNutricionista>();
+            applicationServiceNutricionistaMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(NutricionistaViewModelFake.GetFakeComPacientes()));
+
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                applicationServiceNutricionistaMock.Object, new Mock<IPlanoAlimentarRepository>().Object, GetPacienteRepository().Result, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            var result = await applicationServicePaciente.GetAllPlanosAlimenares(new Guid());
+            result.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public async Task Get_All_Planos_Alimentares_Com_Plano()
+        {
+            var applicationServiceNutricionistaMock = new Mock<IApplicationServiceNutricionista>();
+            applicationServiceNutricionistaMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(NutricionistaViewModelFake.GetFakeComPacientes()));
+
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                applicationServiceNutricionistaMock.Object, new Mock<IPlanoAlimentarRepository>().Object, GetPacienteRepository().Result, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            var result = await applicationServicePaciente.GetAllPlanosAlimenares(PacienteEntityFake.Id);
+            result.Should().NotBeEmpty();
         }
 
         [TestMethod]
@@ -207,6 +235,34 @@ namespace ApplicationTest.Services
                 new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
 
             var result = await applicationServicePaciente.GetPacientes(StringValues.Empty);
+            result.Should().NotBeEmpty();
+        }
+
+        [TestMethod]
+        public async Task Get_All_Medidas_Sem_Medidas()
+        {
+            var applicationServiceNutricionistaMock = new Mock<IApplicationServiceNutricionista>();
+            applicationServiceNutricionistaMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(NutricionistaViewModelFake.GetFakeComPacientes()));
+
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                applicationServiceNutricionistaMock.Object, new Mock<IPlanoAlimentarRepository>().Object, GetPacienteRepository().Result, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            var result = await applicationServicePaciente.GetAllMedidas(new Guid());
+            result.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public async Task Get_All_Medidas_Com_Medidas()
+        {
+            var applicationServiceNutricionistaMock = new Mock<IApplicationServiceNutricionista>();
+            applicationServiceNutricionistaMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(NutricionistaViewModelFake.GetFakeComPacientes()));
+
+            var applicationServicePaciente = new ApplicationServicePaciente(
+                applicationServiceNutricionistaMock.Object, new Mock<IPlanoAlimentarRepository>().Object, GetPacienteRepository().Result, null,
+                new Mock<IMessagingService>().Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
+
+            var result = await applicationServicePaciente.GetAllMedidas(PacienteEntityFake.Id);
             result.Should().NotBeEmpty();
         }
 

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(SQLDataContext))]
-    [Migration("20220412162603_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220909001054_First")]
+    partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,31 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Domain.Entity.AlimentoEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Medida")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("RefeicaoEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RefeicaoEntityId");
+
+                    b.ToTable("AlimentoEntity");
+                });
 
             modelBuilder.Entity("Domain.Entity.MedidaEntity", b =>
                 {
@@ -30,7 +55,7 @@ namespace Infrastructure.Migrations
                     b.Property<float>("Altura")
                         .HasColumnType("real");
 
-                    b.Property<Guid?>("CircunferenciaId")
+                    b.Property<Guid>("CircunferenciaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Data")
@@ -39,7 +64,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("PacienteEntityId")
+                    b.Property<Guid>("PacienteEntityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<float>("PesoAtual")
@@ -50,7 +75,8 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CircunferenciaId");
+                    b.HasIndex("CircunferenciaId")
+                        .IsUnique();
 
                     b.HasIndex("PacienteEntityId");
 
@@ -125,7 +151,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CircunferenciaEntity");
+                    b.ToTable("CircuferenciaEntity");
                 });
 
             modelBuilder.Entity("Domain.Entity.NutricionistaEntity", b =>
@@ -175,7 +201,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("NutricionistaEntityId")
+                    b.Property<Guid>("NutricionistaEntityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Sexo")
@@ -194,24 +220,113 @@ namespace Infrastructure.Migrations
                     b.ToTable("Pacientes");
                 });
 
+            modelBuilder.Entity("Domain.Entity.PlanoAlimentarEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PacienteEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PacienteEntityId");
+
+                    b.ToTable("PlanoAlimentarEntity");
+                });
+
+            modelBuilder.Entity("Domain.Entity.RefeicaoEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Horario")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PlanoAlimentarEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanoAlimentarEntityId");
+
+                    b.ToTable("RefeicaoEntity");
+                });
+
+            modelBuilder.Entity("Domain.Entity.AlimentoEntity", b =>
+                {
+                    b.HasOne("Domain.Entity.RefeicaoEntity", "Refeicao")
+                        .WithMany("Alimentos")
+                        .HasForeignKey("RefeicaoEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Refeicao");
+                });
+
             modelBuilder.Entity("Domain.Entity.MedidaEntity", b =>
                 {
                     b.HasOne("Domain.Entity.Medidas.CircunferenciaEntity", "Circunferencia")
-                        .WithMany()
-                        .HasForeignKey("CircunferenciaId");
+                        .WithOne("Medida")
+                        .HasForeignKey("Domain.Entity.MedidaEntity", "CircunferenciaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Domain.Entity.PacienteEntity", null)
+                    b.HasOne("Domain.Entity.PacienteEntity", "Paciente")
                         .WithMany("Medidas")
-                        .HasForeignKey("PacienteEntityId");
+                        .HasForeignKey("PacienteEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Circunferencia");
+
+                    b.Navigation("Paciente");
                 });
 
             modelBuilder.Entity("Domain.Entity.PacienteEntity", b =>
                 {
-                    b.HasOne("Domain.Entity.NutricionistaEntity", null)
+                    b.HasOne("Domain.Entity.NutricionistaEntity", "Nutricionista")
                         .WithMany("Pacientes")
-                        .HasForeignKey("NutricionistaEntityId");
+                        .HasForeignKey("NutricionistaEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Nutricionista");
+                });
+
+            modelBuilder.Entity("Domain.Entity.PlanoAlimentarEntity", b =>
+                {
+                    b.HasOne("Domain.Entity.PacienteEntity", "Paciente")
+                        .WithMany("PlanosAlimentares")
+                        .HasForeignKey("PacienteEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Paciente");
+                });
+
+            modelBuilder.Entity("Domain.Entity.RefeicaoEntity", b =>
+                {
+                    b.HasOne("Domain.Entity.PlanoAlimentarEntity", "PlanoAlimentar")
+                        .WithMany("Refeicoes")
+                        .HasForeignKey("PlanoAlimentarEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PlanoAlimentar");
+                });
+
+            modelBuilder.Entity("Domain.Entity.Medidas.CircunferenciaEntity", b =>
+                {
+                    b.Navigation("Medida");
                 });
 
             modelBuilder.Entity("Domain.Entity.NutricionistaEntity", b =>
@@ -222,6 +337,18 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entity.PacienteEntity", b =>
                 {
                     b.Navigation("Medidas");
+
+                    b.Navigation("PlanosAlimentares");
+                });
+
+            modelBuilder.Entity("Domain.Entity.PlanoAlimentarEntity", b =>
+                {
+                    b.Navigation("Refeicoes");
+                });
+
+            modelBuilder.Entity("Domain.Entity.RefeicaoEntity", b =>
+                {
+                    b.Navigation("Alimentos");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,6 @@
 ﻿using Application.Mapper;
 using Application.ViewModel.Pacientes;
+using Application.ViewModel.Refeicao;
 using ApplicationTest.ViewModel.PlanoAlimentar;
 using Domain.Entity;
 using DomainTest.Entity;

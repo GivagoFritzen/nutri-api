@@ -1,4 +1,5 @@
 ﻿using CrossCutting.Message.Exceptions;
+using Domain.Entity;
 using Domain.Interface.Repository.Base;
 using Infrastructure.Data.SQL;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ namespace Infrastructure.Data.Repositories.SQL
 {
     public class RepositorySQLBase<TEntity> : IRepositorySQL<TEntity> where TEntity : class
     {
-        private readonly SQLDataContext context;
+        protected readonly SQLDataContext context;
 
         public RepositorySQLBase(SQLDataContext context)
         {
@@ -35,6 +36,13 @@ namespace Infrastructure.Data.Repositories.SQL
             return await context.Set<TEntity>().ToListAsync();
         }
 
+        public async Task<IEnumerable<TEntity>> GetAllWithInclude(string include)
+        {
+            return await context.Set<TEntity>()
+                .Include(include)
+                .ToListAsync();
+        }
+
         public async Task<TEntity> GetById(Guid id)
         {
             return await context.Set<TEntity>().FindAsync(id);
@@ -55,13 +63,12 @@ namespace Infrastructure.Data.Repositories.SQL
             }
         }
 
-        public void Update(TEntity obj)
+        public void Update(BaseEntity obj)
         {
             try
             {
-                context.Set<TEntity>().Update(obj);
-                context.Entry(obj).State = EntityState.Modified;
-
+                var current = context.Set<TEntity>().Find(obj.Id);
+                context.Entry(current).CurrentValues.SetValues(obj);
                 context.SaveChanges();
             }
             catch (Exception e)

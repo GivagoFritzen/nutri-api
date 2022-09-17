@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Migrations
 {
-    public partial class PlanoAlimentar : Migration
+    public partial class MapCircunferencia : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,71 +1,118 @@
-[{
-  "_id": {
-    "$binary": {
-      "base64": "vtkUl3dIgUCE17as2z7Ugw==",
-      "subType": "03"
-    }
-  },
-  "Email": "string@teste.com",
-  "Nome": "string",
-  "Sobrenome": "string",
-  "Cidade": "string",
-  "Telefone": "string",
-  "Sexo": true,
-  "Medidas": [
-    {
-      "_id": {
-        "$binary": {
-          "base64": "q2i4OPiM5U9VWgjZ+xqnlQ==",
-          "subType": "03"
-        }
-      },
-      "Descricao": "string",
-      "Data": {
-        "$date": "2022-03-01T00:30:08.372Z"
-      },
-      "Circunferencia": {
+[
+  {
+    "_id": {
+      "$binary": {
+        "base64": "vtkUl3dIgUCE17as2z7Ugw==",
+        "subType": "03"
+      }
+    },
+    "Email": "string@teste.com",
+    "Nome": "string",
+    "Sobrenome": "string",
+    "Cidade": "string",
+    "Telefone": "string",
+    "Sexo": true,
+    "Medidas": [
+      {
         "_id": {
           "$binary": {
-            "base64": "goIZWSq3Rk7MxwjZ+xqnnQ==",
+            "base64": "q2i4OPiM5U9VWgjZ+xqnlQ==",
             "subType": "03"
+          }
+        },
+        "Descricao": "string",
+        "Data": {
+          "$date": "2022-03-01T00:30:08.372Z"
+        },
+        "Circunferencia": {
+          "_id": {
+            "$binary": {
+              "base64": "goIZWSq3Rk7MxwjZ+xqnnQ==",
+              "subType": "03"
+            }
           }
         }
       }
-    }
-  ]
-},{
-  "_id": {
-    "$binary": {
-      "base64": "upquEHjyMU6XP3P3Up/9Rg==",
-      "subType": "03"
-    }
-  },
-  "Email": "string123456789@teste.com",
-  "Nome": "string",
-  "Sobrenome": "string",
-  "Cidade": "string",
-  "Telefone": "string",
-  "Sexo": true,
-  "Medidas": [
-    {
-      "_id": {
-        "$binary": {
-          "base64": "mnstD48r3E9VWwjZ+xqnlQ==",
-          "subType": "03"
-        }
-      },
-      "Descricao": "string",
-      "Data": {
-        "$date": "2022-03-01T00:30:08.372Z"
-      },
-      "Circunferencia": {
+    ],
+    "PlanoAlimentares": [
+      {
         "_id": {
           "$binary": {
-            "base64": "TctBuXl1SErMyAjZ+xqnnQ==",
+            "base64": "BVtAQZO0yk/xCgjaiTNc+w==",
             "subType": "03"
+          }
+        },
+        "Data": {
+          "$date": {
+            "$numberLong": "1661718291503"
+          }
+        },
+        "Refeicoes": [
+          {
+            "_id": {
+              "$binary": {
+                "base64": "Aquk0ZLYC0eOyQjaiTNdBA==",
+                "subType": "03"
+              }
+            },
+            "Horario": {
+              "$date": {
+                "$numberLong": "1661718264702"
+              }
+            },
+            "Descricao": "string",
+            "Alimentos": [
+              {
+                "_id": {
+                  "$binary": {
+                    "base64": "sryx+m+tcUhsLAjaiTNdCA==",
+                    "subType": "03"
+                  }
+                },
+                "Nome": "string",
+                "Medida": 1,
+                "Quantidade": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$binary": {
+        "base64": "upquEHjyMU6XP3P3Up/9Rg==",
+        "subType": "03"
+      }
+    },
+    "Email": "string123456789@teste.com",
+    "Nome": "string",
+    "Sobrenome": "string",
+    "Cidade": "string",
+    "Telefone": "string",
+    "Sexo": true,
+    "Medidas": [
+      {
+        "_id": {
+          "$binary": {
+            "base64": "mnstD48r3E9VWwjZ+xqnlQ==",
+            "subType": "03"
+          }
+        },
+        "Descricao": "string",
+        "Data": {
+          "$date": "2022-03-01T00:30:08.372Z"
+        },
+        "Circunferencia": {
+          "_id": {
+            "$binary": {
+              "base64": "TctBuXl1SErMyAjZ+xqnnQ==",
+              "subType": "03"
+            }
           }
         }
       }
-    }
-  ]
-}]
+    ]
+  }
+]

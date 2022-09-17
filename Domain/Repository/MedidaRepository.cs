@@ -2,6 +2,7 @@
 using Domain.Interface.Repository;
 using Domain.Interface.Repository.Base;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Domain.Repository
@@ -15,9 +16,20 @@ namespace Domain.Repository
             this.repositoryMedida = repositoryMedida;
         }
 
+        public async Task AddAsync(MedidaEntity obj)
+        {
+            await repositoryMedida.AddAsync(obj);
+        }
+
         public async Task<MedidaEntity> GetById(Guid id)
         {
             return await repositoryMedida.GetById(id);
+        }
+
+        public async Task<MedidaEntity> GetWithCircunferencia(Guid id)
+        {
+            return (await repositoryMedida.GetAllWithInclude("Circunferencia"))
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public void Update(MedidaEntity entity)
