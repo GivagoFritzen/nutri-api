@@ -23,6 +23,7 @@ namespace Application.Mapper
                 planosAlimentares.Select(planoAlimentar =>
                 new PlanoAlimentarViewModel
                 {
+                    Id = planoAlimentar.Id,
                     Data = planoAlimentar.Data,
                     Refeicoes = planoAlimentar.Refeicoes.ToViewModel()
                 });

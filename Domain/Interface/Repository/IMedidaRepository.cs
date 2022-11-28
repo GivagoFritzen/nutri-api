@@ -8,7 +8,7 @@ namespace Domain.Interface.Repository
     {
         Task AddAsync(MedidaEntity obj);
         Task<MedidaEntity> GetById(Guid id);
-        Task<MedidaEntity> GetWithCircunferencia(Guid id);
+        Task<MedidaEntity> GetByIdWithCircunferencia(Guid id);
         void Update(MedidaEntity entity);
     }
 }

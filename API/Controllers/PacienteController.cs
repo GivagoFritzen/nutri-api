@@ -82,7 +82,7 @@ namespace API.Controllers
         }
 
         [HttpGet("GetPlanosAlimentares/{id}")]
-        //[AuthorizeRoles(Permissoes.Nutricionista)]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
         public async Task<ActionResult<List<PlanoAlimentarViewModel>>> GetPlanosAlimenaresById(Guid id)
         {
             return CustomResponse(await applicationServicePaciente.GetAllPlanosAlimenares(id));
@@ -90,14 +90,14 @@ namespace API.Controllers
 
         [HttpPost("AdicionarPlanoAlimentar")]
         [AuthorizeRoles(Permissoes.Nutricionista)]
-        public async Task<ActionResult<PacientePlanoAlimentarViewModel>> AdicionarPlanoAlimentar([FromBody] PacientePlanoAlimentarViewModel pacienteViewModel)
+        public async Task<ActionResult<BaseViewModel>> AdicionarPlanoAlimentar([FromBody] PacientePlanoAlimentarViewModel pacienteViewModel)
         {
             return CustomResponse(await applicationServicePaciente.AdicionarPlanoAlimentar(pacienteViewModel));
         }
 
         [HttpPatch("AtualizarPlanoAlimentar")]
         [AuthorizeRoles(Permissoes.Nutricionista)]
-        public ActionResult<PacienteAtualizarPlanoAlimentarViewModel> AtualizarPlanoAlimentar([FromBody] PacienteAtualizarPlanoAlimentarViewModel pacienteViewModel)
+        public ActionResult<BaseViewModel> AtualizarPlanoAlimentar([FromBody] PacienteAtualizarPlanoAlimentarViewModel pacienteViewModel)
         {
             return CustomResponse(applicationServicePaciente.AtualizarPlanoAlimentar(pacienteViewModel));
         }

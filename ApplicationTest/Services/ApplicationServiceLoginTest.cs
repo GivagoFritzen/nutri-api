@@ -78,7 +78,7 @@ namespace ApplicationTest.Services
             var loginTokenDTO = LoginTokenDTOFake.GetFake();
 
             var tokenServiceMock = new Mock<ITokenService>();
-            tokenServiceMock.Setup(x => x.GetPrincipalFromToken(It.IsAny<string>())).Returns(new ClaimsPrincipal());
+            tokenServiceMock.Setup(x => x.GetClaimsFromToken(It.IsAny<string>())).Returns(new List<Claim>());
             tokenServiceMock.Setup(x => x.GetLoginToken(It.IsAny<IEnumerable<Claim>>())).Returns(loginTokenDTO);
 
             tokenRepositoryMock.Setup(x => x.VerificarRefreshToken(It.IsAny<string>())).Returns(Task.FromResult(true));

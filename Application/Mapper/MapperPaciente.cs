@@ -44,6 +44,7 @@ namespace Application.Mapper
         {
             return pacienteEvent == null ? null : new PacienteEntity()
             {
+                NutricionistaEntityId = pacienteEvent.NutricionistaEntityId,
                 Id = pacienteEvent.Id,
                 Nome = pacienteEvent.Nome,
                 Sobrenome = pacienteEvent.Sobrenome,
@@ -88,22 +89,6 @@ namespace Application.Mapper
             };
         }
 
-        public static IEnumerable<PacienteViewModel> ToListPacientesViewModel(this IEnumerable<PacienteEvent> pacientes)
-        {
-            return pacientes == null ? null : pacientes.Select(paciente => new PacienteViewModel
-            {
-                Id = paciente.Id,
-                Nome = paciente.Nome,
-                Sobrenome = paciente.Sobrenome,
-                Email = paciente.Email,
-                Cidade = paciente.Cidade,
-                Telefone = paciente.Telefone,
-                Sexo = paciente.Sexo,
-                Medidas = paciente.Medidas.ToViewModel(),
-                PlanoAlimentares = paciente.PlanoAlimentares.ToListPlanoAlimentarViewModel()
-            });
-        }
-
         public static IEnumerable<PacienteEntity> ToListPacientesEntity(this IEnumerable<PacienteEvent> pacientes)
         {
             return pacientes == null ? null : pacientes.Select(paciente => paciente.ToEntity());
@@ -125,6 +110,7 @@ namespace Application.Mapper
         {
             return paciente == null ? null : new PacienteEvent()
             {
+                NutricionistaEntityId = paciente.NutricionistaEntityId,
                 Id = paciente.Id,
                 Nome = paciente.Nome,
                 Sobrenome = paciente.Sobrenome,

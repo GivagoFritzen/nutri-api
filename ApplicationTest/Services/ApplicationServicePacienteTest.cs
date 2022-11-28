@@ -307,9 +307,10 @@ namespace ApplicationTest.Services
             pacienteRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(paciente));
 
             var messagingServiceMock = new Mock<IMessagingService>();
+            var medidaRepository = new Mock<IMedidaRepository>();
 
             var applicationServicePaciente = new ApplicationServicePaciente(
-                null, new Mock<IPlanoAlimentarRepository>().Object, pacienteRepositoryMock.Object, null,
+                null, new Mock<IPlanoAlimentarRepository>().Object, pacienteRepositoryMock.Object, medidaRepository.Object,
                 messagingServiceMock.Object, new Mock<IUserRepository>().Object, GetTokenServiceMock());
 
             var result = await applicationServicePaciente.AdicionarMedidas(new MedidaAdicionarViewModel()
@@ -322,7 +323,7 @@ namespace ApplicationTest.Services
                 options => options.Excluding(_ => _.PacienteId)
                 .Excluding(_ => _.Medida.Data));
 
-            pacienteRepositoryMock.Verify(mock => mock.Update(It.IsAny<PacienteEntity>()), Times.Once());
+            medidaRepository.Verify(mock => mock.AddAsync(It.IsAny<MedidaEntity>()), Times.Once());
             messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<PacienteEvent>()), Times.Once());
         }
 
@@ -386,6 +387,7 @@ namespace ApplicationTest.Services
 
             var medidaRepositoryMock = new Mock<IMedidaRepository>();
             medidaRepositoryMock.Setup(x => x.GetById(It.IsAny<Guid>())).Returns(Task.FromResult(MedidaEntityFake.GetFake()));
+            medidaRepositoryMock.Setup(x => x.GetByIdWithCircunferencia(It.IsAny<Guid>())).Returns(Task.FromResult(MedidaEntityFake.GetFake()));
 
             var messagingServiceMock = new Mock<IMessagingService>();
             var applicationServicePaciente = new ApplicationServicePaciente(
@@ -405,7 +407,8 @@ namespace ApplicationTest.Services
 
             messagingServiceMock.Verify(mock => mock.Publish(It.IsAny<PacienteEvent>()), Times.Once());
             pacienteRepositoryMock.Verify(mock => mock.GetById(It.IsAny<Guid>()), Times.Exactly(2));
-            medidaRepositoryMock.Verify(mock => mock.GetById(It.IsAny<Guid>()), Times.Exactly(2));
+            medidaRepositoryMock.Verify(mock => mock.GetById(It.IsAny<Guid>()), Times.Exactly(1));
+            medidaRepositoryMock.Verify(mock => mock.GetByIdWithCircunferencia(It.IsAny<Guid>()), Times.Exactly(1));
             medidaRepositoryMock.Verify(mock => mock.Update(It.IsAny<MedidaEntity>()), Times.Once());
         }
 

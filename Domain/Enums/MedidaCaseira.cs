@@ -7,7 +7,7 @@
         ColherArrozCheia,
         ColherArrozRasa,
         ColherSopaCheia,
-        ColhersopaRasa,
+        ColherSopaRasa,
         Colher
     }
 }

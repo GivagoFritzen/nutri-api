@@ -26,7 +26,7 @@ namespace Domain.Repository
             return await repositoryMedida.GetById(id);
         }
 
-        public async Task<MedidaEntity> GetWithCircunferencia(Guid id)
+        public async Task<MedidaEntity> GetByIdWithCircunferencia(Guid id)
         {
             return (await repositoryMedida.GetAllWithInclude("Circunferencia"))
                 .FirstOrDefault(x => x.Id == id);

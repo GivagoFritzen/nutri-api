@@ -7,7 +7,7 @@ namespace Domain.Interface.Services
     public interface ITokenService
     {
         LoginTokenDTO GetLoginToken(IEnumerable<Claim> claims);
-        ClaimsPrincipal GetPrincipalFromToken(string token);
+        List<Claim> GetClaimsFromToken(string token);
         TokenDTO GetInformacoesDoToken(string token);
     }
 }

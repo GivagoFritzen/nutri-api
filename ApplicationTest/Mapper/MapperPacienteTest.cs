@@ -75,29 +75,6 @@ namespace ApplicationTest.Mapper
         }
 
         [TestMethod]
-        public void Events_To_List_Model_Empty()
-        {
-            var events = new List<PacienteEvent>();
-            events.ToListPacientesViewModel().Should().BeEquivalentTo(new List<PacienteViewModel>());
-        }
-
-        [TestMethod]
-        public void Events_To_List_Model()
-        {
-            var events = PacienteEventFake.GetListPacienteEventFake();
-            var expected = PacienteViewModelFake.GetListDifferentIdFake(PacienteEventFake.Id);
-
-            events.ToListPacientesViewModel().Should().BeEquivalentTo(expected);
-        }
-
-        [TestMethod]
-        public void Events_To_List_Model_Null()
-        {
-            List<PacienteEvent> events = null;
-            events.ToListPacientesViewModel().Should().BeNull();
-        }
-
-        [TestMethod]
         public void Events_To_List_Model_Simplificado_Empty()
         {
             var events = new List<PacienteEvent>();

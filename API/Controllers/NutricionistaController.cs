@@ -48,7 +48,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        //[AuthorizeRoles(Permissoes.Nutricionista)]
+        [AuthorizeRoles(Permissoes.Nutricionista)]
         public async Task<IActionResult> Add([FromBody] NutricionistaAdicionarViewModel nutricionistaViewModel)
         {
             return CustomResponse(await applicationServiceNutricionista.Add(nutricionistaViewModel));

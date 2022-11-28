@@ -2,6 +2,7 @@
 using CrossCutting.Authentication;
 using Domain.DTO.Token;
 using Domain.Event;
+using System;
 
 namespace Application.Mapper
 {
@@ -12,7 +13,7 @@ namespace Application.Mapper
             return loginTokenDTO == null ? null : new TokenEvent()
             {
                 RefreshToken = loginTokenDTO.RefreshToken,
-                ExpireAt = AuthenticationSettings.ExpireTime
+                ExpireAt = DateTime.UtcNow.AddSeconds(AuthenticationSettings.ExpireTime.TotalSeconds)
             };
         }
 

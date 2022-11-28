@@ -28,25 +28,30 @@ namespace Domain.ServicesTest
             var email = "email";
             var role = Permissoes.Nutricionista;
 
+            var claimName = new Claim(ClaimTypes.Name, name);
+            var claimEmail = new Claim(ClaimTypes.Email, email);
+            var claimPrimaryId = new Claim(ClaimTypes.PrimarySid, id.ToString());
+            var claimRole = new Claim(ClaimTypes.Role, role.ToString());
+
             var claims = new List<Claim>() {
-                new Claim(ClaimTypes.Name, name),
-                new Claim(ClaimTypes.Email, email),
-                new Claim(ClaimTypes.PrimarySid, id.ToString()),
-                new Claim(ClaimTypes.Role, role.ToString())
+                claimName,
+                claimEmail,
+                claimPrimaryId,
+                claimRole
             };
 
             var actual = tokenService.GetLoginToken(claims);
-            var principal = tokenService.GetPrincipalFromToken(actual.Token);
+            var claimsFromToken = tokenService.GetClaimsFromToken(actual.Token);
 
-            Assert.AreEqual(name, GetClaim(principal, ClaimTypes.Name));
-            Assert.AreEqual(role.ToString(), GetClaim(principal, ClaimTypes.Role));
-            Assert.AreEqual(id.ToString(), GetClaim(principal, ClaimTypes.PrimarySid));
-            Assert.AreEqual(email, GetClaim(principal, ClaimTypes.Email));
+            Assert.AreEqual(name, GetClaimByValue(claimsFromToken, claimName.Value));
+            Assert.AreEqual(role.ToString(), GetClaimByValue(claimsFromToken, claimRole.Value));
+            Assert.AreEqual(id.ToString(), GetClaimByValue(claimsFromToken, claimPrimaryId.Value));
+            Assert.AreEqual(email, GetClaimByValue(claimsFromToken, claimEmail.Value));
         }
 
-        private string GetClaim(ClaimsPrincipal principal, string type)
+        private string GetClaimByValue(IEnumerable<Claim> claims, string value)
         {
-            return principal.Claims.FirstOrDefault(c => c.Type == type).Value.ToString();
+            return claims.FirstOrDefault(c => c.Value == value).Value.ToString();
         }
     }
 }

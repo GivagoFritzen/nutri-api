@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -26,25 +27,17 @@ namespace Domain.Services
             };
         }
 
-        public ClaimsPrincipal GetPrincipalFromToken(string token)
+        public List<Claim> GetClaimsFromToken(string token)
         {
-            var tokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateAudience = false,
-                ValidateIssuer = false,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(AuthenticationSettings.Secret)),
-                ValidateLifetime = false
-            };
-
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
+            var securityToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
 
             if (securityToken is not JwtSecurityToken jwtSecurityToken ||
+                securityToken.ValidTo < DateTime.UtcNow ||
                 !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
                 StringComparison.InvariantCultureIgnoreCase))
                 throw new SecurityTokenException("Invalid token");
 
-            return principal;
+            return securityToken.Claims.ToList();
         }
 
         public TokenDTO GetInformacoesDoToken(string token)
@@ -69,7 +62,7 @@ namespace Domain.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = AuthenticationSettings.ExpireTime,
+                Expires = DateTime.UtcNow.AddSeconds(AuthenticationSettings.ExpireTime.TotalSeconds / 2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), AuthenticationSettings.Algorithm)
             };
 

@@ -20,13 +20,6 @@ namespace ApplicationTest.Mapper
             var model = PacienteAtualizarPlanoAlimentarViewModelFake.GetFake();
             var expected = PlanoAlimentarEntityFake.GetFake();
 
-            model.PlanoAlimentar.Refeicoes.Should()
-                .BeEquivalentTo(expected.Refeicoes,
-                options => options
-                .Excluding(x => x.Id)
-                .Excluding(x => x.Horario)
-                .Excluding(x => x.Alimentos));
-
             CheckRefeicoes(expected.Refeicoes, model.PlanoAlimentar.Refeicoes).Should().BeTrue();
         }
 

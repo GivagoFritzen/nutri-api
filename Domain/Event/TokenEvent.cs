@@ -1,5 +1,5 @@
-﻿using CrossCutting.Authentication;
-using Domain.Interface.Event;
+﻿using Domain.Interface.Event;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 
 namespace Domain.Event
@@ -7,6 +7,7 @@ namespace Domain.Event
     public class TokenEvent : IEvent
     {
         public string RefreshToken { get; set; }
-        public DateTime ExpireAt = AuthenticationSettings.ExpireTime;
+        [BsonElement()]
+        public DateTime ExpireAt;
     }
 }

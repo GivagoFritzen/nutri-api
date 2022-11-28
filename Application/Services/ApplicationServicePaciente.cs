@@ -181,13 +181,17 @@ namespace Application.Services
             if (!command.EhValido())
                 return new ErrorViewModel(command.ValidationResult);
 
-            var medida = await medidaRepository.GetWithCircunferencia(medidaViewModel.MedidaId);
+            var medida = await medidaRepository.GetByIdWithCircunferencia(medidaViewModel.MedidaId);
 
             medida.Update(medidaViewModel);
             medidaRepository.Update(medida);
 
             var pacienteEvent = await pacienteRepository.GetById(medidaViewModel.PacienteId);
             pacienteEvent.Update = true;
+
+            if (pacienteEvent.Medidas is null)
+                pacienteEvent.Medidas = new List<MedidaEntity>();
+
             pacienteEvent.Medidas.RemoveAll(x => x.Id == medida.Id);
             pacienteEvent.Medidas.Add(medida);
 
@@ -223,7 +227,8 @@ namespace Application.Services
             var planoAlimentar = new PlanoAlimentarEntity()
             {
                 Data = DateTime.UtcNow,
-                Refeicoes = pacientePlanoAlimentarViewModel.Refeicoes.ToEntity().ToList()
+                Refeicoes = pacientePlanoAlimentarViewModel.Refeicoes.ToEntity().ToList(),
+                PacienteEntityId = pacientePlanoAlimentarViewModel.PacienteId
             };
 
             await planoAlimentarRepository.AddAsync(planoAlimentar);

@@ -6,6 +6,7 @@ namespace Domain.Event
 {
     public class PacienteEvent : GenericEvent
     {
+        public Guid NutricionistaEntityId { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
         public string Cidade { get; set; }

@@ -59,8 +59,8 @@ namespace Application.Services
             if (!command.EhValido())
                 return new ErrorViewModel(command.ValidationResult);
 
-            var principal = tokenService.GetPrincipalFromToken(loginTokenViewModel.Token);
-            var tokenDTO = tokenService.GetLoginToken(principal.Claims);
+            var claims = tokenService.GetClaimsFromToken(loginTokenViewModel.Token);
+            var tokenDTO = tokenService.GetLoginToken(claims);
 
             tokenRepository.UpdateRefreshToken(tokenDTO.ToEvent(), loginTokenViewModel.RefreshToken);
             return tokenDTO.ToViewModel();
