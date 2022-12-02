@@ -13,6 +13,7 @@ namespace Domain.Interface.Repository.Base
     {
         Task AddAsync(TEntity obj);
         void Update(TEntity obj);
+        Task UpdateMongoByFilter(FilterDefinition<TEvent> filter, UpdateDefinition<TEvent> update);
         Task RemoveById(Guid id);
         Task<IEnumerable<TEvent>> GetAll();
         Task<IEnumerable<TEvent>> GetAll(ProjectionDefinition<TEvent> fields);

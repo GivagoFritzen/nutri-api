@@ -84,5 +84,10 @@ namespace Domain.Repository.Base
         {
             repositorySQL.Update(obj);
         }
+
+        public async Task UpdateMongoByFilter(FilterDefinition<TEvent> filter, UpdateDefinition<TEvent> update)
+        {
+            await mongoCollection.UpdateOneAsync(filter, update);
+        }
     }
 }

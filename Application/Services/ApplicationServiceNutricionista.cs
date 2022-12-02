@@ -84,7 +84,19 @@ namespace Application.Services
                 return new ErrorViewModel(command.ValidationResult);
 
             nutricionistaViewModel.NovaSenha = securityService.EncryptPassword(nutricionistaViewModel.NovaSenha);
-            UpdateRepositories(nutricionistaViewModel.ToNutricionistaEventUpdate(), nutricionistaViewModel.ToEntity());
+
+            var @event = nutricionistaViewModel.ToNutricionistaEventUpdate();
+            var filter = Builders<NutricionistaEvent>.Filter.Eq(x => x.Id, @event.Id);
+            var update = Builders<NutricionistaEvent>.Update
+                .Set(x => x.Nome, @event.Nome)
+                .Set(x => x.Sobrenome, @event.Sobrenome)
+                .Set(x => x.Senha, @event.Senha)
+                .Set(x => x.Cidade, @event.Cidade)
+                .Set(x => x.Telefone, @event.Telefone)
+                .Set(x => x.Sexo, @event.Sexo);
+
+            nutricionistaRepository.Update(nutricionistaViewModel.ToEntity());
+            nutricionistaRepository.UpdateMongoByFilter(filter, update);
 
             messagingService.Publish(
                 new UserEvent(
