@@ -7,9 +7,8 @@ O intuito do projeto é criar uma aplicação simples para Software de Nutriçã
 
 
 ## Instalação
+Levantar docker e subir o projeto.
 
-
-    Em construção
 ## Contribuindo
 
 Contribuições são sempre bem-vindas!
